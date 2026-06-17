@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+Disallow: /shop/
+Disallow: /s/
+Disallow: /login
+Disallow: /register
+
+Sitemap: https://prelo-9cs.pages.dev/sitemap.xml
