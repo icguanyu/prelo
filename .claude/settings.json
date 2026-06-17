@@ -49,7 +49,9 @@
       "Bash(git -C \"c:\\\\Users\\\\user\\\\Desktop\\\\prelo\" diff --stat)",
       "Bash(git -C \"c:\\\\Users\\\\user\\\\Desktop\\\\prelo\" add src/components/schedule/ScheduleEditor.vue src/views/shop.vue)",
       "Bash(grep -E \"\\\\.md$|CLAUDE\")",
-      "PowerShell(wmux browser open http://localhost:5174)"
+      "PowerShell(wmux browser open http://localhost:5174)",
+      "Bash(Get-ChildItem \"c:\\\\Users\\\\user\\\\Desktop\\\\prelo\\\\src\\\\assets\\\\images\" -Recurse)",
+      "Bash(Select-Object FullName)"
     ],
     "additionalDirectories": [
       "c:\\Users\\user\\.claude\\projects\\c--Users-user-Desktop-bakelink\\memory",

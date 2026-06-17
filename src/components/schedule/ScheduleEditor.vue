@@ -446,9 +446,10 @@ const deleteSchedule = async () => {
             <template #title>
               <div class="tl-step">
                 <span class="tl-label">接單</span>
-                <span v-if="orderStartDate" class="tl-time"
-                  >{{ orderStartDate }} {{ orderStartTime }}</span
-                >
+                <span v-if="orderStartDate" class="tl-time">
+                  <span class="tl-date">{{ orderStartDate }}</span>
+                  <span class="tl-clock">{{ orderStartTime }}</span>
+                </span>
               </div>
             </template>
           </el-step>
@@ -456,9 +457,10 @@ const deleteSchedule = async () => {
             <template #title>
               <div class="tl-step">
                 <span class="tl-label">結單</span>
-                <span v-if="orderEndDate" class="tl-time"
-                  >{{ orderEndDate }} {{ orderEndTime }}</span
-                >
+                <span v-if="orderEndDate" class="tl-time">
+                  <span class="tl-date">{{ orderEndDate }}</span>
+                  <span class="tl-clock">{{ orderEndTime }}</span>
+                </span>
               </div>
             </template>
           </el-step>
@@ -868,15 +870,32 @@ const deleteSchedule = async () => {
   }
 
   .tl-time {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2px 4px;
     font-size: 11px;
     color: #94a3b8;
     font-weight: 400;
-    white-space: nowrap;
+    line-height: 1.3;
+  }
+
+  @media (max-width: 768px) {
+    .tl-time {
+      font-size: 10px;
+    }
+    .tl-label {
+      font-size: 12px;
+    }
   }
 }
 :deep(.el-steps--simple) {
   background: transparent;
   padding: 5px 5%;
+}
+@media (max-width: 768px) {
+  :deep(.el-steps--simple) {
+    padding: 5px 2%;
+  }
 }
 
 @keyframes slideInRight {

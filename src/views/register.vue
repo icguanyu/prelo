@@ -227,9 +227,12 @@ const features = [
 
           <p class="form-terms">
             點擊「免費開始使用」即表示同意
-            <a href="#" @click.prevent>服務條款</a>
+            <RouterLink to="/terms">服務條款</RouterLink>
             與
-            <a href="#" @click.prevent>隱私權政策</a>
+            <RouterLink to="/privacy">隱私權政策</RouterLink>。
+          </p>
+          <p class="form-disclaimer">
+            本服務目前處於試營運階段，暫不收取任何費用；功能與收費政策日後可能調整，恕不另行通知。因系統異常或失效造成之商業損失，本平台概不負賠償責任。
           </p>
         </el-form>
       </div>
@@ -503,6 +506,14 @@ const features = [
 
     &:hover { color: var(--color-primary); }
   }
+}
+
+.form-disclaimer {
+  margin: 8px 0 0;
+  font-size: 11px;
+  color: #c0b0a0;
+  text-align: center;
+  line-height: 1.7;
 }
 
 /* ── Geometric layer ── */

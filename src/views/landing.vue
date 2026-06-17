@@ -1,11 +1,9 @@
 <script setup>
 import { useRouter } from "vue-router";
-import { useCountUp } from "@/composables/useCountUp";
+import demoImg1 from "@/assets/images/demo/1.jpg";
+import demoImg2 from "@/assets/images/demo/2.jpg";
 
 const router = useRouter();
-
-const { count: shopsCount, elRef: shopsRef } = useCountUp(200);
-const { count: ordersCount, elRef: ordersRef } = useCountUp(5000);
 
 const scrollTo = (id) => {
   document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
@@ -28,7 +26,7 @@ const steps = [
     desc: "將你的店鋪連結傳給客人，無需下載 App，直接在瀏覽器下單",
   },
   {
-    title: "客人自助下單，你統一查閱",
+    title: "客人自助下單，後台輕鬆管理",
     desc: "訂單自動彙整到後台，出貨狀態即時更新，不再漏單",
   },
 ];
@@ -122,13 +120,13 @@ const features = [
       <!-- Stats inside hero -->
       <div class="lp-hero__stats">
         <div class="lp-stats__item">
-          <span class="lp-stats__num" :ref="shopsRef">{{ shopsCount }}<span class="lp-stats__sup">+</span></span>
-          <span class="lp-stats__label">家商店使用中</span>
+          <span class="lp-stats__num">網頁 <span class="lp-stats__unit">下單</span></span>
+          <span class="lp-stats__label">客人用連結直接下單，免安裝APP</span>
         </div>
         <div class="lp-stats__sep" />
         <div class="lp-stats__item">
-          <span class="lp-stats__num" :ref="ordersRef">{{ ordersCount.toLocaleString() }}<span class="lp-stats__sup">+</span></span>
-          <span class="lp-stats__label">筆訂單成功接單</span>
+          <span class="lp-stats__num">手機 <span class="lp-stats__unit">平板</span></span>
+          <span class="lp-stats__label">跨裝置隨時管理</span>
         </div>
         <div class="lp-stats__sep" />
         <div class="lp-stats__item">
@@ -137,8 +135,8 @@ const features = [
         </div>
         <div class="lp-stats__sep" />
         <div class="lp-stats__item">
-          <span class="lp-stats__num">免費 <span class="lp-stats__unit">使用</span></span>
-          <span class="lp-stats__label">無需信用卡</span>
+          <span class="lp-stats__num">無 <span class="lp-stats__unit">綁約</span></span>
+          <span class="lp-stats__label">隨時可以取消</span>
         </div>
       </div>
     </section>
@@ -194,32 +192,22 @@ const features = [
               <span class="lp-preview__dot lp-preview__dot--yellow" />
               <span class="lp-preview__dot lp-preview__dot--green" />
             </div>
-            <div class="lp-preview__url">prelo.com.tw/shop</div>
+            <div class="lp-preview__url">您的專屬連結</div>
           </div>
           <div class="lp-preview__screen">
-            <div class="lp-preview__placeholder">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="36"
-                height="36"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="1.5"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              >
-                <rect x="3" y="3" width="18" height="18" rx="2" />
-                <circle cx="8.5" cy="8.5" r="1.5" />
-                <polyline points="21 15 16 10 5 21" />
-              </svg>
-              <p>後台截圖預留位置</p>
-              <span>建議尺寸 1280 × 720</span>
-            </div>
+            <el-carousel height="100%" indicator-position="inside" :interval="4000">
+              <el-carousel-item>
+                <img :src="demoImg1" alt="接單排程" class="lp-preview__img" />
+              </el-carousel-item>
+              <el-carousel-item>
+                <img :src="demoImg2" alt="訂單管理" class="lp-preview__img" />
+              </el-carousel-item>
+            </el-carousel>
           </div>
         </div>
       </div>
     </section>
+
 
     <!-- Features -->
     <section class="lp-features">
@@ -348,6 +336,18 @@ const features = [
         <p class="lp-cta__hint">免費使用，隨時可以取消</p>
       </div>
     </section>
+
+    <!-- Disclaimer -->
+    <div class="lp-disclaimer">
+      <p>
+        本服務目前處於<strong>試營運階段</strong>，暫不收取任何費用；服務內容、功能或收費政策日後可能調整，恕不另行通知。
+        因系統異常、中斷或失效所造成之任何商業損失，本平台概不負賠償責任。
+        繼續使用本服務即表示您已閱讀並同意
+        <RouterLink to="/terms">服務條款</RouterLink>
+        及
+        <RouterLink to="/privacy">隱私權政策</RouterLink>。
+      </p>
+    </div>
 
     <FooterBar />
   </div>
@@ -656,17 +656,17 @@ $border: #e0d5cc;
 }
 
 .lp-pain__x {
-  width: 36px;
-  height: 36px;
+  width: 32px;
+  height: 32px;
   border-radius: 50%;
-  background: rgba(220, 60, 60, 0.08);
-  border: 1px solid rgba(220, 60, 60, 0.2);
+  background: #dc3c3c;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 13px;
   font-weight: 700;
-  color: rgba(200, 50, 50, 0.7);
+  color: #fff;
+  flex-shrink: 0;
 }
 
 .lp-pain__divider {
@@ -931,9 +931,20 @@ $border: #e0d5cc;
 .lp-preview__screen {
   background: #f5f0ea;
   aspect-ratio: 16 / 9;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  overflow: hidden;
+
+  :deep(.el-carousel),
+  :deep(.el-carousel__container) {
+    height: 100%;
+  }
+}
+
+.lp-preview__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top;
+  display: block;
 }
 
 .lp-preview__placeholder {
@@ -1207,6 +1218,36 @@ $border: #e0d5cc;
 
   .lp-how__steps {
     max-width: 100%;
+  }
+}
+
+// ─── Disclaimer ───────────────────────────────────────────────────────────────
+.lp-disclaimer {
+  background: #f0ebe4;
+  border-top: 1px solid #e0d5cc;
+  padding: 14px 32px;
+
+  p {
+    margin: 0;
+    font-size: 11px;
+    color: #9e9087;
+    line-height: 1.8;
+    text-align: center;
+
+    strong {
+      font-weight: 600;
+      color: #7a7068;
+    }
+
+    a {
+      color: #9e9087;
+      text-decoration: underline;
+      text-underline-offset: 2px;
+
+      &:hover {
+        color: #5a5048;
+      }
+    }
   }
 }
 </style>

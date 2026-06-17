@@ -12,7 +12,7 @@ const router = useRouter();
     <main class="doc-main">
       <div class="doc-inner">
         <h1>服務條款</h1>
-        <p class="doc-meta">最後更新日期：2025 年 6 月 6 日</p>
+        <p class="doc-meta">最後更新日期：2026 年 6 月 6 日</p>
 
         <p>歡迎使用鋪樂（Prelo，以下簡稱「本服務」）。請在使用前仔細閱讀以下條款。使用本服務即表示您同意本服務條款。</p>
 
@@ -76,7 +76,7 @@ const router = useRouter();
         <h2>十一、聯絡我們</h2>
         <p>如對本服務條款有任何疑問，請聯絡：</p>
         <p><strong>鋪樂 Prelo</strong><br />
-        電子郵件：<a href="mailto:contact@prelo.com.tw">contact@prelo.com.tw</a></p>
+        電子郵件：<a href="mailto:icguanyu@gmail.com">icguanyu@gmail.com</a></p>
       </div>
     </main>
 

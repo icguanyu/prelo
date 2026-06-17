@@ -21,6 +21,7 @@ const availableProducts = computed(() => {
     product_id: item.product_id,
     product_name: item.product_name,
     unit_price: item.unit_price,
+    slice_price: item.slice_price ?? null,
     sales_limit: item.sales_limit,
     image_url: item.image_url,
     is_sliceable: item.is_sliceable ?? false,
@@ -176,7 +177,9 @@ const totalAmount = computed(() => {
     if (quantity > 0) {
       const product = findScheduleItemByProductId(productId);
       if (product) {
-        total += product.unit_price * quantity;
+        const isSliced = getIsSliced(productId);
+        const price = isSliced && product.slice_price != null ? product.slice_price : product.unit_price;
+        total += price * quantity;
       }
     }
   });
@@ -361,7 +364,11 @@ defineExpose({ open, close });
           <div class="product-info">
             <div class="product-name">{{ product.product_name }}</div>
             <div class="product-price">
-              {{ $formatPrice(product.unit_price) }}
+              <template v-if="product.is_sliceable && product.slice_price != null">
+                <span :class="{ 'price-inactive': getIsSliced(product.product_id) }">{{ $formatPrice(product.unit_price) }}</span>
+                <span class="price-slash">／切片 {{ $formatPrice(product.slice_price) }}</span>
+              </template>
+              <template v-else>{{ $formatPrice(product.unit_price) }}</template>
             </div>
           </div>
           <div
@@ -484,6 +491,20 @@ defineExpose({ open, close });
   .product-price {
     font-weight: 700;
     color: #1c2345;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    flex-wrap: wrap;
+
+    .price-inactive {
+      color: #94a3b8;
+      text-decoration: line-through;
+      font-weight: 400;
+    }
+
+    .price-slash {
+      color: #fe904d;
+    }
   }
 
   .product-info {
