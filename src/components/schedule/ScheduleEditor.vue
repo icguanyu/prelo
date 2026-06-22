@@ -484,7 +484,7 @@ const deleteSchedule = async () => {
             <div class="section-title">巡迴場地</div>
             <div class="section-note">走出工作室、到外地販售時填寫</div>
           </div>
-          <el-switch :model-value="enableVenue" @change="handleVenueToggle" />
+          <el-switch v-model="enableVenue" @change="handleVenueToggle" />
         </div>
 
         <template v-if="enableVenue">
