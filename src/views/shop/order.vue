@@ -171,7 +171,6 @@ const setDayAfterTomorrow = () => {
   selectedDate.value = dayjs().add(2, "day").format("YYYY-MM-DD");
 };
 
-
 const isSelectedDate = (offset) => {
   const targetDate = dayjs().add(offset, "day").format("YYYY-MM-DD");
   return selectedDate.value === targetDate;
@@ -321,11 +320,13 @@ watch(selectedDate, (val) => {
             <button
               class="toggle-btn"
               :class="{ active: viewMode === 'detailed' }"
-              @click="viewMode = viewMode === 'detailed' ? 'simple' : 'detailed'"
+              @click="
+                viewMode = viewMode === 'detailed' ? 'simple' : 'detailed'
+              "
               :title="viewMode === 'detailed' ? '卡片' : '清單'"
             >
               <el-icon><Document /></el-icon>
-              <span>{{ viewMode === 'detailed' ? '卡片' : '清單' }}</span>
+              <span>{{ viewMode === "detailed" ? "卡片" : "清單" }}</span>
             </button>
           </div>
           <el-button size="small" @click="setToday">回今天</el-button>
@@ -560,17 +561,15 @@ watch(selectedDate, (val) => {
 @use "@/assets/scss/scrollbar.scss" as *;
 
 // ── 色彩變數 ──────────────────────────────────────────────
-$accent: #fe904d;
-$accent-light: #fff3eb;
+$accent: #f26b5b;
+$accent-light: #fff0ec;
 $text-primary: #1e293b;
 $text-secondary: #64748b;
 $border: #e8dfd6;
-$bg-page: #faf7f4;
 $bg-card: #ffffff;
 
 .order-manager {
   padding: 16px;
-  background: $bg-page;
   min-height: 100vh;
 }
 
@@ -632,10 +631,6 @@ $bg-card: #ffffff;
         border-left: 1px solid $border;
       }
 
-      &:hover {
-        background: $bg-page;
-      }
-
       &.active {
         background: $accent;
         color: #fff;
@@ -691,7 +686,7 @@ $bg-card: #ffffff;
       color: #16a34a;
     }
     &.cancelled {
-      color: #cf4747;
+      color: #8c8c8c;
     }
   }
 
@@ -1083,14 +1078,14 @@ $bg-card: #ffffff;
     align-items: flex-start;
     padding: 8px 12px;
 
-    &:nth-child(2n+1) {
+    &:nth-child(2n + 1) {
       border-left: none;
     }
 
     & + .stat-card:nth-child(3) {
       border-top: 1px solid $border;
     }
-    & + .stat-card:nth-child(n+3) {
+    & + .stat-card:nth-child(n + 3) {
       border-top: 1px solid $border;
     }
   }

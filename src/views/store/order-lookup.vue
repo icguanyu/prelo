@@ -26,7 +26,7 @@ onMounted(() => {
 });
 
 const statusLabel = { PLACED: "已下單", COMPLETED: "已完成", CANCELLED: "已取消" };
-const statusColor = { PLACED: "var(--color-primary)", COMPLETED: "#5a9672", CANCELLED: "#c06050" };
+const statusColor = { PLACED: "var(--color-primary)", COMPLETED: "#5a9672", CANCELLED: "#8C8C8C" };
 const paymentLabel = { cash: "現金", linepay: "Line Pay", bank: "銀行轉帳", card: "信用卡" };
 const pickupLabel = { pickup: "自取", delivery: "宅配" };
 

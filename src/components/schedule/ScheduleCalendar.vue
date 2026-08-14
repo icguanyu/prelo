@@ -133,7 +133,7 @@ const selectDate = (date) => emit("select", date);
   &.is-selected {
     border-color: var(--color-primary);
     border-width: 1px;
-    background: #fff3eb;
+    background: #FFF0EC;
   }
 
   &.is-today .cell-date {
@@ -215,8 +215,8 @@ const selectDate = (date) => emit("select", date);
   line-height: 1.4;
 
   &.orders {
-    background: #fff3eb;
-    color: #c06228;
+    background: #FFF0EC;
+    color: var(--color-primary-dark);
   }
 
   &.status {
@@ -302,7 +302,7 @@ const selectDate = (date) => emit("select", date);
       width: 6px;
       height: 6px;
       border-radius: 50%;
-      background: #fe904d;
+      background: var(--color-primary);
       display: block;
     }
   }

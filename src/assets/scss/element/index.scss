@@ -1,49 +1,52 @@
+// ┌─────────────────────────────────────────────────────────┐
+// │  Element Plus SASS 編譯時變數                             │
+// │  顏色來源：_colors.scss — 請勿在此直接改色碼              │
+// └─────────────────────────────────────────────────────────┘
+@use "../colors" as c;
+
 @forward "element-plus/theme-chalk/src/common/var.scss" with (
   $colors: (
     "primary": (
-      "base": #fe904d,
+      "base": c.$color-primary,
     ),
     "success": (
-      "base": #10b95c,
+      "base": c.$el-success,
     ),
     "warning": (
-      "base": #f59e0b,
+      "base": c.$el-warning,
     ),
     "danger": (
-      "base": #cf4747,
+      "base": c.$el-danger,
     ),
     "error": (
-      "base": #ff5353,
+      "base": c.$el-danger,
     ),
     "info": (
-      "base": #9e9087,
+      "base": c.$el-info,
     ),
   ),
   $text-color: (
-    "primary": #333,
-    "regular": #000,
-    "secondary": #909399,
+    "primary":     c.$text,
+    "regular":     #3D3D3D,
+    "secondary":   #909399,
     "placeholder": #a8abb2,
-    "disabled": #c0c4cc,
+    "disabled":    #c0c4cc,
   ),
   $common-component-size: (
-    "large": 48px,
-    // 40px
+    "large":   48px,
     "default": 40px,
-    // 32px
-    "small": 28px,
-    // 24px
+    "small":   28px,
   ),
   $border-color: (
-    "": #c8bfb6,
-    "light": #e6ddd4,
-    "lighter": #ede7df,
-    "extra-light": #f5f0eb,
-    "dark": #d4c8be,
-    "darker": #cdc0b6,
+    "":            c.$border,
+    "light":       c.$border-light,
+    "lighter":     c.$border-lighter,
+    "extra-light": #F7F5F3,
+    "dark":        c.$border-dark,
+    "darker":      c.$border-darker,
   ),
   $border-radius: (
-    "base": 8px,
+    "base":  8px,
     "small": 6px,
   )
 );

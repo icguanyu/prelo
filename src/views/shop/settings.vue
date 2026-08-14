@@ -696,7 +696,7 @@ onMounted(() => {
   display: flex;
   flex-direction: column;
   gap: 16px;
-  max-width: 960px;
+  max-width: 768px;
 }
 
 .page-header {
@@ -891,6 +891,7 @@ h2 {
 }
 
 .sp-identity {
+  background: #fff;
   display: flex;
   flex-direction: column;
   align-items: center;

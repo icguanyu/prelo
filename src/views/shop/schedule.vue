@@ -20,8 +20,12 @@ const schedule = reactive({
 const isEditorOpen = ref(false);
 const isMonthLoading = ref(false);
 const isDayLoading = ref(false);
-const calendarVisible = ref(true);
-const calendarStorageKey = "schedule-calendar-visible";
+const calendarMode = ref(localStorage.getItem("schedule-calendar-mode") || "sidebar");
+const todayStr = dayjs().format("YYYY-MM-DD");
+
+const currentMonthDays = computed(() =>
+  scheduleList.value.filter((d) => d.isCurrentMonth),
+);
 
 const scheduleStatusLabelMap = scheduleStatusOptions.reduce((map, option) => {
   map[option.value] = option.label;
@@ -182,10 +186,6 @@ const goNextDay = () => {
   selectedDate.value = nextDate.format("YYYY-MM-DD");
 };
 
-const toggleCalendarVisible = () => {
-  calendarVisible.value = !calendarVisible.value;
-};
-
 // 獲取當前月份顯示文字
 const getCurrentMonthLabel = computed(() => {
   return baseDate.value.format("YYYY 年 M 月");
@@ -213,24 +213,6 @@ const getOrderAmount = (orders) => {
     const amount = order.total_amount || 0;
     return total + amount;
   }, 0);
-};
-
-const getStatusLabel = (status) => {
-  const map = {
-    PLACED: "已下單",
-    COMPLETED: "已完成",
-    CANCELLED: "已取消",
-  };
-  return map[status] || status;
-};
-
-const getStatusColor = (status) => {
-  const map = {
-    PLACED: "#fe904d",
-    COMPLETED: "#10b981",
-    CANCELLED: "#ef4444",
-  };
-  return map[status] || "#6b7280";
 };
 
 const openEditor = (schedule) => {
@@ -299,16 +281,12 @@ watch(
 );
 
 onMounted(() => {
-  const savedCalendarVisible = localStorage.getItem(calendarStorageKey);
-  if (savedCalendarVisible !== null) {
-    calendarVisible.value = savedCalendarVisible === "true";
-  }
   seedScheduleList();
   initScheduleDataByMonth();
 });
 
-watch(calendarVisible, (val) => {
-  localStorage.setItem(calendarStorageKey, String(val));
+watch(calendarMode, (val) => {
+  localStorage.setItem("schedule-calendar-mode", val);
 });
 </script>
 
@@ -319,13 +297,73 @@ watch(calendarVisible, (val) => {
       <div class="header-top">
         <div>
           <h2>接單排程</h2>
-          <p class="subtitle">管理每日接單狀況，快速查看訂單資訊</p>
         </div>
-        <el-button type="primary" icon="Back" @click="goToday">
-          今日
-        </el-button>
+        <div class="header-actions">
+          <div class="view-toggle">
+            <button
+              class="view-btn"
+              :class="{ active: calendarMode === 'sidebar' }"
+              title="月曆側欄"
+              @click="calendarMode = 'sidebar'"
+            >
+              <el-icon><Grid /></el-icon>
+            </button>
+            <button
+              class="view-btn"
+              :class="{ active: calendarMode === 'strip' }"
+              title="月份橫條"
+              @click="calendarMode = 'strip'"
+            >
+              <el-icon><Menu /></el-icon>
+            </button>
+          </div>
+          <el-button type="primary" icon="Back" @click="goToday">
+            今日
+          </el-button>
+        </div>
       </div>
     </div>
+
+    <!-- 月份橫條（strip 模式，手機隱藏） -->
+    <div v-show="calendarMode === 'strip'" class="month-strip-bar">
+      <div class="month-strip-header">
+        <el-button
+          class="strip-nav-btn"
+          icon="ArrowLeft"
+          circle
+          size="small"
+          @click="goPreviousMonth"
+        />
+        <span class="month-strip-label">{{ getCurrentMonthLabel }}</span>
+        <el-button
+          class="strip-nav-btn"
+          icon="ArrowRight"
+          circle
+          size="small"
+          @click="goNextMonth"
+        />
+      </div>
+      <div class="month-strip-scroll">
+        <button
+          v-for="day in currentMonthDays"
+          :key="day.date"
+          class="strip-cell"
+          :class="{
+            active: day.date === selectedDate,
+            today: day.date === todayStr,
+            'has-schedule': day.hasSchedule,
+          }"
+          @click="selectedDate = day.date"
+        >
+          <span class="strip-name">{{
+            dayjs(day.date).locale("zh-tw").format("dd")
+          }}</span>
+          <span class="strip-num">{{ dayjs(day.date).format("D") }}</span>
+          <span v-if="day.hasSchedule" class="strip-dot" />
+        </button>
+      </div>
+    </div>
+
     <!-- 排程列表 + 訂單詳情 -->
     <div class="schedule-main">
       <ScheduleEditor
@@ -450,83 +488,29 @@ watch(calendarVisible, (val) => {
             <p>尚未開單</p>
           </div>
 
-          <!-- 訂單列表 -->
-          <!-- <div class="orders-section">
-            <div class="section-title">
-              <span>訂單清單</span>
-              <span class="count">{{ schedule.orders.length }} 筆</span>
-            </div>
-            <div class="orders-list">
-              <div
-                v-for="order in schedule.orders"
-                :key="order.id"
-                class="order-row"
-                :style="{ borderLeftColor: getStatusColor(order.status) }"
-              >
-                <div class="order-id">{{ order.order_no }}</div>
-                <div class="order-customer">
-                  <span class="name">{{ order.customer_name }}</span>
-                </div>
-                <div class="order-time">{{ order.pickup_time }}</div>
-                <div class="order-items">{{ order.items.length }} 項</div>
-                <div class="order-amount">
-                  {{ $formatPrice(order.total_amount) }}
-                </div>
-                <div
-                  class="order-status"
-                  :style="{ background: getStatusColor(order.status) }"
-                >
-                  {{ getStatusLabel(order.status) }}
-                </div>
-              </div>
-            </div>
-            <div v-if="schedule.orders.length === 0" class="empty-orders">
-              <el-icon><Document /></el-icon>
-              <p>該日期暫無訂單</p>
-            </div>
-          </div> -->
         </div>
-
-        <!-- <pre>{{ schedule }}</pre> -->
       </div>
 
-      <div class="schedule-right">
+      <div v-show="calendarMode === 'sidebar'" class="schedule-right">
         <!-- 月份導航 -->
         <div class="month-navigation">
-          <div v-show="calendarVisible" class="month-navigation-left">
-            <el-button
-              class="month-nav-btn"
-              icon="ArrowLeft"
-              circle
-              size="small"
-              @click="goPreviousMonth"
-            />
-            <span class="month-label">{{ getCurrentMonthLabel }}</span>
-            <el-button
-              class="month-nav-btn"
-              icon="ArrowRight"
-              circle
-              size="small"
-              @click="goNextMonth"
-            />
-          </div>
-          <div class="month-navigation-actions">
-            <el-button
-              class="month-toggle"
-              text
-              @click="toggleCalendarVisible"
-              :title="calendarVisible ? '隱藏月曆' : '顯示月曆'"
-            >
-              <el-icon v-if="calendarVisible"><Hide /></el-icon>
-              <el-icon v-else><Calendar /></el-icon>
-            </el-button>
-            <span v-if="!calendarVisible" class="calendar-hint"
-              >點擊開啟月曆</span
-            >
-          </div>
+          <el-button
+            class="month-nav-btn"
+            icon="ArrowLeft"
+            circle
+            size="small"
+            @click="goPreviousMonth"
+          />
+          <span class="month-label">{{ getCurrentMonthLabel }}</span>
+          <el-button
+            class="month-nav-btn"
+            icon="ArrowRight"
+            circle
+            size="small"
+            @click="goNextMonth"
+          />
         </div>
         <ScheduleCalendar
-          v-if="calendarVisible"
           :schedule-list="scheduleList"
           :selected-date="selectedDate"
           :is-loading="isMonthLoading"
@@ -559,12 +543,6 @@ watch(calendarVisible, (val) => {
       font-size: 24px;
       font-weight: 700;
       color: #1e293b;
-      margin: 0 0 6px 0;
-    }
-
-    .subtitle {
-      font-size: 12px;
-      color: #64748b;
       margin: 0;
     }
 
@@ -579,8 +557,7 @@ watch(calendarVisible, (val) => {
 
 .month-navigation {
   display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
+  align-items: center;
   gap: 8px;
   padding: 8px 10px;
   background: white;
@@ -588,18 +565,12 @@ watch(calendarVisible, (val) => {
   border: 1px solid #e8dfd6;
 
   .month-label {
+    flex: 1;
     font-size: 16px;
     font-weight: 600;
     color: #1e293b;
-    min-width: 110px;
     text-align: center;
   }
-}
-
-.month-navigation-left {
-  display: flex;
-  align-items: center;
-  gap: 8px;
 }
 
 .month-nav-btn {
@@ -609,25 +580,166 @@ watch(calendarVisible, (val) => {
   height: 34px;
 }
 
-.month-navigation-actions {
+// ─── 標題區右側操作群 ─────────────────────────────────────────────────────────
+.header-actions {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
+  flex-shrink: 0;
 }
 
-.calendar-hint {
-  display: none;
-  font-size: 12px;
-  color: #a09080;
+.view-toggle {
+  display: flex;
+  border: 1px solid #e8dfd6;
+  border-radius: 8px;
+  overflow: hidden;
+}
 
-  @media (max-width: 1024px) {
-    display: inline;
+.view-btn {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background: white;
+  cursor: pointer;
+  color: #94a3b8;
+  transition: background 0.15s, color 0.15s;
+  font-size: 14px;
+
+  &:hover {
+    background: #fff0ec;
+    color: #475569;
+  }
+
+  &.active {
+    background: var(--color-primary);
+    color: #fff;
   }
 }
 
-.month-toggle {
-  width: 36px;
-  height: 36px;
+// ─── 月份橫條 ─────────────────────────────────────────────────────────────────
+.month-strip-bar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: white;
+  border-radius: 8px;
+  border: 1px solid #e8dfd6;
+  padding: 8px 12px;
+  margin-bottom: 12px;
+
+  @media (max-width: 768px) {
+    display: none !important;
+  }
+}
+
+.month-strip-header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.month-strip-label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #1e293b;
+  min-width: 92px;
+  text-align: center;
+}
+
+.strip-nav-btn {
+  border: 1px solid #e8dfd6;
+  width: 30px;
+  height: 30px;
+  flex-shrink: 0;
+}
+
+.month-strip-scroll {
+  display: flex;
+  gap: 2px;
+  overflow-x: auto;
+  flex: 1;
+  scrollbar-width: thin;
+  scrollbar-color: #d8d3ce transparent;
+
+  &::-webkit-scrollbar {
+    height: 4px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: #d8d3ce;
+    border-radius: 2px;
+
+    &:hover {
+      background: #c5bfb9;
+    }
+  }
+}
+
+.strip-cell {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding: 5px 7px;
+  border-radius: 6px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-family: inherit;
+  transition: background 0.15s;
+  min-width: 36px;
+  flex-shrink: 0;
+
+  &:hover {
+    background: #fff0ec;
+  }
+
+  &.today .strip-num {
+    color: var(--color-primary);
+    font-weight: 700;
+  }
+
+  &.active {
+    background: var(--color-primary);
+
+    .strip-name,
+    .strip-num {
+      color: #fff;
+    }
+
+    .strip-dot {
+      background: rgba(255, 255, 255, 0.7);
+    }
+  }
+}
+
+.strip-name {
+  font-size: 10px;
+  color: #94a3b8;
+  line-height: 1;
+}
+
+.strip-num {
+  font-size: 14px;
+  font-weight: 600;
+  color: #1e293b;
+  line-height: 1;
+}
+
+.strip-dot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--color-primary);
+  flex-shrink: 0;
 }
 
 // 左右分割主容器
@@ -730,13 +842,13 @@ watch(calendarVisible, (val) => {
     max-width: 100%;
 
     &.blue {
-      color: #2563eb;
+      color: var(--color-primary);
     }
     &.green {
       color: #16a34a;
     }
     &.red {
-      color: #dc2626;
+      color: #8c8c8c;
     }
     &.amber {
       color: #d97706;
@@ -815,7 +927,7 @@ watch(calendarVisible, (val) => {
 
 .items-list {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 8px;
   .order-note {
     font-size: 14px;
@@ -942,7 +1054,7 @@ watch(calendarVisible, (val) => {
   padding: 8px;
   background: var(--bg-page);
   border-radius: 6px;
-  border-left: 4px solid #fe904d;
+  border-left: 4px solid var(--color-primary);
   font-size: 14px;
   transition: all 0.2s ease;
 

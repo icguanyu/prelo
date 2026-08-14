@@ -87,16 +87,6 @@ const features = [
   <div class="page">
     <!-- 左側品牌欄 -->
     <aside class="brand">
-      <!-- 幾何裝飾層 -->
-      <div class="geo geo--ring-xl" />
-      <div class="geo geo--ring-md" />
-      <div class="geo geo--diamond" />
-      <div class="geo geo--diamond-sm" />
-      <div class="geo geo--hline geo--hline-1" />
-      <div class="geo geo--hline geo--hline-2" />
-      <div class="geo geo--dots" />
-      <div class="geo geo--block" />
-
       <div class="brand__inner">
         <div class="brand__logo" @click="router.push('/')" />
         <div class="brand__chinese">鋪樂</div>
@@ -256,7 +246,10 @@ const features = [
 
 /* ── 左側 ── */
 .brand {
-  background: #1c120a;
+  background:
+    radial-gradient(circle at 15% 20%, rgba(var(--color-primary-rgb), 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 85% 80%, rgba(var(--color-primary-rgb), 0.06) 0%, transparent 45%),
+    #FFF0EC;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -265,16 +258,6 @@ const features = [
   top: 0;
   height: 100dvh;
   overflow: hidden;
-
-  &::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background:
-      radial-gradient(circle at 20% 30%, rgba(var(--color-primary-rgb), 0.25) 0%, transparent 55%),
-      radial-gradient(circle at 80% 80%, rgba(255, 180, 80, 0.1) 0%, transparent 45%);
-    pointer-events: none;
-  }
 }
 
 .brand__inner {
@@ -286,7 +269,7 @@ const features = [
 .brand__chinese {
   font-size: 13px;
   font-weight: 600;
-  color: rgba(255, 200, 140, 0.55);
+  color: rgba(var(--color-primary-rgb), 0.45);
   letter-spacing: 0.2em;
   margin: -18px 0 28px;
 }
@@ -300,32 +283,22 @@ const features = [
   height: 42px;
   margin-bottom: 28px;
   cursor: pointer;
-  filter: brightness(0) invert(1);
-}
-
-.brand__name {
-  font-size: 15px;
-  font-weight: 700;
-  color: rgba(255, 220, 160, 0.7);
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  margin-bottom: 28px;
-  cursor: pointer;
 }
 
 .brand__eyebrow {
   font-size: 12px;
   font-weight: 600;
-  color: rgba(255, 200, 120, 0.6);
+  color: var(--color-primary);
   letter-spacing: 0.06em;
   margin-bottom: 10px;
+  opacity: 0.75;
 }
 
 .brand__headline {
   font-size: 36px;
   font-weight: 800;
   line-height: 1.25;
-  color: #fff;
+  color: #252525;
   letter-spacing: -0.02em;
   margin-bottom: 12px;
 }
@@ -333,7 +306,7 @@ const features = [
 .brand__sub {
   font-size: 15px;
   line-height: 1.7;
-  color: rgba(255, 220, 180, 0.65);
+  color: #7A7A7A;
   margin: 0 0 40px;
 }
 
@@ -355,49 +328,37 @@ const features = [
 .feature__icon {
   width: 40px;
   height: 40px;
-  background: rgba(var(--color-primary-rgb), 0.15);
-  border: 1px solid rgba(var(--color-primary-rgb), 0.25);
+  background: rgba(var(--color-primary-rgb), 0.1);
+  border: 1px solid rgba(var(--color-primary-rgb), 0.2);
   border-radius: 8px;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  color: rgba(255, 200, 140, 0.8);
+  color: var(--color-primary);
 }
 
 .feature__title {
   font-size: 14px;
   font-weight: 600;
-  color: #fff;
+  color: #252525;
   margin-bottom: 2px;
 }
 
 .feature__desc {
   font-size: 13px;
-  color: rgba(255, 220, 180, 0.5);
+  color: #7A7A7A;
   line-height: 1.5;
 }
 
 .brand__footer {
   font-size: 13px;
-  color: rgba(255, 220, 180, 0.45);
-
-  strong {
-    color: rgba(255, 200, 120, 0.75);
-  }
+  color: #A0A0A0;
 }
 
 /* ── 右側 ── */
 .form-col {
-  background:
-    repeating-linear-gradient(
-      -55deg,
-      transparent,
-      transparent 28px,
-      rgba(180, 140, 100, 0.09) 28px,
-      rgba(180, 140, 100, 0.09) 29px
-    ),
-    #faf7f3;
+  background: #fff;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -417,14 +378,14 @@ const features = [
 .form-title {
   font-size: 26px;
   font-weight: 700;
-  color: #1c120a;
+  color: #252525;
   margin: 0 0 6px;
   letter-spacing: -0.02em;
 }
 
 .form-sub {
   font-size: 14px;
-  color: #8a7060;
+  color: #7A7A7A;
   margin: 0;
   display: flex;
   align-items: center;
@@ -441,24 +402,24 @@ const features = [
   :deep(.el-form-item__label) {
     font-size: 13px;
     font-weight: 600;
-    color: #4a3728;
+    color: #252525;
     padding-bottom: 4px;
   }
 
   :deep(.el-input__wrapper) {
     border-radius: 8px;
     background: #fff;
-    box-shadow: 0 0 0 1px #e0d5cc;
+    box-shadow: 0 0 0 1px #E8E3DE;
     transition: box-shadow 0.15s;
 
-    &:hover { box-shadow: 0 0 0 1px #c8a880; }
+    &:hover { box-shadow: 0 0 0 1px #C8C3BE; }
     &.is-focus { box-shadow: 0 0 0 2px var(--color-primary) !important; }
   }
 
   :deep(.el-input__inner) {
-    color: #1a120b;
+    color: #252525;
     font-size: 15px;
-    &::placeholder { color: #c5b5a8; }
+    &::placeholder { color: #B8B8B8; }
   }
 }
 
@@ -514,113 +475,6 @@ const features = [
   color: #c0b0a0;
   text-align: center;
   line-height: 1.7;
-}
-
-/* ── Geometric layer ── */
-.geo {
-  position: absolute;
-  pointer-events: none;
-}
-
-// 大環：缺口弧線，旋轉時可見方向感
-.geo--ring-xl {
-  width: 420px;
-  height: 420px;
-  border-radius: 50%;
-  top: -130px;
-  right: -130px;
-  border: 1.5px solid transparent;
-  border-top-color: rgba(var(--color-primary-rgb), 0.5);
-  border-right-color: rgba(var(--color-primary-rgb), 0.25);
-  animation: geo-spin 30s linear infinite;
-  will-change: transform;
-
-  &::after {
-    content: '';
-    position: absolute;
-    inset: 38px;
-    border-radius: 50%;
-    border: 1px solid transparent;
-    border-bottom-color: rgba(var(--color-primary-rgb), 0.2);
-    border-left-color: rgba(var(--color-primary-rgb), 0.12);
-  }
-}
-
-// 中環：浮動 + 呼吸
-.geo--ring-md {
-  width: 240px;
-  height: 240px;
-  border: 1px solid rgba(var(--color-primary-rgb), 0.3);
-  border-radius: 50%;
-  bottom: -70px;
-  left: -70px;
-  animation: geo-float 10s ease-in-out infinite, geo-breathe 6s ease-in-out infinite;
-  will-change: transform, opacity;
-}
-
-// 大菱形：浮動
-.geo--diamond {
-  width: 72px;
-  height: 72px;
-  border: 1.5px solid rgba(var(--color-primary-rgb), 0.45);
-  top: 40%;
-  right: 56px;
-  animation: geo-float-diamond 9s ease-in-out infinite;
-  will-change: transform;
-}
-
-// 小菱形：反向浮動
-.geo--diamond-sm {
-  width: 34px;
-  height: 34px;
-  border: 1.5px solid rgba(var(--color-primary-rgb), 0.4);
-  top: 22%;
-  left: 28px;
-  animation: geo-float-diamond 13s ease-in-out infinite reverse;
-  will-change: transform;
-}
-
-// 水平線：脈動
-.geo--hline {
-  height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(var(--color-primary-rgb), 0.5), transparent);
-
-  &-1 {
-    width: 180px;
-    bottom: 26%;
-    right: 0;
-    animation: geo-breathe 5s ease-in-out infinite;
-  }
-
-  &-2 {
-    width: 90px;
-    top: 32%;
-    left: 0;
-    animation: geo-breathe 5s ease-in-out 2.5s infinite;
-  }
-}
-
-.geo--dots,
-.geo--block { display: none; }
-
-@keyframes geo-spin {
-  from { transform: rotate(0deg); }
-  to   { transform: rotate(360deg); }
-}
-
-@keyframes geo-float {
-  0%, 100% { transform: translateY(0); }
-  50%       { transform: translateY(-20px); }
-}
-
-@keyframes geo-float-diamond {
-  0%, 100% { transform: rotate(45deg) translateY(0); }
-  50%       { transform: rotate(45deg) translateY(-12px); }
-}
-
-@keyframes geo-breathe {
-  0%, 100% { opacity: 0.4; }
-  50%       { opacity: 1; }
 }
 
 /* ── RWD ── */

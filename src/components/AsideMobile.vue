@@ -59,7 +59,7 @@ const shopSlug = computed(() => authStore.user?.shopSlug || "");
   right: 0;
   width: 100%;
   height: auto;
-  background-color: #fff9f4;
+  background-color: #fff;
   border-top: 1px solid rgba(180, 140, 100, 0.18);
   display: flex;
   justify-content: space-around;
@@ -119,7 +119,7 @@ const shopSlug = computed(() => authStore.user?.shopSlug || "");
     border-radius: 8px;
 
     .icon img {
-      filter: brightness(0) saturate(100%) invert(62%) sepia(60%) saturate(800%) hue-rotate(340deg) brightness(105%);
+      filter: brightness(0) saturate(100%) invert(55%) sepia(70%) saturate(600%) hue-rotate(320deg) brightness(107%);
     }
 
     .label {

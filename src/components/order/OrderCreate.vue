@@ -451,9 +451,9 @@ defineExpose({ open, close });
   }
 
   &.product-selected {
-    background: #fff3eb;
-    border-color: #fe904d;
-    box-shadow: 0 2px 4px rgba(254, 144, 77, 0.15);
+    background: #FFF0EC;
+    border-color: var(--color-primary);
+    box-shadow: 0 2px 4px rgba(var(--color-primary-rgb), 0.15);
   }
 
   .product-thumb {
@@ -503,7 +503,7 @@ defineExpose({ open, close });
     }
 
     .price-slash {
-      color: #fe904d;
+      color: var(--color-primary);
     }
   }
 

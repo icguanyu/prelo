@@ -21,15 +21,15 @@ const year = new Date().getFullYear();
   align-items: center;
   justify-content: space-between;
   padding: 14px 32px;
-  background: #f0ebe4;
-  border-top: 1px solid #e0d5cc;
+  // background: #FFF0EC;
+  border-top: 1px solid #E8E3DE;
   gap: 12px;
   flex-wrap: wrap;
 }
 
 .footer__copy {
   font-size: 12px;
-  color: var(--color-secondary) !important;
+  color: #A0A0A0 !important;
 }
 
 .footer__links {
@@ -39,14 +39,19 @@ const year = new Date().getFullYear();
 
   a {
     font-size: 12px;
-    color: var(--color-secondary) !important;
+    color: #A0A0A0 !important;
     text-decoration: none;
+    transition: color 0.15s;
+
+    &:hover {
+      color: var(--color-primary) !important;
+    }
   }
 }
 
 .footer__sep {
   width: 1px;
   height: 12px;
-  background: #d0c5bc;
+  background: #E8E3DE;
 }
 </style>

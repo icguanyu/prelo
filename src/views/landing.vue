@@ -4,6 +4,7 @@ import demoImg1 from "@/assets/images/demo/1.jpg";
 import demoImg2 from "@/assets/images/demo/2.jpg";
 
 const router = useRouter();
+const previewMode = ref('pc');
 
 const scrollTo = (id) => {
   document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
@@ -68,13 +69,6 @@ const features = [
 
     <!-- Hero -->
     <section class="lp-hero">
-      <div class="geo geo--ring-xl" />
-      <div class="geo geo--ring-md" />
-      <div class="geo geo--diamond" />
-      <div class="geo geo--diamond-sm" />
-      <div class="geo geo--hline geo--hline-1" />
-      <div class="geo geo--hline geo--hline-2" />
-
       <div class="lp-hero__inner">
         <p class="lp-eyebrow">小店家最愛・預購訂單管理工具</p>
         <h1 class="lp-hero__title">客人自助下單<br />你輕鬆接單</h1>
@@ -145,7 +139,7 @@ const features = [
     <section class="lp-pain">
       <div class="lp-inner">
         <p class="lp-eyebrow lp-eyebrow--dark">你是否還在...</p>
-        <h2 class="lp-section-title">靠 LINE 一筆筆手動收訂單？</h2>
+        <h2 class="lp-section-title">靠社群平台一筆筆手動收訂單？</h2>
         <div class="lp-pain__grid">
           <div
             v-for="item in painPoints"
@@ -157,7 +151,7 @@ const features = [
           </div>
         </div>
         <div class="lp-pain__divider">
-          <span>鋪樂，讓這一切成為過去</span>
+          <span>Prelo，讓這一切成為過去</span>
         </div>
       </div>
     </section>
@@ -185,7 +179,32 @@ const features = [
       <div class="lp-inner">
         <p class="lp-eyebrow lp-eyebrow--dark">產品截圖</p>
         <h2 class="lp-section-title">清楚好用的管理後台</h2>
-        <div class="lp-preview__browser">
+        <div class="lp-preview__toggle">
+          <button
+            class="lp-preview__toggle-btn"
+            :class="{ active: previewMode === 'pc' }"
+            @click="previewMode = 'pc'"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="3" width="20" height="14" rx="2" />
+              <polyline points="8 21 12 17 16 21" />
+            </svg>
+            PC / 平板
+          </button>
+          <button
+            class="lp-preview__toggle-btn"
+            :class="{ active: previewMode === 'mobile' }"
+            @click="previewMode = 'mobile'"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="5" y="2" width="14" height="20" rx="2" />
+              <line x1="12" y1="18" x2="12.01" y2="18" />
+            </svg>
+            手機
+          </button>
+        </div>
+
+        <div v-if="previewMode === 'pc'" class="lp-preview__browser">
           <div class="lp-preview__bar">
             <div class="lp-preview__dots">
               <span class="lp-preview__dot lp-preview__dot--red" />
@@ -204,6 +223,17 @@ const features = [
               </el-carousel-item>
             </el-carousel>
           </div>
+        </div>
+
+        <div v-else class="lp-preview__phone-view">
+          <el-carousel height="100%" indicator-position="inside" :interval="4000">
+            <el-carousel-item>
+              <div class="lp-preview__phone-placeholder" />
+            </el-carousel-item>
+            <el-carousel-item>
+              <div class="lp-preview__phone-placeholder" />
+            </el-carousel-item>
+          </el-carousel>
         </div>
       </div>
     </section>
@@ -319,10 +349,6 @@ const features = [
 
     <!-- CTA -->
     <section class="lp-cta">
-      <div class="geo geo--ring-xl" />
-      <div class="geo geo--ring-md" />
-      <div class="geo geo--diamond" />
-      <div class="geo geo--hline geo--hline-1" />
       <div class="lp-cta__inner">
         <p class="lp-eyebrow">立即加入</p>
         <h2 class="lp-cta__title">準備好了嗎？</h2>
@@ -354,13 +380,13 @@ const features = [
 </template>
 
 <style scoped lang="scss">
-$dark: #2a1708;
-$cream: #f7f3ee;
-$cream-deep: #f0ebe4;
+$dark: #252525;
+$cream: #FFFDF9;
+$cream-deep: #FFF0EC;
 $white: #fff;
-$text: #1a120b;
-$muted: #7a6a5c;
-$border: #e0d5cc;
+$text: #252525;
+$muted: #7A7A7A;
+$border: #E8E3DE;
 
 // ─── Wrapper ──────────────────────────────────────────────────────────────────
 .lp-wrap {
@@ -382,7 +408,7 @@ $border: #e0d5cc;
   justify-content: space-between;
   padding: 0 48px;
   height: 64px;
-  background: rgba(#fff9f4, 0.95);
+  background: rgba(#FFFDF9, 0.95);
   backdrop-filter: blur(12px);
   border-bottom: 1px solid $border;
 }
@@ -443,30 +469,11 @@ $border: #e0d5cc;
 // ─── Hero ─────────────────────────────────────────────────────────────────────
 .lp-hero {
   position: relative;
-  overflow: hidden;
   min-height: calc(100dvh - 64px);
   display: flex;
   flex-direction: column;
   align-items: stretch;
-  background: linear-gradient(155deg, #fff9f4 0%, #fef4e8 45%, #fdeede 100%);
-
-  &::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background:
-      radial-gradient(
-        circle at 8% 20%,
-        rgba(var(--color-primary-rgb), 0.12) 0%,
-        transparent 45%
-      ),
-      radial-gradient(
-        circle at 90% 85%,
-        rgba(255, 160, 60, 0.1) 0%,
-        transparent 42%
-      );
-    pointer-events: none;
-  }
+  background: #FFFDF9;
 }
 
 .lp-hero__inner {
@@ -701,7 +708,7 @@ $border: #e0d5cc;
       rgba(180, 140, 100, 0.07) 28px,
       rgba(180, 140, 100, 0.07) 29px
     ),
-    #faf7f3;
+    #FFFDF9;
 }
 
 .lp-how__steps {
@@ -875,7 +882,48 @@ $border: #e0d5cc;
       rgba(180, 140, 100, 0.07) 28px,
       rgba(180, 140, 100, 0.07) 29px
     ),
-    #faf7f3;
+    #FFFDF9;
+}
+
+.lp-preview__toggle {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 28px;
+}
+
+.lp-preview__toggle-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 22px;
+  font-size: 13px;
+  font-weight: 500;
+  font-family: inherit;
+  border: 1px solid $border;
+  background: $white;
+  color: $muted;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
+
+  &:first-child {
+    border-radius: 6px 0 0 6px;
+    border-right: none;
+  }
+
+  &:last-child {
+    border-radius: 0 6px 6px 0;
+  }
+
+  &:hover:not(.active) {
+    background: #f5f0eb;
+    color: $text;
+  }
+
+  &.active {
+    background: $text;
+    border-color: $text;
+    color: $white;
+  }
 }
 
 .lp-preview__browser {
@@ -883,6 +931,29 @@ $border: #e0d5cc;
   overflow: hidden;
   border: 1px solid $border;
   box-shadow: 0 16px 60px rgba(0, 0, 0, 0.1);
+}
+
+.lp-preview__phone-view {
+  width: 300px;
+  max-width: 100%;
+  margin: 0 auto;
+  aspect-ratio: 9 / 19.5;
+  background: #f5efe8;
+  border: 1px solid $border;
+  border-radius: 8px;
+  box-shadow: 0 16px 60px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+
+  :deep(.el-carousel),
+  :deep(.el-carousel__container) {
+    height: 100%;
+  }
+}
+
+.lp-preview__phone-placeholder {
+  width: 100%;
+  height: 100%;
+  background: #f5efe8;
 }
 
 .lp-preview__bar {
@@ -1024,176 +1095,6 @@ $border: #e0d5cc;
   color: rgba(#f0e8de, 0.35);
 }
 
-// ─── Geometric layer ──────────────────────────────────────────────────────────
-.geo {
-  position: absolute;
-  pointer-events: none;
-}
-
-.lp-hero .geo--ring-xl,
-.lp-cta .geo--ring-xl {
-  width: 420px;
-  height: 420px;
-  border-radius: 50%;
-  top: -130px;
-  right: -130px;
-  border: 1.5px solid transparent;
-  animation: geo-spin 30s linear infinite;
-  will-change: transform;
-
-  &::after {
-    content: "";
-    position: absolute;
-    inset: 38px;
-    border-radius: 50%;
-    border: 1px solid transparent;
-  }
-}
-
-.lp-hero .geo--ring-xl {
-  border-top-color: rgba(var(--color-primary-rgb), 0.22);
-  border-right-color: rgba(var(--color-primary-rgb), 0.1);
-  &::after {
-    border-bottom-color: rgba(var(--color-primary-rgb), 0.1);
-    border-left-color: rgba(var(--color-primary-rgb), 0.06);
-  }
-}
-
-.lp-cta .geo--ring-xl {
-  border-top-color: rgba(var(--color-primary-rgb), 0.5);
-  border-right-color: rgba(var(--color-primary-rgb), 0.25);
-  &::after {
-    border-bottom-color: rgba(var(--color-primary-rgb), 0.2);
-    border-left-color: rgba(var(--color-primary-rgb), 0.12);
-  }
-}
-
-.geo--ring-md {
-  width: 240px;
-  height: 240px;
-  border-radius: 50%;
-  bottom: -70px;
-  left: -70px;
-  animation:
-    geo-float 10s ease-in-out infinite,
-    geo-breathe 6s ease-in-out infinite;
-  will-change: transform, opacity;
-}
-
-.lp-hero .geo--ring-md {
-  border: 1px solid rgba(var(--color-primary-rgb), 0.14);
-}
-.lp-cta .geo--ring-md {
-  border: 1px solid rgba(var(--color-primary-rgb), 0.3);
-}
-
-.geo--diamond {
-  width: 72px;
-  height: 72px;
-  top: 40%;
-  right: 56px;
-  animation: geo-float-diamond 9s ease-in-out infinite;
-  will-change: transform;
-}
-
-.lp-hero .geo--diamond {
-  border: 1.5px solid rgba(var(--color-primary-rgb), 0.18);
-}
-.lp-cta .geo--diamond {
-  border: 1.5px solid rgba(var(--color-primary-rgb), 0.45);
-}
-
-.geo--diamond-sm {
-  width: 34px;
-  height: 34px;
-  top: 22%;
-  left: 28px;
-  animation: geo-float-diamond 13s ease-in-out infinite reverse;
-  will-change: transform;
-}
-
-.lp-hero .geo--diamond-sm {
-  border: 1.5px solid rgba(var(--color-primary-rgb), 0.15);
-}
-.lp-cta .geo--diamond-sm {
-  border: 1.5px solid rgba(var(--color-primary-rgb), 0.4);
-}
-
-.geo--hline {
-  height: 1px;
-
-  &-1 {
-    width: 180px;
-    bottom: 26%;
-    right: 0;
-    animation: geo-breathe 5s ease-in-out infinite;
-  }
-
-  &-2 {
-    width: 90px;
-    top: 32%;
-    left: 0;
-    animation: geo-breathe 5s ease-in-out 2.5s infinite;
-  }
-}
-
-.lp-hero .geo--hline {
-  background: linear-gradient(
-    90deg,
-    transparent,
-    rgba(var(--color-primary-rgb), 0.2),
-    transparent
-  );
-}
-
-.lp-cta .geo--hline {
-  background: linear-gradient(
-    90deg,
-    transparent,
-    rgba(var(--color-primary-rgb), 0.5),
-    transparent
-  );
-}
-
-@keyframes geo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@keyframes geo-float {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-20px);
-  }
-}
-
-@keyframes geo-float-diamond {
-  0%,
-  100% {
-    transform: rotate(45deg) translateY(0);
-  }
-  50% {
-    transform: rotate(45deg) translateY(-12px);
-  }
-}
-
-@keyframes geo-breathe {
-  0%,
-  100% {
-    opacity: 0.4;
-  }
-  50% {
-    opacity: 1;
-  }
-}
-
 // ─── RWD ──────────────────────────────────────────────────────────────────────
 @media (max-width: 600px) {
   .lp-nav {
@@ -1223,7 +1124,7 @@ $border: #e0d5cc;
 
 // ─── Disclaimer ───────────────────────────────────────────────────────────────
 .lp-disclaimer {
-  background: #f0ebe4;
+  background: #fff;
   border-top: 1px solid #e0d5cc;
   padding: 14px 32px;
 

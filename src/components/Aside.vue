@@ -109,7 +109,7 @@ aside {
   width: 70px;
   flex-basis: 70px;
   height: 100dvh;
-  background-color: #fff9f4;
+  background-color: #fff;
   border-right: 1px solid rgba(180, 140, 100, 0.18);
   display: flex;
   flex-direction: column;
@@ -163,10 +163,10 @@ aside {
     }
   }
   .link.router-link-exact-active {
-    background-color: rgba(254, 144, 77, 0.12);
+    background-color: rgba(var(--color-primary-rgb), 0.12);
     color: var(--color-primary);
     .icon img {
-      filter: brightness(0) saturate(100%) invert(62%) sepia(60%) saturate(800%) hue-rotate(340deg) brightness(105%);
+      filter: brightness(0) saturate(100%) invert(55%) sepia(70%) saturate(600%) hue-rotate(320deg) brightness(107%);
     }
     // &:after {
     //   content: "";

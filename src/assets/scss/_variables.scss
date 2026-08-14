@@ -1,19 +1,24 @@
 // ┌─────────────────────────────────────────────────────────┐
-// │  Prelo 品牌色變數                                        │
-// │  主色（後台）→ --color-primary                           │
-// │  次要色（前台）→ --color-secondary                        │
+// │  CSS 自訂屬性（runtime 變數）                              │
+// │  顏色來源：_colors.scss — 請勿在此直接改色碼              │
 // └─────────────────────────────────────────────────────────┘
+@use "sass:color";
+@use "colors" as c;
+
 :root {
-  --color-primary:         #fe904d;
-  --color-primary-hover:   #e07838;
-  --color-primary-dark:    #c06228;
-  --color-primary-rgb:     254, 144, 77;
+  // ── 主色 ───────────────────────────────────────────────
+  --color-primary: #{c.$color-primary};
+  --color-primary-hover: #{c.$color-primary-hover};
+  --color-primary-dark: #{c.$color-primary-dark};
+  --color-primary-rgb:
+    #{color.red(c.$color-primary)}, #{color.green(c.$color-primary)},
+    #{color.blue(c.$color-primary)};
 
-  --color-secondary:       #ad7d38;
-  --color-secondary-hover: #8f6228;
-  --color-secondary-dark:  #6f4618;
-  --color-secondary-rgb:   200, 148, 74;
-
-  --bg-page:               #faf7f4;
-  --bg-page-alt:           #ede7df;
+  // ── 次要色 ─────────────────────────────────────────────
+  --color-secondary: #{c.$color-secondary};
+  --color-secondary-hover: #{c.$color-secondary-hover};
+  --color-secondary-dark: #{c.$color-secondary-dark};
+  --color-secondary-rgb:
+    #{color.red(c.$color-secondary)}, #{color.green(c.$color-secondary)},
+    #{color.blue(c.$color-secondary)};
 }

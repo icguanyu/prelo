@@ -89,7 +89,7 @@ if (typeof window !== "undefined") {
 
   main {
     position: relative;
-    background-color: #1c2345;
+    background-color: #f8f8f8;
     flex: 1;
     height: 100dvh;
     overflow-y: hidden;
@@ -110,7 +110,7 @@ if (typeof window !== "undefined") {
     }
 
     .container {
-      background-color: var(--bg-page);
+   
       flex: 1;
       overflow: auto;
       @include scrollbar(

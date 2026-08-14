@@ -49,22 +49,16 @@ const handleLogin = async () => {
     <div class="login">
       <!-- Left brand panel -->
       <div class="login__panel">
-        <!-- 幾何裝飾層 -->
-        <div class="geo geo--ring-xl" />
-        <div class="geo geo--ring-md" />
-        <div class="geo geo--diamond" />
-        <div class="geo geo--diamond-sm" />
-        <div class="geo geo--hline geo--hline-1" />
-        <div class="geo geo--hline geo--hline-2" />
+        <div class="panel__deco panel__deco--lg" />
+        <div class="panel__deco panel__deco--sm" />
 
         <div class="login__panel-inner">
           <div class="login__logo"></div>
-          <p class="login__brand-chinese">鋪樂</p>
-          <p class="login__brand-tagline">烘焙商城管理平台</p>
+          <p class="login__brand-tagline">鋪樂｜小店家的預購接單工具</p>
           <ul class="login__features">
             <li>管理訂單與出貨狀態</li>
             <li>商品上架與庫存追蹤</li>
-            <li>客戶資料一目了然</li>
+            <li>訂單資料一目了然</li>
           </ul>
         </div>
       </div>
@@ -124,11 +118,11 @@ const handleLogin = async () => {
 </template>
 
 <style lang="scss" scoped>
-$panel-bg: #1c1108;
-$input-bg: #f7f2ec;
-$border: #ddd4c8;
-$text-primary: #1a120b;
-$text-muted: #7a6a5c;
+$panel-bg: #fff0ec;
+$input-bg: #fff;
+$border: #e8e3de;
+$text-primary: #252525;
+$text-muted: #7a7a7a;
 
 .login-page {
   height: 100dvh;
@@ -148,10 +142,7 @@ $text-muted: #7a6a5c;
   flex: 0 0 50%;
   position: relative;
   overflow: hidden;
-  background:
-    radial-gradient(circle at 20% 30%, rgba(var(--color-primary-rgb), 0.25) 0%, transparent 55%),
-    radial-gradient(circle at 80% 80%, rgba(255, 180, 80, 0.1) 0%, transparent 45%),
-    $panel-bg;
+  background: linear-gradient(150deg, #f7806e 0%, #f26b5b 60%, #e85c4a 100%);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -161,7 +152,30 @@ $text-muted: #7a6a5c;
   }
 }
 
+.panel__deco {
+  position: absolute;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  pointer-events: none;
+
+  &--lg {
+    width: 480px;
+    height: 480px;
+    bottom: -160px;
+    right: -160px;
+  }
+
+  &--sm {
+    width: 240px;
+    height: 240px;
+    top: -80px;
+    left: -80px;
+    border-color: rgba(255, 255, 255, 0.1);
+  }
+}
+
 .login__panel-inner {
+  position: relative;
   padding: 48px 56px;
   max-width: 360px;
 }
@@ -169,7 +183,7 @@ $text-muted: #7a6a5c;
 .login__logo {
   width: 160px;
   height: 44px;
-  margin-bottom: 24px;
+  margin-bottom: 6px;
   background-image: url("@/assets/images/logo.png");
   background-size: contain;
   background-repeat: no-repeat;
@@ -177,26 +191,10 @@ $text-muted: #7a6a5c;
   filter: brightness(0) invert(1);
 }
 
-.login__brand-name {
-  font-size: 28px;
-  font-weight: 700;
-  color: #ffffff;
-  margin: 0 0 6px;
-  letter-spacing: -0.01em;
-}
-
-.login__brand-chinese {
-  font-size: 13px;
-  font-weight: 600;
-  color: rgba(255, 200, 140, 0.55);
-  letter-spacing: 0.2em;
-  margin: -16px 0 20px;
-}
-
 .login__brand-tagline {
   font-size: 13px;
   font-weight: 500;
-  color: var(--color-primary);
+  color: rgba(255, 255, 255, 0.75);
   letter-spacing: 0.1em;
   margin: 0 0 36px;
 }
@@ -211,12 +209,12 @@ $text-muted: #7a6a5c;
 
   li {
     font-size: 14px;
-    color: rgba(#f0e8de, 0.6);
+    color: rgba(255, 255, 255, 0.7);
     padding-left: 16px;
     position: relative;
 
     &::before {
-      content: '';
+      content: "";
       position: absolute;
       left: 0;
       top: 50%;
@@ -224,8 +222,7 @@ $text-muted: #7a6a5c;
       width: 4px;
       height: 4px;
       border-radius: 50%;
-      background: var(--color-primary);
-      opacity: 0.7;
+      background: rgba(255, 255, 255, 0.7);
     }
   }
 }
@@ -238,15 +235,7 @@ $text-muted: #7a6a5c;
   align-items: center;
   justify-content: center;
   padding: 48px 40px;
-  background:
-    repeating-linear-gradient(
-      -55deg,
-      transparent,
-      transparent 28px,
-      rgba(180, 140, 100, 0.09) 28px,
-      rgba(180, 140, 100, 0.09) 29px
-    ),
-    #ffffff;
+  background: #fff;
 
   @media (max-width: 800px) {
     flex: 1;
@@ -294,7 +283,7 @@ $text-muted: #7a6a5c;
   .form-label {
     font-size: 13px;
     font-weight: 600;
-    color: #3e3028;
+    color: #252525;
   }
 
   :deep(.el-form-item) {
@@ -310,11 +299,13 @@ $text-muted: #7a6a5c;
     border-radius: 8px;
     background: $input-bg;
     box-shadow: 0 0 0 1px $border;
-    transition: box-shadow 0.18s ease, background 0.18s ease;
+    transition:
+      box-shadow 0.18s ease,
+      background 0.18s ease;
     padding: 0 12px;
 
     &:hover {
-      box-shadow: 0 0 0 1px #c0b0a0;
+      box-shadow: 0 0 0 1px #c8c3be;
     }
 
     &.is-focus {
@@ -329,108 +320,9 @@ $text-muted: #7a6a5c;
     color: $text-primary;
 
     &::placeholder {
-      color: #b8a898;
+      color: #b8b8b8;
     }
   }
-}
-
-// ─── Geometric layer ──────────────────────────────────────────────────────────
-.geo {
-  position: absolute;
-  pointer-events: none;
-}
-
-.geo--ring-xl {
-  width: 420px;
-  height: 420px;
-  border-radius: 50%;
-  top: -130px;
-  right: -130px;
-  border: 1.5px solid transparent;
-  border-top-color: rgba(var(--color-primary-rgb), 0.5);
-  border-right-color: rgba(var(--color-primary-rgb), 0.25);
-  animation: geo-spin 55s linear infinite;
-  will-change: transform;
-
-  &::after {
-    content: '';
-    position: absolute;
-    inset: 38px;
-    border-radius: 50%;
-    border: 1px solid transparent;
-    border-bottom-color: rgba(var(--color-primary-rgb), 0.2);
-    border-left-color: rgba(var(--color-primary-rgb), 0.12);
-  }
-}
-
-.geo--ring-md {
-  width: 240px;
-  height: 240px;
-  border: 1px solid rgba(var(--color-primary-rgb), 0.3);
-  border-radius: 50%;
-  bottom: -70px;
-  left: -70px;
-  animation: geo-float 10s ease-in-out infinite, geo-breathe 6s ease-in-out infinite;
-  will-change: transform, opacity;
-}
-
-.geo--diamond {
-  width: 72px;
-  height: 72px;
-  border: 1.5px solid rgba(var(--color-primary-rgb), 0.45);
-  top: 40%;
-  right: 56px;
-  animation: geo-float-diamond 9s ease-in-out infinite;
-  will-change: transform;
-}
-
-.geo--diamond-sm {
-  width: 34px;
-  height: 34px;
-  border: 1.5px solid rgba(var(--color-primary-rgb), 0.4);
-  top: 22%;
-  left: 28px;
-  animation: geo-float-diamond 13s ease-in-out infinite reverse;
-  will-change: transform;
-}
-
-.geo--hline {
-  height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(var(--color-primary-rgb), 0.5), transparent);
-
-  &-1 {
-    width: 180px;
-    bottom: 26%;
-    right: 0;
-    animation: geo-breathe 5s ease-in-out infinite;
-  }
-
-  &-2 {
-    width: 90px;
-    top: 32%;
-    left: 0;
-    animation: geo-breathe 5s ease-in-out 2.5s infinite;
-  }
-}
-
-@keyframes geo-spin {
-  from { transform: rotate(0deg); }
-  to   { transform: rotate(360deg); }
-}
-
-@keyframes geo-float {
-  0%, 100% { transform: translateY(0); }
-  50%       { transform: translateY(-20px); }
-}
-
-@keyframes geo-float-diamond {
-  0%, 100% { transform: rotate(45deg) translateY(0); }
-  50%       { transform: rotate(45deg) translateY(-12px); }
-}
-
-@keyframes geo-breathe {
-  0%, 100% { opacity: 0.4; }
-  50%       { opacity: 1; }
 }
 
 // ─── Remember me ──────────────────────────────────────────────────────────────
@@ -462,7 +354,9 @@ $text-muted: #7a6a5c;
   font-weight: 600;
   background: var(--color-primary) !important;
   border-color: var(--color-primary) !important;
-  transition: background 0.18s, opacity 0.18s;
+  transition:
+    background 0.18s,
+    opacity 0.18s;
 
   &:hover:not(:disabled) {
     background: var(--color-primary-hover) !important;

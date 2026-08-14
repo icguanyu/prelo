@@ -13,7 +13,7 @@ export const scheduleStatusOptions = [
  */
 export const orderStatusOptions = [
   { label: "全部", value: "all", color: "" },
-  { label: "已下單", value: "PLACED", color: "#fe904d", count: 0 },
+  { label: "已下單", value: "PLACED", color: "#F26B5B", count: 0 },
   { label: "已完成", value: "COMPLETED", color: "#10b981", count: 0 },
-  { label: "已取消", value: "CANCELLED", color: "#ef4444", count: 0 },
+  { label: "已取消", value: "CANCELLED", color: "#8C8C8C", count: 0 },
 ];
