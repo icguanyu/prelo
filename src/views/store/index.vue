@@ -426,7 +426,7 @@ const hasDelivery = computed(
 .store-page {
   height: 100dvh;
   overflow-y: auto;
-  background: #f7f3ee;
+  background: #fffdf9;
   padding-bottom: 120px;
 }
 
@@ -567,7 +567,7 @@ const hasDelivery = computed(
   &__title {
     font-size: 15px;
     font-weight: 700;
-    color: #2f2a25;
+    color: #1a120b;
     margin-bottom: 16px;
     display: flex;
     align-items: center;
@@ -586,7 +586,7 @@ const hasDelivery = computed(
   align-items: center;
   gap: 10px;
   font-size: 14px;
-  color: #2f2a25;
+  color: #1a120b;
   line-height: 1.5;
 
   & + & {
@@ -602,7 +602,7 @@ const hasDelivery = computed(
   }
 
   &__link {
-    color: #2f2a25;
+    color: #1a120b;
     text-decoration: none;
 
     &:active {
@@ -717,8 +717,8 @@ const hasDelivery = computed(
   align-items: center;
   font-size: 14px;
   padding: 4px 0;
-  color: #2f2a25;
-  border-bottom: 1px solid #f3ede8;
+  color: #1a120b;
+  border-bottom: 1px solid #e8ddd5;
 
   &:last-child {
     border-bottom: none;
@@ -733,7 +733,7 @@ const hasDelivery = computed(
   }
 
   &__time {
-    color: #4a3728;
+    color: #5c4b3e;
   }
 
   &__closed {
@@ -764,7 +764,7 @@ const hasDelivery = computed(
 
   &--payment {
     background: #fff7e6;
-    color: #a06020;
+    color: #d97706;
     border: 1px solid #f5d89a;
   }
 
@@ -806,7 +806,7 @@ const hasDelivery = computed(
   margin-top: 12px;
   font-size: 12px;
   color: #8a7060;
-  background: #fdf8f2;
+  background: #fffdf9;
   border-radius: 8px;
   padding: 8px 12px;
   display: flex;
@@ -856,7 +856,7 @@ const hasDelivery = computed(
   letter-spacing: 0.02em;
 
   a {
-    color: #a07848;
+    color: var(--color-primary);
     text-decoration: none;
     font-weight: 600;
 
@@ -895,7 +895,7 @@ const hasDelivery = computed(
   }
 
   &:active {
-    background: #8a5e30;
+    background: var(--color-primary-dark);
     box-shadow: none;
   }
 
@@ -935,7 +935,7 @@ const hasDelivery = computed(
   padding: 4px 12px;
   border-radius: 999px;
   border: 1.5px solid #e8ddd5;
-  background: #fdf8f2;
+  background: #fffdf9;
   color: #8a7060;
   font-size: 13px;
   font-weight: 600;
@@ -1015,14 +1015,14 @@ const hasDelivery = computed(
 
 :deep(.el-skeleton) {
   --el-skeleton-color: #e8ddd5;
-  --el-skeleton-to-color: #f0e8e0;
+  --el-skeleton-to-color: #e8ddd5;
 }
 
 .product-card {
   background: #fff;
   border-radius: 8px;
   overflow: hidden;
-  border: 1px solid #ede8e2;
+  border: 1px solid #e8ddd5;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
   transition:
     box-shadow 0.15s,

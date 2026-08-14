@@ -26,7 +26,7 @@ onMounted(() => {
 });
 
 const statusLabel = { PLACED: "已下單", COMPLETED: "已完成", CANCELLED: "已取消" };
-const statusColor = { PLACED: "var(--color-primary)", COMPLETED: "#5a9672", CANCELLED: "#8C8C8C" };
+const statusColor = { PLACED: "var(--color-primary)", COMPLETED: "#2eaa62", CANCELLED: "#8C8C8C" };
 const paymentLabel = { cash: "現金", linepay: "Line Pay", bank: "銀行轉帳", card: "信用卡" };
 const pickupLabel = { pickup: "自取", delivery: "宅配" };
 
@@ -228,7 +228,7 @@ const fmtDate = (d) => d ? dayjs(d).format("YYYY/MM/DD") : "—";
 .lookup-page {
   height: 100dvh;
   overflow-y: auto;
-  background: #f7f3ee;
+  background: #fffdf9;
   display: flex;
   flex-direction: column;
 }
@@ -270,7 +270,7 @@ const fmtDate = (d) => d ? dayjs(d).format("YYYY/MM/DD") : "—";
   &--past {
     background: #faf8f5;
     box-shadow: none;
-    border: 1px solid #ede8e2;
+    border: 1px solid #e8ddd5;
   }
 }
 
@@ -292,7 +292,7 @@ const fmtDate = (d) => d ? dayjs(d).format("YYYY/MM/DD") : "—";
   padding: 10px 14px;
   border: 1.5px solid #e8ddd5;
   border-radius: 8px;
-  background: #fdf8f2;
+  background: #fffdf9;
   font-size: 14px;
   color: #1a120b;
   outline: none;
@@ -318,7 +318,7 @@ const fmtDate = (d) => d ? dayjs(d).format("YYYY/MM/DD") : "—";
     height: 18px;
     border-radius: 5px;
     border: 1.5px solid #d4b896;
-    background: #fdf8f2;
+    background: #fffdf9;
     flex-shrink: 0;
     display: flex;
     align-items: center;
@@ -367,8 +367,8 @@ const fmtDate = (d) => d ? dayjs(d).format("YYYY/MM/DD") : "—";
 
   i { font-size: 17px; }
   &:hover { background: var(--color-primary-hover); }
-  &:active { background: #8a5e30; }
-  &:disabled { background: #d4c5b0; cursor: default; }
+  &:active { background: var(--color-primary-dark); }
+  &:disabled { background: rgba(var(--color-primary-rgb), 0.35); cursor: default; }
 }
 
 /* Empty */
@@ -438,7 +438,7 @@ const fmtDate = (d) => d ? dayjs(d).format("YYYY/MM/DD") : "—";
 
 .divider {
   height: 1px;
-  background: #f3ede8;
+  background: #e8ddd5;
   margin: 14px 0;
 }
 

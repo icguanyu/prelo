@@ -683,7 +683,7 @@ $bg-card: #ffffff;
       color: var(--color-primary);
     }
     &.completed {
-      color: #16a34a;
+      color: #10b981;
     }
     &.cancelled {
       color: #8c8c8c;

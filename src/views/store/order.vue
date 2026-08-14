@@ -550,7 +550,7 @@ $_primary-hex: 'c8944a';
 .order-page {
   height: 100dvh;
   overflow-y: auto;
-  background: #f7f3ee;
+  background: #fffdf9;
   display: flex;
   flex-direction: column;
 }
@@ -567,7 +567,7 @@ $_primary-hex: 'c8944a';
     max-width: 520px;
     margin: 0 auto;
     --el-skeleton-color: #e8ddd5;
-    --el-skeleton-to-color: #f0e8e0;
+    --el-skeleton-to-color: #e8ddd5;
   }
 }
 
@@ -609,7 +609,7 @@ $_primary-hex: 'c8944a';
 
 .success-icon {
   font-size: 64px;
-  color: #5a9672;
+  color: #2eaa62;
   line-height: 1;
   margin-bottom: 16px;
 }
@@ -641,7 +641,7 @@ $_primary-hex: 'c8944a';
   justify-content: space-between;
   align-items: center;
   padding: 10px 0;
-  border-bottom: 1px solid #f3ede8;
+  border-bottom: 1px solid #e8ddd5;
 
   &:last-child {
     border-bottom: none;
@@ -671,8 +671,8 @@ $_primary-hex: 'c8944a';
 
 .success-items {
   width: 100%;
-  background: #fdf8f2;
-  border: 1px solid #ede8e2;
+  background: #fffdf9;
+  border: 1px solid #e8ddd5;
   border-radius: 8px;
   padding: 14px 16px;
   margin-bottom: 16px;
@@ -693,7 +693,7 @@ $_primary-hex: 'c8944a';
   justify-content: space-between;
   gap: 8px;
   padding: 6px 0;
-  border-bottom: 1px solid #f0e8e0;
+  border-bottom: 1px solid #e8ddd5;
 
   &:last-child {
     border-bottom: none;
@@ -796,7 +796,7 @@ $_primary-hex: 'c8944a';
   align-items: center;
   gap: 12px;
   padding: 10px 0;
-  border-bottom: 1px solid #f3ede8;
+  border-bottom: 1px solid #e8ddd5;
 
   &:last-child {
     border-bottom: none;
@@ -860,7 +860,7 @@ $_primary-hex: 'c8944a';
   margin-top: 2px;
 
   &--sold {
-    color: #c06050;
+    color: #8c8c8c;
     font-weight: 700;
   }
 }
@@ -890,7 +890,7 @@ $_primary-hex: 'c8944a';
   height: 16px;
   border-radius: 4px;
   border: 1.5px solid #d4b896;
-  background: #fdf8f2;
+  background: #fffdf9;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -931,7 +931,7 @@ $_primary-hex: 'c8944a';
   height: 30px;
   border-radius: 50%;
   border: 1.5px solid #e8ddd5;
-  background: #fdf8f2;
+  background: #fffdf9;
   color: #5c4b3e;
   font-size: 14px;
   display: flex;
@@ -990,7 +990,7 @@ $_primary-hex: 'c8944a';
   margin-bottom: 7px;
 
   .required {
-    color: #c06050;
+    color: #b04030;
   }
 }
 
@@ -1005,7 +1005,7 @@ $_primary-hex: 'c8944a';
   padding: 10px 14px;
   border: 1.5px solid #e8ddd5;
   border-radius: 8px;
-  background: #fdf8f2;
+  background: #fffdf9;
   font-size: 14px;
   color: #1a120b;
   outline: none;
@@ -1046,7 +1046,7 @@ $_primary-hex: 'c8944a';
   padding: 7px 18px;
   border-radius: 999px;
   border: 1.5px solid #e8ddd5;
-  background: #fdf8f2;
+  background: #fffdf9;
   color: #8a7060;
   font-size: 13px;
   font-weight: 600;
@@ -1113,7 +1113,7 @@ $_primary-hex: 'c8944a';
   left: 0;
   right: 0;
   background: #fff;
-  border-top: 1px solid #ede8e2;
+  border-top: 1px solid #e8ddd5;
   padding: 12px 16px;
   display: flex;
   align-items: center;
@@ -1169,12 +1169,12 @@ $_primary-hex: 'c8944a';
     background: var(--color-primary-hover);
   }
   &:active {
-    background: #8a5e30;
+    background: var(--color-primary-dark);
     box-shadow: none;
   }
 
   &:disabled {
-    background: #d4c5b0;
+    background: rgba(var(--color-primary-rgb), 0.35);
     box-shadow: none;
     cursor: default;
   }

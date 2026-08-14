@@ -142,10 +142,11 @@ $text-muted: #7a7a7a;
   flex: 0 0 50%;
   position: relative;
   overflow: hidden;
-  background: linear-gradient(150deg, #f7806e 0%, #f26b5b 60%, #e85c4a 100%);
+  background: #fff0ec;
   display: flex;
   align-items: center;
   justify-content: center;
+  border-right: 1px solid #e8dfd6;
 
   @media (max-width: 800px) {
     display: none;
@@ -155,7 +156,6 @@ $text-muted: #7a7a7a;
 .panel__deco {
   position: absolute;
   border-radius: 50%;
-  border: 1px solid rgba(255, 255, 255, 0.15);
   pointer-events: none;
 
   &--lg {
@@ -163,6 +163,7 @@ $text-muted: #7a7a7a;
     height: 480px;
     bottom: -160px;
     right: -160px;
+    border: 1px solid rgba(242, 107, 91, 0.12);
   }
 
   &--sm {
@@ -170,7 +171,7 @@ $text-muted: #7a7a7a;
     height: 240px;
     top: -80px;
     left: -80px;
-    border-color: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(242, 107, 91, 0.08);
   }
 }
 
@@ -188,13 +189,12 @@ $text-muted: #7a7a7a;
   background-size: contain;
   background-repeat: no-repeat;
   background-position: left center;
-  filter: brightness(0) invert(1);
 }
 
 .login__brand-tagline {
   font-size: 13px;
   font-weight: 500;
-  color: rgba(255, 255, 255, 0.75);
+  color: #a09080;
   letter-spacing: 0.1em;
   margin: 0 0 36px;
 }
@@ -209,7 +209,7 @@ $text-muted: #7a7a7a;
 
   li {
     font-size: 14px;
-    color: rgba(255, 255, 255, 0.7);
+    color: #5a5048;
     padding-left: 16px;
     position: relative;
 
@@ -222,7 +222,8 @@ $text-muted: #7a7a7a;
       width: 4px;
       height: 4px;
       border-radius: 50%;
-      background: rgba(255, 255, 255, 0.7);
+      background: var(--color-primary);
+      opacity: 0.6;
     }
   }
 }

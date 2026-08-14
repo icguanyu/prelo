@@ -449,7 +449,7 @@ const addToCalendar = (s) => {
 .schedules-page {
   height: 100dvh;
   overflow-y: auto;
-  background: #f7f3ee;
+  background: #fffdf9;
   padding-bottom: 40px;
 }
 
@@ -500,7 +500,7 @@ const addToCalendar = (s) => {
     width: 36px;
     height: 36px;
     border: none;
-    background: #f7f3ee;
+    background: #fffdf9;
     border-radius: 8px;
     display: flex;
     align-items: center;
@@ -534,20 +534,17 @@ const addToCalendar = (s) => {
     text-align: center;
     margin-bottom: 6px;
     padding-bottom: 10px;
-    border-bottom: 1px solid #f0ebe5;
+    border-bottom: 1px solid #e8ddd5;
 
     span {
       font-size: 11px;
       font-weight: 700;
-      color: #6b5040;
+      color: #5c4b3e;
       letter-spacing: 0.03em;
 
       &:first-child {
-        color: #e07060;
+        color: #b05840;
       } /* 日 */
-      &:last-child {
-        color: #6080c0;
-      } /* 六 */
     }
   }
 
@@ -576,7 +573,7 @@ const addToCalendar = (s) => {
   &__day {
     font-size: 13px;
     font-weight: 600;
-    color: #3a2e28;
+    color: #1a120b;
     line-height: 1;
   }
 
@@ -588,7 +585,7 @@ const addToCalendar = (s) => {
 
   &__venue-icon {
     font-size: 15px;
-    color: #b07808;
+    color: #d97706;
     line-height: 1;
   }
 
@@ -604,21 +601,21 @@ const addToCalendar = (s) => {
   }
 
   &--announced {
-    background: #eef2ff;
+    background: #fff0ec;
     .cal-cell__day {
-      color: #3050a0;
+      color: #c94030;
     }
     .cal-cell__dot {
-      background: #6080d0;
+      background: var(--color-primary);
     }
   }
 
-  /* 今天：品牌黃圈，覆蓋其他背景 */
+  /* 今天：主題色圓圈，覆蓋其他背景 */
   &--today {
     .cal-cell__day {
       width: 28px;
       height: 28px;
-      background: #fcae08;
+      background: var(--color-primary);
       color: #fff;
       border-radius: 50%;
       display: flex;
@@ -626,15 +623,15 @@ const addToCalendar = (s) => {
       justify-content: center;
       font-size: 13px;
       font-weight: 800;
-      box-shadow: 0 2px 6px rgba(252, 174, 8, 0.45);
+      box-shadow: 0 2px 6px rgba(var(--color-primary-rgb), 0.45);
     }
   }
 
   /* 今天同時有行程：保留底色 + 黃圈 */
   &--venue {
     background: #fffbeb;
-    .cal-cell__day { color: #92600a; }
-    .cal-cell__dot { background: #d4a017; }
+    .cal-cell__day { color: #d97706; }
+    .cal-cell__dot { background: #d97706; }
   }
 
   &--today.cal-cell--open {
@@ -645,15 +642,15 @@ const addToCalendar = (s) => {
   }
 
   &--today.cal-cell--announced {
-    background: #eef2ff;
+    background: #fff0ec;
     .cal-cell__dot {
-      background: #6080d0;
+      background: var(--color-primary);
     }
   }
 
   &--today.cal-cell--venue {
     background: #fffbeb;
-    .cal-cell__dot { background: #d4a017; }
+    .cal-cell__dot { background: #d97706; }
   }
 }
 
@@ -668,7 +665,7 @@ const addToCalendar = (s) => {
     align-items: center;
     gap: 6px;
     font-size: 12px;
-    color: #523828;
+    color: #5c4b3e;
   }
 
   &__dot {
@@ -680,10 +677,10 @@ const addToCalendar = (s) => {
       background: #2eaa62;
     }
     &--announced {
-      background: #6080d0;
+      background: var(--color-primary);
     }
     &--venue {
-      background: #d4a017;
+      background: #d97706;
     }
   }
 }
@@ -692,7 +689,7 @@ const addToCalendar = (s) => {
 .section-title {
   font-size: 13px;
   font-weight: 700;
-  color: #523828;
+  color: #5c4b3e;
   text-transform: uppercase;
   letter-spacing: 0.06em;
   margin-top: 4px;
@@ -702,7 +699,7 @@ const addToCalendar = (s) => {
 .empty {
   text-align: center;
   padding: 40px 0;
-  color: #7a5040;
+  color: #8a7060;
 
   i {
     font-size: 40px;
@@ -733,7 +730,7 @@ const addToCalendar = (s) => {
     padding: 10px 16px;
     background: #f5f2ef;
     box-shadow: none;
-    border: 1px solid #e8e0d8;
+    border: 1px solid #e8ddd5;
   }
 
   &__collapsed {
@@ -757,12 +754,12 @@ const addToCalendar = (s) => {
   &__collapsed-date {
     font-size: 14px;
     font-weight: 600;
-    color: #6b4838;
+    color: #5c4b3e;
   }
 
   &__collapsed-chevron {
     font-size: 18px;
-    color: #7a5040;
+    color: #8a7060;
   }
 
   &__head {
@@ -775,7 +772,7 @@ const addToCalendar = (s) => {
     flex-shrink: 0;
     width: 48px;
     height: 52px;
-    background: #f7f3ee;
+    background: #fffdf9;
     border-radius: 8px;
     display: flex;
     flex-direction: column;
@@ -797,7 +794,7 @@ const addToCalendar = (s) => {
 
   &__month {
     font-size: 11px;
-    color: #523828;
+    color: #5c4b3e;
     font-weight: 600;
   }
 
@@ -817,17 +814,17 @@ const addToCalendar = (s) => {
   &__weekday {
     font-size: 15px;
     font-weight: 700;
-    color: #2f2a25;
+    color: #1a120b;
   }
 
   &__deadline {
     font-size: 12px;
-    color: #6b4838;
+    color: #5c4b3e;
   }
 
   &__note {
     font-size: 12px;
-    color: #523828;
+    color: #5c4b3e;
     display: flex;
     align-items: center;
     gap: 4px;
@@ -846,7 +843,7 @@ const addToCalendar = (s) => {
 
   &__items-empty {
     font-size: 12px;
-    color: #7a5040;
+    color: #8a7060;
   }
 
   &__btn {
@@ -903,17 +900,17 @@ const addToCalendar = (s) => {
 
   &--open {
     background: #e0f7ec;
-    color: #1a7a45;
+    color: #1e7a48;
   }
 
   &--announced {
-    background: #e8eeff;
-    color: #3050a0;
+    background: #fff0ec;
+    color: #c94030;
   }
 
   &--closed {
-    background: #ede8e2;
-    color: #6b4838;
+    background: #e8ddd5;
+    color: #5c4b3e;
   }
 
   &--venue {
@@ -1048,7 +1045,7 @@ const addToCalendar = (s) => {
   align-items: center;
   justify-content: space-between;
   gap: 8px;
-  background: #fdf8f2;
+  background: #fffdf9;
   border: 1px solid #ede0d0;
   border-radius: 6px;
   padding: 8px 12px;
@@ -1064,7 +1061,7 @@ const addToCalendar = (s) => {
   &__name {
     font-size: 14px;
     font-weight: 600;
-    color: #3a2e28;
+    color: #1a120b;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -1072,7 +1069,7 @@ const addToCalendar = (s) => {
 
   &__price {
     font-size: 14px;
-    color: #6b4838;
+    color: #5c4b3e;
     white-space: nowrap;
     flex-shrink: 0;
   }
@@ -1080,7 +1077,7 @@ const addToCalendar = (s) => {
   &__stock {
     font-size: 11px;
     font-weight: 700;
-    color: #6b4838;
+    color: #5c4b3e;
     white-space: nowrap;
     flex-shrink: 0;
 

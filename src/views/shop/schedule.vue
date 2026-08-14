@@ -845,7 +845,7 @@ watch(calendarMode, (val) => {
       color: var(--color-primary);
     }
     &.green {
-      color: #16a34a;
+      color: #10b981;
     }
     &.red {
       color: #8c8c8c;
