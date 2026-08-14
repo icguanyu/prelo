@@ -68,11 +68,34 @@ const dateStats = computed(() => {
   };
 });
 
-// 日期星期顯示
+// 週日期條
+const datePickerRef = ref(null);
 const dayNames = ["日", "一", "二", "三", "四", "五", "六"];
-const dayName = computed(
-  () => `週${dayNames[dayjs(selectedDate.value).day()]}`,
-);
+
+const weekDays = computed(() => {
+  const start = dayjs(selectedDate.value).startOf("week");
+  return Array.from({ length: 7 }, (_, i) => {
+    const d = start.add(i, "day");
+    return {
+      date: d.format("YYYY-MM-DD"),
+      name: dayNames[d.day()],
+      num: d.format("D"),
+      isToday: d.isSame(dayjs(), "day"),
+    };
+  });
+});
+
+const goPrevWeek = () => {
+  selectedDate.value = dayjs(selectedDate.value)
+    .subtract(7, "day")
+    .format("YYYY-MM-DD");
+};
+
+const goNextWeek = () => {
+  selectedDate.value = dayjs(selectedDate.value)
+    .add(7, "day")
+    .format("YYYY-MM-DD");
+};
 
 // 日期顯示標籤
 const dateLabel = computed(() => {
@@ -148,19 +171,6 @@ const setDayAfterTomorrow = () => {
   selectedDate.value = dayjs().add(2, "day").format("YYYY-MM-DD");
 };
 
-// 上一天
-const goPreviousDay = () => {
-  selectedDate.value = dayjs(selectedDate.value)
-    .subtract(1, "day")
-    .format("YYYY-MM-DD");
-};
-
-// 下一天
-const goNextDay = () => {
-  selectedDate.value = dayjs(selectedDate.value)
-    .add(1, "day")
-    .format("YYYY-MM-DD");
-};
 
 const isSelectedDate = (offset) => {
   const targetDate = dayjs().add(offset, "day").format("YYYY-MM-DD");
@@ -311,9 +321,7 @@ watch(selectedDate, (val) => {
             <button
               class="toggle-btn"
               :class="{ active: viewMode === 'detailed' }"
-              @click="
-                viewMode = viewMode === 'detailed' ? 'simple' : 'detailed'
-              "
+              @click="viewMode = viewMode === 'detailed' ? 'simple' : 'detailed'"
               :title="viewMode === 'detailed' ? '卡片' : '清單'"
             >
               <el-icon><Document /></el-icon>
@@ -333,26 +341,28 @@ watch(selectedDate, (val) => {
     </div>
 
     <!-- 頂部統計卡片 -->
-    <div v-show="showStats" class="stats-cards">
-      <div class="stat-card">
-        <div class="stat-value">{{ dateStats.total }}</div>
-        <div class="stat-label">{{ dateLabel }}訂單</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-value placed">{{ dateStats.placed }}</div>
-        <div class="stat-label">已下單</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-value completed">{{ dateStats.completed }}</div>
-        <div class="stat-label">已完成</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-value cancelled">{{ dateStats.cancelled }}</div>
-        <div class="stat-label">已取消</div>
-      </div>
-      <div class="stat-card highlight">
-        <div class="stat-value">{{ $formatPrice(dateStats.revenue) }}</div>
-        <div class="stat-label">{{ dateLabel }}總金額</div>
+    <div v-show="showStats" class="stats-block">
+      <div class="stats-cards">
+        <div class="stat-card">
+          <div class="stat-value">{{ dateStats.total }}</div>
+          <div class="stat-label">{{ dateLabel }}訂單</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value placed">{{ dateStats.placed }}</div>
+          <div class="stat-label">已下單</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value completed">{{ dateStats.completed }}</div>
+          <div class="stat-label">已完成</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value cancelled">{{ dateStats.cancelled }}</div>
+          <div class="stat-label">已取消</div>
+        </div>
+        <div class="stat-card highlight">
+          <div class="stat-value">{{ $formatPrice(dateStats.revenue) }}</div>
+          <div class="stat-label">{{ dateLabel }}總金額</div>
+        </div>
       </div>
     </div>
 
@@ -364,35 +374,52 @@ watch(selectedDate, (val) => {
           circle
           size="small"
           :loading="loading"
-          @click="goPreviousDay"
+          @click="goPrevWeek"
         />
-        <div class="date-picker-wrap">
-          <span class="weekday-label">{{ dayName }}</span>
-          <el-date-picker
-            v-model="selectedDate"
-            type="date"
-            placeholder="選擇日期"
-            format="YYYY/MM/DD"
-            value-format="YYYY-MM-DD"
-            :clearable="false"
-          />
+        <div class="week-strip">
+          <button
+            v-for="day in weekDays"
+            :key="day.date"
+            class="day-cell"
+            :class="{ active: day.date === selectedDate, today: day.isToday }"
+            @click="selectedDate = day.date"
+          >
+            <span class="day-name">{{ day.name }}</span>
+            <span class="day-num">{{ day.num }}</span>
+          </button>
         </div>
         <el-button
           icon="ArrowRight"
           circle
           size="small"
           :loading="loading"
-          @click="goNextDay"
+          @click="goNextWeek"
         />
       </div>
-      <el-input
-        v-model="searchQuery"
-        placeholder="搜尋姓名、電話、編號"
-        prefix-icon="Search"
-        clearable
-        style="max-width: 260px"
-        @clear="clearSearch"
-      />
+      <div class="toolbar-search">
+        <el-date-picker
+          ref="datePickerRef"
+          v-model="selectedDate"
+          type="date"
+          value-format="YYYY-MM-DD"
+          :clearable="false"
+          class="hidden-picker"
+        />
+        <!-- <el-button
+          icon="Calendar"
+          circle
+          size="small"
+          title="跳至指定日期"
+          @click="datePickerRef.focus()"
+        /> -->
+        <el-input
+          v-model="searchQuery"
+          placeholder="搜尋姓名、電話、編號"
+          prefix-icon="Search"
+          clearable
+          @clear="clearSearch"
+        />
+      </div>
     </div>
 
     <!-- 狀態分類標籤 -->
@@ -496,6 +523,14 @@ watch(selectedDate, (val) => {
                 : "尚未設定當前日期的排程，請先建立排程後再新增訂單"
             }}
           </p>
+          <el-button
+            v-if="!schedule.id"
+            type="primary"
+            icon="Calendar"
+            @click="router.push({ name: 'shop-schedule' })"
+          >
+            前往開單
+          </el-button>
         </div>
       </template>
     </div>
@@ -614,29 +649,40 @@ $bg-card: #ffffff;
 }
 
 // ── 統計卡片 ────────────────────────────────────────────
-.stats-cards {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  gap: 8px;
+.stats-block {
+  background: $bg-card;
+  border: 1px solid $border;
+  border-radius: 8px;
+  padding: 14px 20px;
   margin-bottom: 12px;
 }
 
-.stat-card {
-  background: $bg-card;
-  border-radius: 8px;
-  padding: 10px 14px;
-  border: 1px solid $border;
+.stats-cards {
+  display: flex;
+  gap: 0;
+}
 
-  &.highlight {
-    border-color: var(--color-primary);
+.stat-card {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 12px;
+
+  & + .stat-card {
+    border-left: 1px solid $border;
+  }
+
+  &.highlight .stat-value {
+    color: var(--color-primary);
   }
 
   .stat-value {
-    font-size: 20px;
+    font-size: 22px;
     font-weight: 700;
     color: $text-primary;
     line-height: 1;
-    margin-bottom: 3px;
+    margin-bottom: 4px;
 
     &.placed {
       color: var(--color-primary);
@@ -653,6 +699,7 @@ $bg-card: #ffffff;
     font-size: 12px;
     color: $text-secondary;
     font-weight: 500;
+    white-space: nowrap;
   }
 }
 
@@ -665,10 +712,17 @@ $bg-card: #ffffff;
   gap: 12px;
   flex-wrap: wrap;
 
+  .toolbar-search {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex: 1;
+    min-width: 0;
+  }
+
   .date-nav {
     display: flex;
     align-items: center;
-    justify-content: center;
     gap: 6px;
 
     .el-button[circle] {
@@ -678,39 +732,68 @@ $bg-card: #ffffff;
       height: 32px;
     }
 
-    .date-picker-wrap {
+    .week-strip {
       display: flex;
-      align-items: center;
-      gap: 0;
+      gap: 2px;
       background: $bg-card;
       border: 1px solid $border;
       border-radius: 8px;
-      overflow: hidden;
+      padding: 3px;
+    }
 
-      .weekday-label {
-        padding: 0 10px;
-        font-size: 13px;
-        font-weight: 600;
-        color: $accent;
-        white-space: nowrap;
-        border-right: 1px solid $border;
-        height: 32px;
-        display: flex;
-        align-items: center;
+    .day-cell {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2px;
+      padding: 5px 9px;
+      border-radius: 6px;
+      border: none;
+      background: transparent;
+      cursor: pointer;
+      font-family: inherit;
+      transition: background 0.15s;
+      min-width: 36px;
+
+      &:hover {
+        background: $accent-light;
       }
 
-      :deep(.el-date-editor.el-input) {
-        border: none;
-        box-shadow: none;
-        border-radius: 0;
-        width: 130px;
+      &.today .day-num {
+        color: $accent;
+        font-weight: 700;
+      }
 
-        .el-input__wrapper {
-          box-shadow: none !important;
-          border-radius: 0;
-          padding: 0 8px;
+      &.active {
+        background: $accent;
+
+        .day-name,
+        .day-num {
+          color: #fff;
         }
       }
+
+      .day-name {
+        font-size: 11px;
+        color: $text-secondary;
+        line-height: 1;
+      }
+
+      .day-num {
+        font-size: 15px;
+        font-weight: 600;
+        color: $text-primary;
+        line-height: 1;
+      }
+    }
+
+    .hidden-picker {
+      position: absolute;
+      width: 0;
+      height: 0;
+      opacity: 0;
+      pointer-events: none;
+      overflow: hidden;
     }
   }
 }
@@ -958,30 +1041,20 @@ $bg-card: #ffffff;
     flex-direction: column;
     align-items: stretch;
 
-    .date-selector {
-      flex-wrap: wrap;
+    .date-nav {
+      width: 100%;
 
-      .el-date-editor {
+      .week-strip {
         flex: 1;
-        width: 100% !important;
-        order: 2;
       }
 
-      .el-button[circle] {
-        flex-shrink: 0;
-      }
-
-      .el-button[circle]:first-child {
-        order: 1;
-      }
-
-      .el-button[circle]:nth-child(3) {
-        order: 3;
+      .day-cell {
+        flex: 1;
       }
     }
 
-    .el-input {
-      max-width: 100% !important;
+    .toolbar-search {
+      width: 100%;
     }
   }
 
@@ -1002,11 +1075,24 @@ $bg-card: #ffffff;
 
 @media (max-width: 480px) {
   .stats-cards {
-    grid-template-columns: 1fr;
+    flex-wrap: wrap;
   }
 
   .stat-card {
-    padding: 10px 14px;
+    flex: 1 0 calc(50% - 1px);
+    align-items: flex-start;
+    padding: 8px 12px;
+
+    &:nth-child(2n+1) {
+      border-left: none;
+    }
+
+    & + .stat-card:nth-child(3) {
+      border-top: 1px solid $border;
+    }
+    & + .stat-card:nth-child(n+3) {
+      border-top: 1px solid $border;
+    }
   }
 }
 </style>

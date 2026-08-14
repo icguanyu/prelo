@@ -151,7 +151,7 @@ defineExpose({ open, close });
   <el-dialog
     v-model="visible"
     :title="form.id ? '編輯商品' : '新增商品'"
-    width="800px"
+    width="640px"
     append-to-body
   >
     <el-form

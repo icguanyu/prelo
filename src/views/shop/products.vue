@@ -20,6 +20,10 @@ const form = reactive({
 const categories = ref([{ name: "全部", id: null }]);
 const products = ref([]);
 
+const hasNoCategory = computed(
+  () => !loading.value && categories.value.length <= 1,
+);
+
 const filteredProducts = computed(() => {
   if (currentCategory.value === null) return products.value;
   return products.value.filter(
@@ -45,6 +49,24 @@ const initProductCategories = async () => {
 
 const onTourFinish = () => {
   localStorage.setItem(TOUR_KEY, "1");
+};
+
+const handleAddProduct = () => {
+  if (hasNoCategory.value) {
+    ElMessageBox.confirm(
+      "新增產品前，請先建立至少一個產品種類。",
+      "尚未建立種類",
+      {
+        confirmButtonText: "去建立種類",
+        cancelButtonText: "取消",
+        type: "warning",
+      },
+    )
+      .then(() => editCategory.value.open())
+      .catch(() => {});
+    return;
+  }
+  editProduct.value.open();
 };
 
 const initProducts = async () => {
@@ -75,7 +97,7 @@ onMounted(() => {
           <h2>產品管理</h2>
           <p class="subtitle">管理麵包產品資訊，快速編輯與分類</p>
         </div>
-        <el-button type="primary" icon="Plus" @click="editProduct.open()">
+        <el-button type="primary" icon="Plus" @click="handleAddProduct">
           新增產品
         </el-button>
       </div>
@@ -97,20 +119,45 @@ onMounted(() => {
       />
     </el-tour>
     <div class="toolbar">
-      <div
-        v-if="loading && categories.length <= 1"
-        class="toolbar-skeleton"
-        aria-hidden="true"
-      ></div>
-      <el-segmented
-        v-else
-        v-model="currentCategory"
-        :options="categories"
-        :props="props"
-        v-loading="loading"
-      />
-      <el-button id="category-setting-btn" icon="setting" text @click="editCategory.open()"></el-button>
+      <div class="category-tags" v-loading="loading">
+        <div
+          v-if="loading && categories.length <= 1"
+          class="toolbar-skeleton"
+          aria-hidden="true"
+        ></div>
+        <button
+          v-else
+          v-for="cat in categories"
+          :key="cat.id"
+          class="cat-tag"
+          :class="{ active: currentCategory === cat.id }"
+          @click="currentCategory = cat.id"
+        >
+          {{ cat.name }}
+        </button>
+      </div>
+      <el-button
+        id="category-setting-btn"
+        icon="setting"
+        text
+        @click="editCategory.open()"
+      >編輯</el-button>
     </div>
+
+    <el-alert
+      v-if="hasNoCategory"
+      type="warning"
+      :closable="false"
+      show-icon
+      title="尚未建立任何產品種類"
+    >
+      <template #default>
+        新增產品前請先建立種類，才能在產品中選擇分類。
+        <el-button link type="warning" @click="editCategory.open()">
+          立即建立 →
+        </el-button>
+      </template>
+    </el-alert>
 
     <div class="columns-2">
       <div class="card" v-for="item in filteredProducts" :key="item.id">
@@ -199,37 +246,60 @@ onMounted(() => {
   border-radius: 8px;
   background-color: #fff;
   display: flex;
-  justify-content: space-between;
+  align-items: flex-start;
+  gap: 8px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   position: sticky;
   top: 16px;
   z-index: 10;
-  overflow-x: auto;
-  @include scrollbar(rgba(170, 160, 160, 0.7));
+  padding: 8px 8px 8px 12px;
+
+  .category-tags {
+    flex: 1;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    min-height: 36px;
+    align-items: center;
+  }
+
   .toolbar-skeleton {
     flex: 1;
-    height: 36px;
-    margin: 0 8px;
+    height: 32px;
     border-radius: 8px;
     background: linear-gradient(90deg, #faf7f4 0%, #ede7df 50%, #faf7f4 100%);
     background-size: 200% 100%;
     animation: toolbar-shimmer 1.2s ease-in-out infinite;
   }
-  .el-segmented {
-    padding: 0 8px;
-    background-color: #fff;
-    --el-segmented-item-selected-bg-color: var(--color-primary);
-    --el-segmented-item-hover-bg-color: #f1e9e6;
-    --el-segmented-item-active-bg-color: #e7d9d4;
-    --el-border-radius-base: 8px;
+
+  .cat-tag {
+    padding: 5px 14px;
+    border-radius: 6px;
+    border: 1px solid #e0d5cc;
+    background: transparent;
+    cursor: pointer;
+    font-size: 13px;
+    font-family: inherit;
+    color: #4a3f38;
+    transition: background 0.15s, border-color 0.15s, color 0.15s;
+    white-space: nowrap;
+
+    &:hover {
+      background: #f1e9e6;
+      border-color: #c8b8b0;
+    }
+
+    &.active {
+      background: var(--color-primary);
+      border-color: var(--color-primary);
+      color: #fff;
+      font-weight: 600;
+    }
   }
+
   .el-button {
-    position: sticky;
-    right: 0;
-    z-index: 1;
-    background-color: #fff;
-    border-left: 1px solid #dfdfdf;
-    border-radius: 0;
+    flex-shrink: 0;
+    align-self: center;
   }
 }
 

@@ -696,6 +696,7 @@ onMounted(() => {
   display: flex;
   flex-direction: column;
   gap: 16px;
+  max-width: 960px;
 }
 
 .page-header {
@@ -752,7 +753,14 @@ h2 {
 }
 
 .el-card {
-  border-radius: 8px;
+  border-radius: 0;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+
+  :deep(.el-card__body) {
+    background: transparent;
+  }
 }
 .panel {
   margin-bottom: 16px;
@@ -804,8 +812,11 @@ h2 {
 .card__subtitle {
   font-weight: 600;
   color: var(--el-text-color-primary);
-  margin-bottom: 12px;
   font-size: 14px;
+  margin-top: 24px;
+  margin-bottom: 12px;
+  padding-top: 20px;
+  border-top: 1px solid var(--bg-page-alt);
 }
 
 /* ── 店面預覽 ── */
@@ -1075,8 +1086,12 @@ h2 {
 }
 
 .actions {
-  background-color: #fff;
+  background: transparent;
+  border-top: 1px solid var(--bg-page-alt) !important;
+  border-radius: 0 !important;
+  display: flex;
   gap: 12px;
+  padding-top: 16px;
 }
 
 @media (max-width: 640px) {

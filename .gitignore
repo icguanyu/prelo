@@ -28,6 +28,9 @@ coverage
 
 .eslintcache
 
+# Claude Code
+CLAUDE.md
+
 # Cypress
 /cypress/videos/
 /cypress/screenshots/

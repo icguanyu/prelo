@@ -705,7 +705,7 @@ watch(calendarVisible, (val) => {
 .stats-row {
   display: flex;
   align-items: center;
-  padding: 10px 16px;
+  padding: 16px 20px;
   background: var(--bg-page);
   border-top: 1px solid #e8dfd6;
   border-bottom: 1px solid #e8dfd6;
@@ -716,11 +716,11 @@ watch(calendarVisible, (val) => {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 2px;
+  gap: 4px;
   min-width: 0;
 
   .pill-num {
-    font-size: 20px;
+    font-size: 28px;
     font-weight: 700;
     color: #1e293b;
     line-height: 1;
@@ -740,12 +740,12 @@ watch(calendarVisible, (val) => {
     }
     &.amber {
       color: #d97706;
-      font-size: 14px;
+      font-size: 20px;
     }
   }
 
   .pill-label {
-    font-size: 11px;
+    font-size: 13px;
     color: #94a3b8;
     font-weight: 500;
   }
@@ -753,10 +753,10 @@ watch(calendarVisible, (val) => {
 
 .pill-divider {
   width: 1px;
-  height: 28px;
+  height: 40px;
   background: #e8dfd6;
   flex-shrink: 0;
-  margin: 0 2px;
+  margin: 0 4px;
 }
 
 .detail-content {

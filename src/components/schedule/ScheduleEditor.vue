@@ -401,25 +401,27 @@ const deleteSchedule = async () => {
             label="接單開始時間"
             class="field"
           >
-            <div class="datetime-inputs">
-              <el-date-picker
-                v-model="orderStartDate"
-                type="date"
-                placeholder="選擇日期"
-                value-format="YYYY-MM-DD"
-              />
-              <el-time-select
-                v-model="orderStartTime"
-                placeholder="選擇時間"
-                start="00:00"
-                step="00:30"
-                end="23:30"
-              />
+            <div class="field-content">
+              <div class="datetime-inputs">
+                <el-date-picker
+                  v-model="orderStartDate"
+                  type="date"
+                  placeholder="選擇日期"
+                  value-format="YYYY-MM-DD"
+                />
+                <el-time-select
+                  v-model="orderStartTime"
+                  placeholder="選擇時間"
+                  start="00:00"
+                  step="00:30"
+                  end="23:30"
+                />
+              </div>
+              <p class="field-hint">
+                請確認該日期的營業時間是否有開放・
+                <el-button link @click="setOrderStartNow">設為現在</el-button>
+              </p>
             </div>
-            <p class="field-hint">
-              請確認該日期的營業時間是否有開放・
-              <el-button link @click="setOrderStartNow">設為現在</el-button>
-            </p>
           </el-form-item>
           <el-form-item v-if="canHaveEndTime" label="接單截止時間" class="field">
             <div class="datetime-inputs">
@@ -723,10 +725,17 @@ const deleteSchedule = async () => {
   color: #1e293b;
 }
 
+.field-content {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
 .field-hint {
-  margin: 4px 0 0;
+  margin: 0;
   font-size: 12px;
   color: var(--el-text-color-placeholder);
+  line-height: 1.4;
 }
 
 .datetime-inputs {
