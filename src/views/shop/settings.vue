@@ -497,7 +497,7 @@ onMounted(() => {
               <span class="badge">02</span>
               <div>
                 <p class="label">取貨與付款</p>
-                <h3>支付、取貨與宅配</h3>
+                <h3>支付、取貨</h3>
               </div>
             </div>
             <small class="hint">設定取貨方式與接受的付款方式</small>
@@ -907,7 +907,7 @@ h2 {
   border: 3px solid #fff;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
   overflow: hidden;
-  background: #ffd88a;
+  background: var(--color-primary);
   cursor: pointer;
   position: relative;
   z-index: 2001;

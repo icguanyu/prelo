@@ -106,7 +106,7 @@ $border: #e0d5cc;
 .doc-nav__logo {
   width: 110px;
   height: 32px;
-  background-image: url("@/assets/images/logo.png");
+  background-image: url("@/assets/images/logo2.png");
   background-size: contain;
   background-repeat: no-repeat;
   background-position: left center;

@@ -125,7 +125,7 @@ aside {
     width: 55px;
     height: 15px;
     margin: 14px auto 6px;
-    background-image: url("@/assets/images/logo.png");
+    background-image: url("@/assets/images/logo2.png");
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;

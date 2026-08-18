@@ -510,7 +510,7 @@ const hasDelivery = computed(
     display: flex;
     align-items: center;
     justify-content: center;
-    background: #ffd88a;
+    background: var(--color-primary);
     position: relative;
     z-index: 2001;
     margin-bottom: 6px;
@@ -568,7 +568,7 @@ const hasDelivery = computed(
     font-size: 15px;
     font-weight: 700;
     color: #1a120b;
-    margin-bottom: 16px;
+    margin-bottom: 8px;
     display: flex;
     align-items: center;
     gap: 7px;
@@ -1013,10 +1013,6 @@ const hasDelivery = computed(
   }
 }
 
-:deep(.el-skeleton) {
-  --el-skeleton-color: #e8ddd5;
-  --el-skeleton-to-color: #e8ddd5;
-}
 
 .product-card {
   background: #fff;

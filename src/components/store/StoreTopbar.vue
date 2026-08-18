@@ -39,7 +39,8 @@ const route = useRoute();
   display: flex;
   align-items: center;
   padding: 12px 16px;
-  background: #f7f3ee;
+  background: #fffdf9;
+  border-bottom: 1px solid rgba(180, 140, 100, 0.18);
 
   &__center {
     flex: 1;

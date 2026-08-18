@@ -9,38 +9,7 @@ const businessStatus = ref({
   currentTime: dayjs().format("HH:mm"),
 });
 
-const recentOrders = ref([
-  {
-    id: "ORD001",
-    customerId: 1,
-    customerName: "王先生",
-    items: ["法國長棍 x2", "牛奶吐司 x1"],
-    total: 380,
-    status: "completed",
-    createdAt: dayjs().subtract(1, "hour").format("YYYY-MM-DD HH:mm"),
-    note: "要五分熟",
-  },
-  {
-    id: "ORD002",
-    customerId: 2,
-    customerName: "李小姐",
-    items: ["酸種麵包 x1"],
-    total: 120,
-    status: "completed",
-    createdAt: dayjs().subtract(2, "hours").format("YYYY-MM-DD HH:mm"),
-    note: "",
-  },
-  {
-    id: "ORD003",
-    customerId: 3,
-    customerName: "陳先生",
-    items: ["可頌 x3", "法國長棍 x1"],
-    total: 250,
-    status: "ordered",
-    createdAt: dayjs().subtract(30, "minutes").format("YYYY-MM-DD HH:mm"),
-    note: "",
-  },
-]);
+const recentOrders = ref([]);
 
 const handleQuickAction = (action) => {
   switch (action) {
@@ -360,7 +329,11 @@ const handleQuickAction = (action) => {
 
             .progress-fill {
               height: 100%;
-              background: linear-gradient(90deg, var(--color-primary), var(--color-primary-hover));
+              background: linear-gradient(
+                90deg,
+                var(--color-primary),
+                var(--color-primary-hover)
+              );
               border-radius: 2px;
               transition: width 0.3s ease;
             }
@@ -378,7 +351,11 @@ const handleQuickAction = (action) => {
 
       &.completed {
         border-left-color: #22c55e;
-        background: linear-gradient(to right, rgba(34, 197, 94, 0.05), var(--bg-page));
+        background: linear-gradient(
+          to right,
+          rgba(34, 197, 94, 0.05),
+          var(--bg-page)
+        );
       }
 
       &.in-progress {
