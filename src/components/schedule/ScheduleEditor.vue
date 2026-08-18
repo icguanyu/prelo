@@ -203,15 +203,6 @@ const removeProduct = (id) => {
   form.items = form.items.filter((item) => item.product_id !== id);
 };
 
-const incrementLimit = (item) => {
-  if (item.sales_limit === null) return;
-  item.sales_limit++;
-};
-
-const decrementLimit = (item) => {
-  if (item.sales_limit === null || item.sales_limit <= 0) return;
-  item.sales_limit--;
-};
 
 const closeEditor = () => {
   resetFormFromSchedule(props.schedule);
@@ -550,53 +541,31 @@ const deleteSchedule = async () => {
             <div
               v-for="item in form.items"
               :key="item.product_id"
-              class="product-wrapper"
+              class="product-item"
             >
-              <div class="product-item">
-                <div class="product-info">
-                  <div class="product-name">{{ item.product_name }}</div>
-                </div>
-                <div class="product-limit">
-                  <!-- 不限量 -->
-                  <template v-if="item.sales_limit === null">
-                    <span class="limit-badge">不限量</span>
-                    <el-button size="small" plain @click="item.sales_limit = 10"
-                      >設上限</el-button
-                    >
-                  </template>
-                  <!-- 限量 -->
-                  <template v-else>
-                    <div class="quantity-control">
-                      <el-button
-                        icon="Minus"
-                        circle
-                        size="small"
-                        :disabled="item.sales_limit <= 0"
-                        @click="decrementLimit(item)"
-                      />
-                      <el-input
-                        v-model.number="item.sales_limit"
-                        class="quantity-input"
-                        inputmode="numeric"
-                      />
-                      <el-button
-                        icon="Plus"
-                        circle
-                        type="primary"
-                        plain
-                        size="small"
-                        @click="incrementLimit(item)"
-                      />
-                    </div>
-                    <el-button
-                      size="small"
-                      plain
-                      @click="item.sales_limit = null"
-                      >不限量</el-button
-                    >
-                  </template>
-                </div>
+              <div class="product-name">{{ item.product_name }}</div>
+              <div class="product-limit">
+                <!-- 不限量 -->
+                <template v-if="item.sales_limit === null">
+                  <span class="limit-badge">不限量</span>
+                  <el-button size="small" plain @click="item.sales_limit = 1">設上限</el-button>
+                </template>
+                <!-- 限量 -->
+                <template v-else>
+                  <el-input-number
+                    v-model="item.sales_limit"
+                    :min="1"
+              
+                  />
+                  <el-button size="small" plain @click="item.sales_limit = null">不限量</el-button>
+                </template>
               </div>
+              <el-button
+                icon="Delete"
+                circle
+                size="small"
+                @click="removeProduct(item.product_id)"
+              />
             </div>
           </div>
         </div>
@@ -758,15 +727,9 @@ const deleteSchedule = async () => {
   gap: 8px;
 }
 
-.product-wrapper {
-  display: grid;
-  grid-template-columns: 1fr auto;
-  align-items: center;
-}
-
 .product-item {
   display: grid;
-  grid-template-columns: 1fr auto;
+  grid-template-columns: 1fr auto auto;
   gap: 12px;
   align-items: center;
   padding: 10px 12px;
@@ -808,16 +771,6 @@ const deleteSchedule = async () => {
   white-space: nowrap;
 }
 
-.quantity-control {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-
-  .quantity-input {
-    width: 60px;
-    font-size: 16px;
-  }
-}
 
 .empty-products {
   color: #94a3b8;
@@ -929,18 +882,8 @@ const deleteSchedule = async () => {
   }
 
   .product-item {
-    display: flex;
-
-    gap: 4px;
-    position: relative;
-    .product-info {
-      width: 100%;
-    }
-    .product-limit {
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-    }
+    grid-template-columns: 1fr auto auto;
+    gap: 8px;
   }
 }
 </style>

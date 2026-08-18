@@ -2,9 +2,17 @@
 import { useRouter } from "vue-router";
 import demoImg1 from "@/assets/images/demo/1.jpg";
 import demoImg2 from "@/assets/images/demo/2.jpg";
+import demoImg3 from "@/assets/images/demo/3.jpg";
+import demoM1 from "@/assets/images/demo/m1.jpg";
+import demoM2 from "@/assets/images/demo/m2.jpg";
+import demoM3 from "@/assets/images/demo/m3.jpg";
+import demoM4 from "@/assets/images/demo/m4.jpg";
+import demoM5 from "@/assets/images/demo/m5.jpg";
+import demoM6 from "@/assets/images/demo/m6.jpg";
+import demoM7 from "@/assets/images/demo/m7.jpg";
 
 const router = useRouter();
-const previewMode = ref('pc');
+const previewMode = ref("pc");
 
 const scrollTo = (id) => {
   document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
@@ -89,21 +97,51 @@ const features = [
         </div>
         <div class="lp-hero__trust">
           <span class="lp-trust-badge">
-            <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="13"
+              height="13"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
               <polyline points="20 6 9 17 4 12" />
             </svg>
             不接手金流
           </span>
           <span class="lp-trust-dot" />
           <span class="lp-trust-badge">
-            <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="13"
+              height="13"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
               <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
             </svg>
             資料安全無虞
           </span>
           <span class="lp-trust-dot" />
           <span class="lp-trust-badge">
-            <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="13"
+              height="13"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
               <polyline points="20 6 9 17 4 12" />
             </svg>
             免費使用
@@ -114,22 +152,30 @@ const features = [
       <!-- Stats inside hero -->
       <div class="lp-hero__stats">
         <div class="lp-stats__item">
-          <span class="lp-stats__num">網頁 <span class="lp-stats__unit">下單</span></span>
+          <span class="lp-stats__num"
+            >網頁 <span class="lp-stats__unit">下單</span></span
+          >
           <span class="lp-stats__label">客人用連結直接下單，免安裝APP</span>
         </div>
         <div class="lp-stats__sep" />
         <div class="lp-stats__item">
-          <span class="lp-stats__num">手機 <span class="lp-stats__unit">平板</span></span>
+          <span class="lp-stats__num"
+            >手機 <span class="lp-stats__unit">平板</span></span
+          >
           <span class="lp-stats__label">跨裝置隨時管理</span>
         </div>
         <div class="lp-stats__sep" />
         <div class="lp-stats__item">
-          <span class="lp-stats__num">5 <span class="lp-stats__unit">分鐘</span></span>
+          <span class="lp-stats__num"
+            >5 <span class="lp-stats__unit">分鐘</span></span
+          >
           <span class="lp-stats__label">即可完成開店</span>
         </div>
         <div class="lp-stats__sep" />
         <div class="lp-stats__item">
-          <span class="lp-stats__num">無 <span class="lp-stats__unit">綁約</span></span>
+          <span class="lp-stats__num"
+            >無 <span class="lp-stats__unit">綁約</span></span
+          >
           <span class="lp-stats__label">隨時可以取消</span>
         </div>
       </div>
@@ -185,7 +231,17 @@ const features = [
             :class="{ active: previewMode === 'pc' }"
             @click="previewMode = 'pc'"
           >
-            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="14"
+              height="14"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
               <rect x="2" y="3" width="20" height="14" rx="2" />
               <polyline points="8 21 12 17 16 21" />
             </svg>
@@ -196,7 +252,17 @@ const features = [
             :class="{ active: previewMode === 'mobile' }"
             @click="previewMode = 'mobile'"
           >
-            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="14"
+              height="14"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
               <rect x="5" y="2" width="14" height="20" rx="2" />
               <line x1="12" y1="18" x2="12.01" y2="18" />
             </svg>
@@ -214,30 +280,47 @@ const features = [
             <div class="lp-preview__url">您的專屬連結</div>
           </div>
           <div class="lp-preview__screen">
-            <el-carousel height="100%" indicator-position="inside" :interval="4000">
+            <el-carousel height="100%" :interval="4000">
               <el-carousel-item>
                 <img :src="demoImg1" alt="接單排程" class="lp-preview__img" />
               </el-carousel-item>
               <el-carousel-item>
                 <img :src="demoImg2" alt="訂單管理" class="lp-preview__img" />
               </el-carousel-item>
+              <el-carousel-item>
+                <img :src="demoImg3" alt="產品管理" class="lp-preview__img" />
+              </el-carousel-item>
             </el-carousel>
           </div>
         </div>
 
         <div v-else class="lp-preview__phone-view">
-          <el-carousel height="100%" indicator-position="inside" :interval="4000">
+          <el-carousel height="100%" :interval="4000">
             <el-carousel-item>
-              <div class="lp-preview__phone-placeholder" />
+              <img :src="demoM1" alt="商店首頁" class="lp-preview__img" />
             </el-carousel-item>
             <el-carousel-item>
-              <div class="lp-preview__phone-placeholder" />
+              <img :src="demoM2" alt="接單行程" class="lp-preview__img" />
+            </el-carousel-item>
+            <el-carousel-item>
+              <img :src="demoM3" alt="訂購頁面" class="lp-preview__img" />
+            </el-carousel-item>
+            <el-carousel-item>
+              <img :src="demoM4" alt="下單成功" class="lp-preview__img" />
+            </el-carousel-item>
+            <el-carousel-item>
+              <img :src="demoM5" alt="查詢訂單" class="lp-preview__img" />
+            </el-carousel-item>
+            <el-carousel-item>
+              <img :src="demoM6" alt="訂單管理" class="lp-preview__img" />
+            </el-carousel-item>
+            <el-carousel-item>
+              <img :src="demoM7" alt="訂單管理" class="lp-preview__img" />
             </el-carousel-item>
           </el-carousel>
         </div>
       </div>
     </section>
-
 
     <!-- Features -->
     <section class="lp-features">
@@ -381,12 +464,12 @@ const features = [
 
 <style scoped lang="scss">
 $dark: #252525;
-$cream: #FFFDF9;
-$cream-deep: #FFF0EC;
+$cream: #fffdf9;
+$cream-deep: #fff0ec;
 $white: #fff;
 $text: #252525;
-$muted: #7A7A7A;
-$border: #E8E3DE;
+$muted: #7a7a7a;
+$border: #e8e3de;
 
 // ─── Wrapper ──────────────────────────────────────────────────────────────────
 .lp-wrap {
@@ -408,7 +491,7 @@ $border: #E8E3DE;
   justify-content: space-between;
   padding: 0 48px;
   height: 64px;
-  background: rgba(#FFFDF9, 0.95);
+  background: rgba(#fffdf9, 0.95);
   backdrop-filter: blur(12px);
   border-bottom: 1px solid $border;
 }
@@ -473,7 +556,7 @@ $border: #E8E3DE;
   display: flex;
   flex-direction: column;
   align-items: stretch;
-  background: #FFFDF9;
+  background: #fffdf9;
 }
 
 .lp-hero__inner {
@@ -708,7 +791,7 @@ $border: #E8E3DE;
       rgba(180, 140, 100, 0.07) 28px,
       rgba(180, 140, 100, 0.07) 29px
     ),
-    #FFFDF9;
+    #fffdf9;
 }
 
 .lp-how__steps {
@@ -882,7 +965,7 @@ $border: #E8E3DE;
       rgba(180, 140, 100, 0.07) 28px,
       rgba(180, 140, 100, 0.07) 29px
     ),
-    #FFFDF9;
+    #fffdf9;
 }
 
 .lp-preview__toggle {
@@ -903,7 +986,10 @@ $border: #E8E3DE;
   background: $white;
   color: $muted;
   cursor: pointer;
-  transition: background 0.15s, color 0.15s, border-color 0.15s;
+  transition:
+    background 0.15s,
+    color 0.15s,
+    border-color 0.15s;
 
   &:first-child {
     border-radius: 6px 0 0 6px;

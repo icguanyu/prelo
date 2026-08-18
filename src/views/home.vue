@@ -39,7 +39,8 @@ const handleLogin = async () => {
     ElMessage.success("登入成功");
     router.push("/shop");
   } catch (err) {
-    console.log("catch", err);
+    ElMessage.error(err.response?.data?.message ?? "登入失敗");
+    console.log("catch", err.response);
   }
 };
 </script>

@@ -207,7 +207,7 @@ const fmt = (n) => `NT$ ${Number(n).toLocaleString()}`;
     <StoreTopbar :title="dateLabel" :subtitle="shop?.shopName ?? ''" />
 
     <!-- 載入中 -->
-    <div v-if="!isLoading" class="state-loading">
+    <div v-if="isLoading" class="state-loading">
       <el-skeleton animated>
         <template #template>
           <div class="skeleton-wrap">

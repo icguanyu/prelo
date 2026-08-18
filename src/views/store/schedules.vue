@@ -173,7 +173,7 @@ const addToCalendar = (s) => {
 
 <template>
   <div class="schedules-page">
-    <StoreTopbar title="接單行程" />
+    <StoreTopbar title="近期菜單" />
 
     <div class="content">
       <!-- 月份切換 -->
@@ -582,13 +582,13 @@ const addToCalendar = (s) => {
 }
 
 .cal-cell {
-  aspect-ratio: 1;
+  aspect-ratio: 1.2;
   border-radius: 8px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 3px;
+  gap: 2px;
   cursor: default;
   transition: background 0.15s;
 
