@@ -35,3 +35,18 @@ $el-success: #10b95c;
 $el-warning: #f59e0b;
 $el-danger:  #C0392B;
 $el-info:    #9e9087;
+
+// ── 排程狀態色 ──────────────────────────────────────────────────────
+// 「即將開放 / 草稿」狀態（灰色系）
+$color-announced-bg:     #f3f4f6;
+$color-announced-text:   #6b7280;
+$color-announced-accent: #9ca3af;
+
+// 「巡迴場」狀態（主色系）— bg 複用 $bg-page-alt，text 複用 $color-primary-dark
+$color-venue-border:   #f5bdb7;
+$color-venue-selected: #fde3df;
+
+// 「預告」admin 月曆藍色系
+$color-admin-announced-bg:     #eef2ff;
+$color-admin-announced-text:   #6080d0;
+$color-admin-announced-border: #a0b4e8;

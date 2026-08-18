@@ -90,12 +90,18 @@ const isPastSchedule = (s) =>
 
 const getFlowSteps = (s) => [
   { label: "接單中", time: null },
-  { label: "結單", time: s.order_end_at ? dayjs(s.order_end_at).format("M/D HH:mm") : null },
+  {
+    label: "結單",
+    time: s.order_end_at ? dayjs(s.order_end_at).format("M/D HH:mm") : null,
+  },
   {
     label: s.is_venue ? "現場取貨" : "到店取貨",
-    time: s.is_venue && s.venue_start
-      ? `${dayjs(s.schedule_date).format("M/D")} ${s.venue_start}${s.venue_end ? "–" + s.venue_end : ""}`
-      : s.schedule_date ? dayjs(s.schedule_date).format("M/D") : null,
+    time:
+      s.is_venue && s.venue_start
+        ? `${dayjs(s.schedule_date).format("M/D")} ${s.venue_start}${s.venue_end ? "–" + s.venue_end : ""}`
+        : s.schedule_date
+          ? dayjs(s.schedule_date).format("M/D")
+          : null,
   },
 ];
 const getFlowStepIndex = (s) => {
@@ -310,7 +316,10 @@ const addToCalendar = (s) => {
                   ]
                 }}）
               </span>
-              <span v-if="s.is_venue" class="badge badge--venue badge--venue-sm">
+              <span
+                v-if="s.is_venue"
+                class="badge badge--venue badge--venue-sm"
+              >
                 <i class="bx bxs-truck"></i>
               </span>
               <span class="badge badge--closed">已結單</span>
@@ -325,7 +334,10 @@ const addToCalendar = (s) => {
 
           <!-- 未過去：完整標題 -->
           <div v-else class="schedule-card__head">
-            <div class="schedule-card__date" :class="{ 'schedule-card__date--venue': s.is_venue }">
+            <div
+              class="schedule-card__date"
+              :class="{ 'schedule-card__date--venue': s.is_venue }"
+            >
               <span class="schedule-card__day">{{
                 dayjs(s.schedule_date).date()
               }}</span>
@@ -369,12 +381,21 @@ const addToCalendar = (s) => {
             target="_blank"
             rel="noopener"
           >
-            <img src="https://www.google.com/s2/favicons?domain=maps.google.com&sz=32" class="venue-info__icon" alt="Google Maps" />
+            <img
+              src="https://www.google.com/s2/favicons?domain=maps.google.com&sz=32"
+              class="venue-info__icon"
+              alt="Google Maps"
+            />
             <div class="venue-info__body">
               <span class="venue-info__name">
-                {{ s.venue_name }}<template v-if="s.venue_start && s.venue_end">・{{ s.venue_start }}–{{ s.venue_end }}</template>
+                {{ s.venue_name
+                }}<template v-if="s.venue_start && s.venue_end"
+                  >・{{ s.venue_start }}–{{ s.venue_end }}</template
+                >
               </span>
-              <span v-if="s.venue_address" class="venue-info__address">{{ s.venue_address }}</span>
+              <span v-if="s.venue_address" class="venue-info__address">{{
+                s.venue_address
+              }}</span>
             </div>
             <i class="bx bx-chevron-right venue-info__arrow"></i>
           </a>
@@ -393,7 +414,9 @@ const addToCalendar = (s) => {
                 >
                   <span class="flow-dot"></span>
                   <span class="flow-label">{{ step.label }}</span>
-                  <span v-if="step.time" class="flow-time">{{ step.time }}</span>
+                  <span v-if="step.time" class="flow-time">{{
+                    step.time
+                  }}</span>
                 </div>
                 <div
                   v-if="i < getFlowSteps(s).length - 1"
@@ -441,7 +464,9 @@ const addToCalendar = (s) => {
       </template>
     </div>
 
-    <div class="page-footer">由 <a href="/" target="_blank" rel="noopener">Prelo</a> 提供服務</div>
+    <div class="page-footer">
+      由 <a href="/" target="_blank" rel="noopener">Prelo</a> 提供服務
+    </div>
   </div>
 </template>
 
@@ -464,7 +489,9 @@ const addToCalendar = (s) => {
     color: #a08878;
     text-decoration: none;
 
-    &:hover { text-decoration: underline; }
+    &:hover {
+      text-decoration: underline;
+    }
   }
 }
 
@@ -475,12 +502,11 @@ const addToCalendar = (s) => {
   transition: opacity 0.2s;
 }
 
-
 /* Content */
 .content {
   max-width: 520px;
   margin: 0 auto;
-  padding: 0 16px;
+  padding: 8px 16px 0 16px;
   display: flex;
   flex-direction: column;
   gap: 12px;
@@ -585,7 +611,7 @@ const addToCalendar = (s) => {
 
   &__venue-icon {
     font-size: 15px;
-    color: #d97706;
+    color: var(--color-primary);
     line-height: 1;
   }
 
@@ -601,12 +627,12 @@ const addToCalendar = (s) => {
   }
 
   &--announced {
-    background: #fff0ec;
+    background: var(--color-announced-bg);
     .cal-cell__day {
-      color: #c94030;
+      color: var(--color-announced-text);
     }
     .cal-cell__dot {
-      background: var(--color-primary);
+      background: var(--color-announced-accent);
     }
   }
 
@@ -629,9 +655,13 @@ const addToCalendar = (s) => {
 
   /* 今天同時有行程：保留底色 + 黃圈 */
   &--venue {
-    background: #fffbeb;
-    .cal-cell__day { color: #d97706; }
-    .cal-cell__dot { background: #d97706; }
+    background: var(--color-venue-bg);
+    .cal-cell__day {
+      color: var(--color-primary);
+    }
+    .cal-cell__dot {
+      background: var(--color-primary);
+    }
   }
 
   &--today.cal-cell--open {
@@ -642,15 +672,17 @@ const addToCalendar = (s) => {
   }
 
   &--today.cal-cell--announced {
-    background: #fff0ec;
+    background: var(--color-announced-bg);
     .cal-cell__dot {
-      background: var(--color-primary);
+      background: var(--color-announced-accent);
     }
   }
 
   &--today.cal-cell--venue {
-    background: #fffbeb;
-    .cal-cell__dot { background: #d97706; }
+    background: var(--color-venue-bg);
+    .cal-cell__dot {
+      background: var(--color-primary);
+    }
   }
 }
 
@@ -677,10 +709,10 @@ const addToCalendar = (s) => {
       background: #2eaa62;
     }
     &--announced {
-      background: var(--color-primary);
+      background: var(--color-announced-accent);
     }
     &--venue {
-      background: #d97706;
+      background: var(--color-primary);
     }
   }
 }
@@ -781,7 +813,7 @@ const addToCalendar = (s) => {
     gap: 1px;
 
     &--venue {
-      background: #fef3c7;
+      background: #fff0ec;
     }
   }
 
@@ -904,8 +936,8 @@ const addToCalendar = (s) => {
   }
 
   &--announced {
-    background: #fff0ec;
-    color: #c94030;
+    background: var(--color-announced-bg);
+    color: var(--color-announced-text);
   }
 
   &--closed {
@@ -914,13 +946,15 @@ const addToCalendar = (s) => {
   }
 
   &--venue {
-    background: #fef3c7;
-    color: #7a4f00;
+    background: var(--color-venue-bg);
+    color: var(--color-venue-text);
     display: inline-flex;
     align-items: center;
     gap: 3px;
 
-    i { font-size: 13px; }
+    i {
+      font-size: 13px;
+    }
   }
 
   &--venue-sm {
@@ -971,17 +1005,28 @@ const addToCalendar = (s) => {
   align-self: flex-start;
   margin-top: 3px;
 
-  &--active { background: #2eaa62; }
+  &--active {
+    background: #2eaa62;
+  }
 }
 
 .flow-step--active {
-  .flow-dot { background: var(--color-primary); }
-  .flow-label { color: var(--color-primary); font-weight: 700; }
+  .flow-dot {
+    background: var(--color-primary);
+  }
+  .flow-label {
+    color: var(--color-primary);
+    font-weight: 700;
+  }
 }
 
 .flow-step--done {
-  .flow-dot { background: #2eaa62; }
-  .flow-label { color: #2eaa62; }
+  .flow-dot {
+    background: #2eaa62;
+  }
+  .flow-label {
+    color: #2eaa62;
+  }
 }
 
 /* 巡迴場地資訊 */
@@ -989,15 +1034,17 @@ const addToCalendar = (s) => {
   display: flex;
   align-items: flex-start;
   gap: 8px;
-  background: #fffbeb;
-  border: 1px solid #f0d070;
+  background: var(--color-venue-bg);
   border-radius: 8px;
+  border: 1px solid var(--color-venue-border);
   padding: 8px 10px;
   text-decoration: none;
   cursor: pointer;
   transition: background 0.15s;
 
-  &:active { background: #fef3c7; }
+  &:active {
+    background: var(--color-venue-selected);
+  }
 
   &__icon {
     width: 16px;

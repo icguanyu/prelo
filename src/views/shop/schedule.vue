@@ -246,11 +246,15 @@ const initScheduleDataByMonth = async () => {
   }
 };
 
+let latestDateRequest = null;
+
 const initScheduleDataByDate = async (date) => {
   if (!date) return;
+  latestDateRequest = date;
   isDayLoading.value = true;
   try {
     const res = await Schedules.GetByDate(date);
+    if (date !== latestDateRequest) return;
     console.log("Schedules.GetByDate:", date, res);
     if (res.data === null) {
       Object.assign(schedule, {
@@ -269,7 +273,7 @@ const initScheduleDataByDate = async (date) => {
     Object.assign(schedule, res.data);
   } catch (error) {
   } finally {
-    isDayLoading.value = false;
+    if (date === latestDateRequest) isDayLoading.value = false;
   }
 };
 

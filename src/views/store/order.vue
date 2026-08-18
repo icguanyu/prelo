@@ -207,7 +207,7 @@ const fmt = (n) => `NT$ ${Number(n).toLocaleString()}`;
     <StoreTopbar :title="dateLabel" :subtitle="shop?.shopName ?? ''" />
 
     <!-- 載入中 -->
-    <div v-if="isLoading" class="state-loading">
+    <div v-if="!isLoading" class="state-loading">
       <el-skeleton animated>
         <template #template>
           <div class="skeleton-wrap">
@@ -566,8 +566,6 @@ $_primary-hex: 'c8944a';
     gap: 12px;
     max-width: 520px;
     margin: 0 auto;
-    --el-skeleton-color: #e8ddd5;
-    --el-skeleton-to-color: #e8ddd5;
   }
 }
 
@@ -768,7 +766,7 @@ $_primary-hex: 'c8944a';
     color: #8a7060;
     text-transform: uppercase;
     letter-spacing: 0.06em;
-    margin-bottom: 16px;
+    margin-bottom: 12px;
     display: flex;
     align-items: center;
     gap: 6px;
@@ -1185,15 +1183,15 @@ $_primary-hex: 'c8944a';
   display: flex;
   align-items: center;
   gap: 12px;
-  background: #fffbeb;
-  border: 1.5px solid #f0d070;
+  background: var(--color-venue-bg);
+  border: 1.5px solid var(--color-venue-border);
   border-radius: 10px;
   padding: 12px 14px;
   text-decoration: none;
   cursor: pointer;
   transition: background 0.15s;
 
-  &:active { background: #fef3c7; }
+  &:active { background: var(--color-venue-selected); }
 
   &--success {
     width: 100%;
@@ -1229,7 +1227,7 @@ $_primary-hex: 'c8944a';
   &__name {
     font-size: 14px;
     font-weight: 700;
-    color: #6b4000;
+    color: var(--color-venue-text);
     display: flex;
     align-items: baseline;
     gap: 6px;
@@ -1237,7 +1235,7 @@ $_primary-hex: 'c8944a';
 
   &__address {
     font-size: 12px;
-    color: #8a5c10;
+    color: var(--color-venue-text);
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;

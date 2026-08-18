@@ -17,6 +17,7 @@ const searchQuery = ref("");
 const selectedDate = ref(dayjs().format("YYYY-MM-DD"));
 const viewMode = ref(localStorage.getItem("order-view-mode") || "detailed");
 const loading = ref(false);
+const refreshCooling = ref(false);
 const showStats = ref(localStorage.getItem("order-show-stats") !== "false");
 
 watch(viewMode, (v) => localStorage.setItem("order-view-mode", v));
@@ -252,6 +253,8 @@ const initScheduleDataByDate = async (date) => {
   } catch (error) {
   } finally {
     loading.value = false;
+    refreshCooling.value = true;
+    setTimeout(() => (refreshCooling.value = false), 3000);
   }
 };
 
@@ -329,7 +332,14 @@ watch(selectedDate, (val) => {
               <span>{{ viewMode === "detailed" ? "卡片" : "清單" }}</span>
             </button>
           </div>
-          <el-button size="small" @click="setToday">回今天</el-button>
+          <el-button
+            class="btn-refresh"
+            :loading="loading"
+            :icon="loading ? '' : 'Refresh'"
+            @click="initScheduleDataByDate(selectedDate)"
+            >刷新</el-button
+          >
+          <el-button  @click="setToday">回今天</el-button>
           <el-button
             type="primary"
             icon="Plus"
@@ -1021,6 +1031,13 @@ $bg-card: #ffffff;
 
       .el-button:first-child {
         display: none;
+      }
+
+      .btn-refresh {
+        flex: none;
+        width: 32px;
+        height: 32px;
+        min-width: unset;
       }
 
       .el-button {

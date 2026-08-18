@@ -11,14 +11,30 @@
   --color-primary-hover: #{c.$color-primary-hover};
   --color-primary-dark: #{c.$color-primary-dark};
   --color-primary-rgb:
-    #{color.red(c.$color-primary)}, #{color.green(c.$color-primary)},
-    #{color.blue(c.$color-primary)};
+    #{color.channel(c.$color-primary, "red", $space: rgb)}, #{color.channel(c.$color-primary, "green", $space: rgb)},
+    #{color.channel(c.$color-primary, "blue", $space: rgb)};
 
   // ── 次要色 ─────────────────────────────────────────────
   --color-secondary: #{c.$color-secondary};
   --color-secondary-hover: #{c.$color-secondary-hover};
   --color-secondary-dark: #{c.$color-secondary-dark};
   --color-secondary-rgb:
-    #{color.red(c.$color-secondary)}, #{color.green(c.$color-secondary)},
-    #{color.blue(c.$color-secondary)};
+    #{color.channel(c.$color-secondary, "red", $space: rgb)}, #{color.channel(c.$color-secondary, "green", $space: rgb)},
+    #{color.channel(c.$color-secondary, "blue", $space: rgb)};
+
+  // ── 即將開放 / 草稿（灰色系）──────────────────────────
+  --color-announced-bg:     #{c.$color-announced-bg};
+  --color-announced-text:   #{c.$color-announced-text};
+  --color-announced-accent: #{c.$color-announced-accent};
+
+  // ── 巡迴場（主色系）────────────────────────────────────
+  --color-venue-bg:       #{c.$bg-page-alt};
+  --color-venue-text:     #{c.$color-primary-dark};
+  --color-venue-border:   #{c.$color-venue-border};
+  --color-venue-selected: #{c.$color-venue-selected};
+
+  // ── admin 月曆預告（藍色系）────────────────────────────
+  --color-admin-announced-bg:     #{c.$color-admin-announced-bg};
+  --color-admin-announced-text:   #{c.$color-admin-announced-text};
+  --color-admin-announced-border: #{c.$color-admin-announced-border};
 }

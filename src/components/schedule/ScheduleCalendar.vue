@@ -147,7 +147,7 @@ const selectDate = (date) => emit("select", date);
   }
 
   &.is-announced:not(.is-selected) {
-    border-color: #a0b4e8;
+    border-color: var(--color-admin-announced-border);
   }
 
   &.is-other-month {
@@ -157,12 +157,12 @@ const selectDate = (date) => emit("select", date);
   }
 
   &.is-venue {
-    border-color: #f0d070;
-    background: #fffbeb;
+    border-color: var(--color-venue-border);
+    background: var(--color-venue-bg);
 
     &.is-selected {
-      border-color: #d4a017;
-      background: #fef3c7;
+      border-color: var(--color-primary);
+      background: var(--color-venue-selected);
     }
   }
 }
@@ -175,7 +175,7 @@ const selectDate = (date) => emit("select", date);
 
 .venue-icon {
   font-size: 14px;
-  color: #b07808;
+  color: var(--color-primary);
   line-height: 1;
   flex-shrink: 0;
 }
@@ -220,12 +220,12 @@ const selectDate = (date) => emit("select", date);
   }
 
   &.status {
-    background: #fef3c7;
-    color: #92400e;
+    background: var(--color-venue-bg);
+    color: var(--color-venue-text);
 
     &.status--ANNOUNCED {
-      background: #eef2ff;
-      color: #6080d0;
+      background: var(--color-admin-announced-bg);
+      color: var(--color-admin-announced-text);
     }
 
     &.status--OPEN {
@@ -308,11 +308,11 @@ const selectDate = (date) => emit("select", date);
   }
 
   .cal-cell.has-schedule.is-announced .cell-body::before {
-    background: #6080d0;
+    background: var(--color-admin-announced-text);
   }
 
   .cal-cell.has-schedule.is-venue .cell-body::before {
-    background: #d4a017;
+    background: var(--color-primary);
   }
 
   .cell-badge {
