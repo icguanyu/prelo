@@ -781,7 +781,7 @@ onMounted(() => {
               </div>
               <div class="line-step">
                 <span class="line-step__num">2</span>
-                <span>Bot 會自動回覆您的 LINE User ID（U 開頭的字串）</span>
+                <span>傳送「<strong>綁定</strong>」給 Bot，Bot 會回覆您的 LINE User ID</span>
               </div>
               <div class="line-step">
                 <span class="line-step__num">3</span>
