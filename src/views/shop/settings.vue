@@ -65,6 +65,8 @@ const form = reactive({
   lineUserId: null,
 });
 
+const lineBotUrl = import.meta.env.VITE_LINE_BOT_URL || "https://line.me";
+
 const lineInputId = ref("");
 const lineBinding = ref(false);
 
@@ -752,7 +754,18 @@ onMounted(() => {
             <div class="line-steps">
               <div class="line-step">
                 <span class="line-step__num">1</span>
-                <span>加入 Prelo LINE Bot 好友</span>
+                <a
+                  :href="lineBotUrl"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="line-add-btn"
+                >
+                  <img
+                    src="https://scdn.line-apps.com/n/line_add_friends/btn/zh-Hant.png"
+                    alt="加入好友"
+                    height="36"
+                  />
+                </a>
               </div>
               <div class="line-step">
                 <span class="line-step__num">2</span>
@@ -1242,6 +1255,14 @@ h2 {
     display: flex;
     align-items: center;
     justify-content: center;
+  }
+}
+
+.line-add-btn {
+  display: inline-flex;
+  img {
+    display: block;
+    border-radius: 4px;
   }
 }
 
