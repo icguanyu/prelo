@@ -56,9 +56,7 @@ const isToday = (datetime) => {
 
 const orderNParts = computed(() => {
   const id = props.order?.order_no || "";
-  const lastThree = id.slice(-3);
-  const prefix = id.slice(0, -3);
-  return { prefix, lastThree };
+  return { prefix: "", lastThree: id };
 });
 
 const itemsSummary = computed(() =>

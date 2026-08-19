@@ -242,12 +242,7 @@ const fmt = (n) => `NT$ ${Number(n).toLocaleString()}`;
       <div class="success-card">
         <div class="success-row">
           <span class="success-label">訂單編號</span>
-          <span class="success-val"
-            >{{ successOrder.order_no?.slice(0, -3)
-            }}<span class="order-no-suffix">{{
-              successOrder.order_no?.slice(-3)
-            }}</span></span
-          >
+          <span class="success-val order-no-suffix">{{ successOrder.order_no }}</span>
         </div>
         <div class="success-row">
           <span class="success-label">取貨日期</span>
