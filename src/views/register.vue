@@ -254,7 +254,7 @@ const features = [
               <RouterLink to="/privacy">隱私權政策</RouterLink>。
             </p>
             <p class="form-disclaimer">
-              本服務目前處於試營運階段，暫不收取任何費用；功能與收費政策日後可能調整，恕不另行通知。因系統異常或失效造成之商業損失，本平台概不負賠償責任。
+              Prelo 目前免費開放使用，功能持續更新中。服務內容或收費政策日後可能調整；因系統因素造成之損失，本平台恕不負責。
             </p>
           </el-form>
         </div>

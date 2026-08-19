@@ -477,12 +477,10 @@ const features = [
     <!-- Disclaimer -->
     <div class="lp-disclaimer">
       <p>
-        本服務目前處於<strong>試營運階段</strong>，暫不收取任何費用；服務內容、功能或收費政策日後可能調整，恕不另行通知。
-        因系統異常、中斷或失效所造成之任何商業損失，本平台概不負賠償責任。
-        繼續使用本服務即表示您已閱讀並同意
+        Prelo 目前<strong>免費開放使用</strong>，功能持續更新中。服務內容或收費政策日後可能調整，使用前請詳閱
         <RouterLink to="/terms">服務條款</RouterLink>
         及
-        <RouterLink to="/privacy">隱私權政策</RouterLink>。
+        <RouterLink to="/privacy">隱私權政策</RouterLink>；因系統因素造成之損失，本平台恕不負責。
       </p>
     </div>
 
