@@ -8,12 +8,7 @@
       <span class="footer__sep" />
       <RouterLink to="/privacy">隱私權政策</RouterLink>
       <span class="footer__sep" />
-      <a href="https://lin.ee/7cl17b6" target="_blank" rel="noopener" class="footer__line">
-        <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="currentColor">
-          <path d="M12 2C6.48 2 2 6.03 2 11c0 3.07 1.6 5.8 4.1 7.57V22l3.27-1.8A11.1 11.1 0 0 0 12 20.5c5.52 0 10-4.03 10-9S17.52 2 12 2Z"/>
-        </svg>
-        聯繫客服
-      </a>
+      <a href="https://lin.ee/7cl17b6" target="_blank" rel="noopener" class="footer__line">聯繫客服</a>
     </nav>
   </footer>
 </template>
@@ -63,17 +58,10 @@ const year = new Date().getFullYear();
 }
 
 .footer__line {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
   color: #00b300 !important;
 
   &:hover {
     color: #009900 !important;
-  }
-
-  svg {
-    flex-shrink: 0;
   }
 }
 </style>

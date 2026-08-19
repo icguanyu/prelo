@@ -69,9 +69,11 @@ if (typeof window !== "undefined") {
         <footer class="shop-footer">
           <span>© {{ year }} Prelo 鋪樂</span>
           <nav>
-            <a href="#">服務條款</a>
+            <RouterLink to="/terms">服務條款</RouterLink>
             <span class="sep" />
-            <a href="#">隱私權政策</a>
+            <RouterLink to="/privacy">隱私權政策</RouterLink>
+            <span class="sep" />
+            <a href="https://lin.ee/7cl17b6" target="_blank" rel="noopener" class="shop-footer__line">聯繫客服</a>
           </nav>
         </footer>
       </div>
@@ -149,6 +151,11 @@ if (typeof window !== "undefined") {
     width: 1px;
     height: 12px;
     background: #cbd5e1;
+  }
+
+  &__line {
+    color: #00b300 !important;
+    &:hover { color: #009900 !important; }
   }
 }
 
