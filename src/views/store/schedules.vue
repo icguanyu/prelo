@@ -578,11 +578,14 @@ const addToCalendar = (s) => {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
     gap: 3px;
+    overflow: hidden;
   }
 }
 
 .cal-cell {
   aspect-ratio: 1.2;
+  min-width: 0;
+  min-height: 0;
   border-radius: 8px;
   display: flex;
   flex-direction: column;
