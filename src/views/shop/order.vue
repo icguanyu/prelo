@@ -546,7 +546,7 @@ watch(selectedDate, (val) => {
       </template>
     </div>
 
-    <div
+    <!-- <div
       v-if="filteredOrders.length"
       ref="anchorNavRef"
       class="order-anchor-nav"
@@ -560,7 +560,7 @@ watch(selectedDate, (val) => {
       >
         {{ getOrderNumberLabel(order) }}
       </button>
-    </div>
+    </div> -->
 
     <!-- 建立訂單對話框 -->
     <OrderCreate ref="orderCreate" @created="handleOrderCreated" />

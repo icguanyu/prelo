@@ -55,7 +55,8 @@
       "PowerShell(ls -Path \"c:\\\\Users\\\\user\\\\Desktop\\\\bakelink_backend\" | Where-Object {$_.PSIsContainer})",
       "Bash(dir /b \"c:\\\\Users\\\\user\\\\Desktop\\\\bakelink_backend\")",
       "Bash(timeout 5 node index.js)",
-      "Bash(timeout 5 node -e ' *)"
+      "Bash(timeout 5 node -e ' *)",
+      "Read(//c/c/Users/user/Desktop/**)"
     ],
     "additionalDirectories": [
       "c:\\Users\\user\\.claude\\projects\\c--Users-user-Desktop-bakelink\\memory",
