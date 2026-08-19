@@ -51,7 +51,11 @@
       "Bash(grep -E \"\\\\.md$|CLAUDE\")",
       "PowerShell(wmux browser open http://localhost:5174)",
       "Bash(Get-ChildItem \"c:\\\\Users\\\\user\\\\Desktop\\\\prelo\\\\src\\\\assets\\\\images\" -Recurse)",
-      "Bash(Select-Object FullName)"
+      "Bash(Select-Object FullName)",
+      "PowerShell(ls -Path \"c:\\\\Users\\\\user\\\\Desktop\\\\bakelink_backend\" | Where-Object {$_.PSIsContainer})",
+      "Bash(dir /b \"c:\\\\Users\\\\user\\\\Desktop\\\\bakelink_backend\")",
+      "Bash(timeout 5 node index.js)",
+      "Bash(timeout 5 node -e ' *)"
     ],
     "additionalDirectories": [
       "c:\\Users\\user\\.claude\\projects\\c--Users-user-Desktop-bakelink\\memory",
