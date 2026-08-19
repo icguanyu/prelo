@@ -125,6 +125,7 @@ const filteredOrders = computed(() => {
     result = result.filter(
       (o) =>
         o.id.toLowerCase().includes(query) ||
+        (o.order_no || "").toLowerCase().includes(query) ||
         o.customer_name.toLowerCase().includes(query) ||
         o.customer_phone.includes(query),
     );
