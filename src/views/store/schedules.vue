@@ -438,7 +438,7 @@ const addToCalendar = (s) => {
                   class="item-chip__stock"
                   :class="{ 'item-chip__stock--low': item.remaining <= 5 }"
                 >
-                  限量 {{ item.remaining }}
+                   {{ item.remaining ? `可訂 ${item.remaining} ` : "售完" }}
                 </span>
               </div>
             </div>
@@ -656,9 +656,6 @@ const addToCalendar = (s) => {
   /* 今天同時有行程：保留底色 + 黃圈 */
   &--venue {
     background: var(--color-venue-bg);
-    .cal-cell__day {
-      color: var(--color-primary);
-    }
     .cal-cell__dot {
       background: var(--color-primary);
     }
