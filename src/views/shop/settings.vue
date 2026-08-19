@@ -62,7 +62,47 @@ const form = reactive({
   lineUrl: "",
   facebookUrl: "",
   instagramUrl: "",
+  lineUserId: null,
 });
+
+const lineInputId = ref("");
+const lineBinding = ref(false);
+
+const handleBindLine = async () => {
+  lineBinding.value = true;
+  try {
+    await Users.BindLine(lineInputId.value.trim());
+    form.lineUserId = lineInputId.value.trim();
+    lineInputId.value = "";
+    ElMessage.success("LINE 通知綁定成功");
+  } catch {
+    // 錯誤已由 axios interceptor 顯示
+  } finally {
+    lineBinding.value = false;
+  }
+};
+
+const handleUnbindLine = async () => {
+  try {
+    await ElMessageBox.confirm("解除後將不再收到新訂單通知，確定嗎？", "解除 LINE 通知", {
+      confirmButtonText: "確定解除",
+      cancelButtonText: "取消",
+      type: "warning",
+    });
+  } catch {
+    return;
+  }
+  lineBinding.value = true;
+  try {
+    await Users.UnbindLine();
+    form.lineUserId = null;
+    ElMessage.success("已解除 LINE 通知綁定");
+  } catch {
+    // 錯誤已由 axios interceptor 顯示
+  } finally {
+    lineBinding.value = false;
+  }
+};
 
 const coverLoading = ref(false);
 const avatarLoading = ref(false);
@@ -267,6 +307,7 @@ onMounted(() => {
           { label: '02 取貨付款', value: 'pay' },
           { label: '03 營業時間', value: 'hours' },
           { label: '04 包裝', value: 'pack' },
+          { label: '05 通知', value: 'notify' },
         ]"
       />
     </div>
@@ -678,6 +719,67 @@ onMounted(() => {
             />
           </el-form-item>
         </el-card>
+        <el-card class="card" shadow="never" v-show="segment === 'notify'">
+          <div class="panel">
+            <div class="panel__header">
+              <span class="badge">05</span>
+              <div>
+                <p class="label">推播</p>
+                <h3>LINE 訂單通知</h3>
+              </div>
+            </div>
+            <small class="hint">新訂單成立時自動推播通知到您的 LINE</small>
+          </div>
+
+          <template v-if="form.lineUserId">
+            <div class="line-bound">
+              <div class="line-bound__status">
+                <el-icon :size="18" color="#06C755"><SuccessFilled /></el-icon>
+                <span>已連結 LINE 通知</span>
+              </div>
+              <div class="line-bound__id">User ID：{{ form.lineUserId }}</div>
+              <el-button
+                type="danger"
+                text
+                size="small"
+                :loading="lineBinding"
+                @click="handleUnbindLine"
+              >解除綁定</el-button>
+            </div>
+          </template>
+
+          <template v-else>
+            <div class="line-steps">
+              <div class="line-step">
+                <span class="line-step__num">1</span>
+                <span>加入 Prelo LINE Bot 好友</span>
+              </div>
+              <div class="line-step">
+                <span class="line-step__num">2</span>
+                <span>Bot 會自動回覆您的 LINE User ID（U 開頭的字串）</span>
+              </div>
+              <div class="line-step">
+                <span class="line-step__num">3</span>
+                <span>複製 User ID，貼入下方完成綁定</span>
+              </div>
+            </div>
+            <el-form-item label="LINE User ID">
+              <div class="line-input-row">
+                <el-input
+                  v-model="lineInputId"
+                  placeholder="Ue1234567890abcdef1234567890abcd"
+                  clearable
+                />
+                <el-button
+                  type="primary"
+                  :loading="lineBinding"
+                  :disabled="!lineInputId.trim()"
+                  @click="handleBindLine"
+                >綁定</el-button>
+              </div>
+            </el-form-item>
+          </template>
+        </el-card>
       </div>
     </el-form>
 
@@ -1084,6 +1186,69 @@ h2 {
     color: #000;
     word-break: break-all;
   }
+}
+
+.line-bound {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 16px;
+  background: #f0fff5;
+  border-radius: 8px;
+  border: 1px solid #06c755;
+
+  &__status {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 600;
+    color: #06c755;
+  }
+
+  &__id {
+    font-size: 13px;
+    font-family: monospace;
+    color: var(--el-text-color-secondary);
+    word-break: break-all;
+  }
+}
+
+.line-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 20px;
+  padding: 16px;
+  background: var(--el-fill-color-light);
+  border-radius: 8px;
+}
+
+.line-step {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 14px;
+  color: var(--el-text-color-primary);
+
+  &__num {
+    flex-shrink: 0;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: #06c755;
+    color: #fff;
+    font-size: 12px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+.line-input-row {
+  display: flex;
+  gap: 8px;
+  width: 100%;
 }
 
 .actions {

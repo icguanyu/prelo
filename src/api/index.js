@@ -62,6 +62,9 @@ const request = {
   put(url, data = {}) {
     return axios.put(url, data);
   },
+  patch(url, data = {}) {
+    return axios.patch(url, data);
+  },
 };
 
 export default request;
