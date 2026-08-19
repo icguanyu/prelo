@@ -57,6 +57,10 @@ const features = [
     title: "客人自助查詢",
     desc: "客人用手機號碼即可自助查詢訂單狀態，大幅減少客服時間",
   },
+  {
+    title: "LINE 即時訂單通知",
+    desc: "客人下單的瞬間，LINE 立即推播通知到您手機，商品明細一目了然，再也不漏接一筆",
+  },
 ];
 </script>
 
@@ -425,6 +429,30 @@ const features = [
             </div>
             <h3>{{ features[3].title }}</h3>
             <p>{{ features[3].desc }}</p>
+          </div>
+          <!-- LINE 通知 -->
+          <div class="lp-feat-card lp-feat-card--line">
+            <div class="lp-feat-card__icon lp-feat-card__icon--line">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.8"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+                <line x1="9" y1="10" x2="9" y2="10" stroke-width="2.5" stroke-linecap="round" />
+                <line x1="12" y1="10" x2="12" y2="10" stroke-width="2.5" stroke-linecap="round" />
+                <line x1="15" y1="10" x2="15" y2="10" stroke-width="2.5" stroke-linecap="round" />
+              </svg>
+            </div>
+            <div class="lp-feat-card__new">NEW</div>
+            <h3>{{ features[4].title }}</h3>
+            <p>{{ features[4].desc }}</p>
           </div>
         </div>
       </div>
@@ -904,6 +932,36 @@ $border: #e8e3de;
   align-items: center;
   justify-content: center;
   color: var(--color-primary);
+}
+
+.lp-feat-card--line {
+  position: relative;
+  border-color: rgba(0, 185, 0, 0.25);
+  background: linear-gradient(135deg, #f0fff0 0%, #fff 60%);
+
+  &:hover {
+    box-shadow: 0 8px 28px rgba(0, 185, 0, 0.12);
+  }
+}
+
+.lp-feat-card__icon--line {
+  background: rgba(0, 185, 0, 0.12);
+  border-color: rgba(0, 185, 0, 0.25);
+  color: #00b300;
+}
+
+.lp-feat-card__new {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  background: #00b300;
+  color: #fff;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  padding: 2px 7px;
+  border-radius: 4px;
+  line-height: 1.6;
 }
 
 // ─── Stats (inside hero) ──────────────────────────────────────────────────────
