@@ -26,7 +26,7 @@ export const Users = {
     return request.post("/UploadCover", formData);
   },
   BindLine: (lineUserId) => {
-    return request.patch("/users/me/line", { lineUserId });
+    return request.put("/users/me/line", { lineUserId });
   },
   UnbindLine: () => {
     return request.delete("/users/me/line");
