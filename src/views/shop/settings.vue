@@ -752,20 +752,32 @@ onMounted(() => {
 
           <template v-else>
             <div class="line-steps">
-              <div class="line-step">
+              <div class="line-step line-step--col">
                 <span class="line-step__num">1</span>
-                <a
-                  :href="lineBotUrl"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="line-add-btn"
-                >
-                  <img
-                    src="https://scdn.line-apps.com/n/line_add_friends/btn/zh-Hant.png"
-                    alt="加入好友"
-                    height="36"
-                  />
-                </a>
+                <div class="line-step__content">
+                  <span>掃描 QR Code 或點擊按鈕加入好友</span>
+                  <div class="line-step__actions">
+                    <a
+                      :href="lineBotUrl"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="line-add-btn"
+                    >
+                      <img
+                        src="https://scdn.line-apps.com/n/line_add_friends/btn/zh-Hant.png"
+                        alt="加入好友"
+                        height="36"
+                      />
+                    </a>
+                    <a :href="lineBotUrl" target="_blank" rel="noopener noreferrer">
+                      <img
+                        src="@/assets/images/line.png"
+                        alt="LINE QR Code"
+                        class="line-qr"
+                      />
+                    </a>
+                  </div>
+                </div>
               </div>
               <div class="line-step">
                 <span class="line-step__num">2</span>
@@ -1243,6 +1255,23 @@ h2 {
   font-size: 14px;
   color: var(--el-text-color-primary);
 
+  &--col {
+    align-items: flex-start;
+  }
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  &__actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
   &__num {
     flex-shrink: 0;
     width: 24px;
@@ -1264,6 +1293,14 @@ h2 {
     display: block;
     border-radius: 4px;
   }
+}
+
+.line-qr {
+  width: 80px;
+  height: 80px;
+  border-radius: 8px;
+  border: 1px solid var(--el-border-color);
+  display: block;
 }
 
 .line-input-row {
