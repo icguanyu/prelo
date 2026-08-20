@@ -196,26 +196,26 @@ const hasDelivery = computed(
                 rel="noopener"
                 class="social-link social-link--line"
                 title="LINE"
-                ><i class="bx bxl-line"></i
-              ></a>
+                ><img src="@/assets/images/social/line.png" alt="LINE" width="30" height="30"
+              /></a>
               <a
                 v-if="shop.facebookUrl"
                 :href="shop.facebookUrl"
                 target="_blank"
                 rel="noopener"
-                class="social-link social-link--facebook"
+                class="social-link"
                 title="Facebook"
-                ><i class="bx bxl-facebook"></i
-              ></a>
+                ><img src="@/assets/images/social/fb.png" alt="Facebook" width="30" height="30"
+              /></a>
               <a
                 v-if="shop.instagramUrl"
                 :href="shop.instagramUrl"
                 target="_blank"
                 rel="noopener"
-                class="social-link social-link--instagram"
+                class="social-link"
                 title="Instagram"
-                ><i class="bx bxl-instagram"></i
-              ></a>
+                ><img src="@/assets/images/social/ig.svg" alt="Instagram" width="30" height="30"
+              /></a>
             </div>
           </div>
         </div>
@@ -632,32 +632,17 @@ const hasDelivery = computed(
   text-decoration: none;
   transition: opacity 0.15s;
 
+  overflow: hidden;
+
   &:active {
     opacity: 0.7;
   }
-  & .bx {
-    font-size: 22px;
-  }
-  &--line {
-    background: #06c755;
-    color: #fff;
-  }
 
-  &--facebook {
-    background: #1877f2;
-    color: #fff;
-  }
-
-  &--instagram {
-    background: radial-gradient(
-      circle at 30% 107%,
-      #fdf497 0%,
-      #fdf497 5%,
-      #fd5949 45%,
-      #d6249f 60%,
-      #285aeb 90%
-    );
-    color: #fff;
+  img {
+    display: block;
+    width: 30px;
+    height: 30px;
+    object-fit: cover;
   }
 }
 
