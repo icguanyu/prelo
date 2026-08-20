@@ -131,13 +131,13 @@ const selectDate = (date) => emit("select", date);
   }
 
   &.is-selected {
-    border-color: var(--color-primary);
+    border-color: var(--color-accent);
     border-width: 1px;
-    background: var(--bg-cool);
+    background: #FDF2DA;
   }
 
   &.is-today .cell-date {
-    background: var(--color-primary);
+    background: var(--color-accent);
     color: white;
     border-radius: 4px;
     width: 22px;
@@ -157,13 +157,9 @@ const selectDate = (date) => emit("select", date);
   }
 
   &.is-venue {
-    border-color: var(--color-venue-border);
-    background: var(--color-venue-bg);
+    border-color: var(--color-accent);
+   
 
-    &.is-selected {
-      border-color: var(--color-primary);
-      background: var(--color-venue-selected);
-    }
   }
 }
 
@@ -175,7 +171,7 @@ const selectDate = (date) => emit("select", date);
 
 .venue-icon {
   font-size: 14px;
-  color: var(--color-primary);
+  // color: var(--color-primary);
   line-height: 1;
   flex-shrink: 0;
 }
@@ -216,7 +212,7 @@ const selectDate = (date) => emit("select", date);
 
   &.orders {
     background: var(--bg-cool);
-    color: var(--color-primary-dark);
+    color: var(--color-primary);
   }
 
   &.status {

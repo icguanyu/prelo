@@ -290,8 +290,8 @@ onMounted(() => {
     }
 
     &.active {
-      background: var(--color-primary);
-      border-color: var(--color-primary);
+      background: var(--color-accent);
+      border-color: var(--color-accent);
       color: #fff;
       font-weight: 600;
     }

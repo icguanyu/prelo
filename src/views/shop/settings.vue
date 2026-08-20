@@ -872,9 +872,9 @@ h2 {
     padding: 0 8px;
     background-color: #fff;
 
-    --el-segmented-item-selected-bg-color: var(--color-primary);
-    --el-segmented-item-hover-bg-color: #f1e9e6;
-    --el-segmented-item-active-bg-color: #e7d9d4;
+    --el-segmented-item-selected-bg-color: var(--color-accent);
+    --el-segmented-item-hover-bg-color: var(--color-accent-light);
+    --el-segmented-item-active-bg-color: var(--color-accent);
     --el-border-radius-base: 8px;
   }
 }
@@ -904,7 +904,7 @@ h2 {
       width: 32px;
       height: 32px;
       border-radius: 8px;
-      background: var(--color-primary);
+      background: var(--color-accent);
       color: white;
       font-weight: 700;
       font-size: 14px;

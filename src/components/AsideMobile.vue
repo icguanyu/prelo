@@ -115,11 +115,11 @@ const shopSlug = computed(() => authStore.user?.shopSlug || "");
   }
 
   .nav-item.router-link-exact-active {
-    background-color: rgba(254, 144, 77, 0.1);
+    background-color:rgba(var(--color-primary-rgb), 0.12);
     border-radius: 8px;
 
     .label {
-      color: var(--color-primary);
+      color: #333;
       font-weight: 700;
     }
 

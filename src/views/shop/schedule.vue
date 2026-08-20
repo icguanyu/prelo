@@ -712,7 +712,7 @@ watch(calendarMode, (val) => {
   }
 
   &.active {
-    background: var(--color-primary);
+    background: var(--color-accent);
 
     .strip-name,
     .strip-num {

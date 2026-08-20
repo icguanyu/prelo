@@ -19,15 +19,6 @@
   // ── 強調色 ─────────────────────────────────────────────
   --color-accent: #{c.$color-accent};
   --color-accent-light: #{c.$color-accent-light};
-  // ── 次要色 ─────────────────────────────────────────────
-  --color-secondary: #{c.$color-secondary};
-  --color-secondary-hover: #{c.$color-secondary-hover};
-  --color-secondary-dark: #{c.$color-secondary-dark};
-  --color-secondary-rgb:
-    #{color.channel(c.$color-secondary, "red", $space: rgb)},
-    #{color.channel(c.$color-secondary, "green", $space: rgb)},
-    #{color.channel(c.$color-secondary, "blue", $space: rgb)};
-
   // ── 頁面背景（組件內 var() 引用用）────────────────────
   --bg-page: #{c.$bg-page};
   --bg-page-alt: #{c.$bg-page-alt};

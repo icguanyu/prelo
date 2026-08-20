@@ -574,8 +574,8 @@ const hasDelivery = computed(
     gap: 7px;
 
     i {
-      font-size: 17px;
-      color: var(--color-primary);
+      font-size: 18px;
+      color: var(--color-accent);
     }
   }
 }
@@ -901,13 +901,13 @@ const hasDelivery = computed(
 
   &--ghost {
     background: #fff;
-    color: var(--color-primary);
+    color: var(--color-accent);
     border: 1.5px solid #e8ddd5;
     box-shadow: none;
 
     &:hover {
       background: #fff;
-      color: var(--color-primary);
+      color: var(--color-accent);
       box-shadow: none;
     }
 
@@ -947,19 +947,19 @@ const hasDelivery = computed(
   }
 
   &--active {
-    background: var(--color-primary);
-    border-color: var(--color-primary);
+    background: var(--color-accent);
+    border-color: var(--color-accent);
     color: #fff;
   }
 
   &--all {
-    border-color: var(--color-primary);
-    color: var(--color-primary);
+    border-color: var(--color-accent);
+    color: var(--color-accent);
   }
 
   &--all-active {
-    background: var(--color-primary);
-    border-color: var(--color-primary);
+    background: var(--color-accent);
+    border-color: var(--color-accent);
     color: #fff;
   }
 }

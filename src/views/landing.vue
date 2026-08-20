@@ -454,6 +454,27 @@ const features = [
             <h3>{{ features[4].title }}</h3>
             <p>{{ features[4].desc }}</p>
           </div>
+          <!-- 敬請期待 -->
+          <div class="lp-feat-card lp-feat-card--coming">
+            <div class="lp-feat-card__icon lp-feat-card__icon--coming">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.8"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+              </svg>
+            </div>
+            <div class="lp-feat-card__coming">敬請期待</div>
+            <h3>更多功能開發中</h3>
+            <p>銷售統計、訂單匯出 CSV、多元付款方式…持續更新中。</p>
+          </div>
         </div>
       </div>
     </section>
@@ -725,7 +746,7 @@ $border: #e8e3de;
 }
 
 .lp-eyebrow--dark {
-  color: var(--color-secondary);
+  color: var(--color-accent);
 }
 
 .lp-section-title {
@@ -802,7 +823,7 @@ $border: #e8e3de;
   span {
     font-size: 13px;
     font-weight: 600;
-    color: var(--color-secondary);
+    color: var(--color-accent);
     white-space: nowrap;
   }
 }
@@ -962,6 +983,42 @@ $border: #e8e3de;
   line-height: 1.6;
 }
 
+.lp-feat-card--coming {
+  position: relative;
+  border-style: dashed;
+  border-color: #D8D3CE;
+  background: #fafafa;
+
+  &:hover {
+    box-shadow: none;
+    transform: none;
+  }
+
+  h3 {
+    color: $muted;
+  }
+}
+
+.lp-feat-card__icon--coming {
+  background: #f0eeec;
+  border-color: #E8E3DE;
+  color: #b8b8b8;
+}
+
+.lp-feat-card__coming {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  background: #E8E3DE;
+  color: #7a7a7a;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  padding: 2px 7px;
+  border-radius: 4px;
+  line-height: 1.6;
+}
+
 // ─── Stats (inside hero) ──────────────────────────────────────────────────────
 .lp-stats__item {
   display: flex;
@@ -990,7 +1047,7 @@ $border: #e8e3de;
 .lp-stats__unit {
   font-size: 18px;
   font-weight: 600;
-  color: var(--color-secondary);
+  color: var(--color-accent);
 }
 
 .lp-stats__label {

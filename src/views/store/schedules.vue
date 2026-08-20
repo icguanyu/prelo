@@ -12,6 +12,7 @@ const today = dayjs();
 const currentMonth = ref(today.startOf("month"));
 const isLoading = ref(false);
 const schedules = ref([]);
+const shopName = ref("");
 
 const fetchSchedules = async () => {
   isLoading.value = true;
@@ -28,7 +29,15 @@ const fetchSchedules = async () => {
   }
 };
 
-onMounted(fetchSchedules);
+onMounted(async () => {
+  const [, infoRes] = await Promise.allSettled([
+    fetchSchedules(),
+    Shop.GetInfo(route.params.slug),
+  ]);
+  if (infoRes.status === "fulfilled") {
+    shopName.value = infoRes.value.data?.shopName ?? "";
+  }
+});
 watch(currentMonth, fetchSchedules);
 
 const prevMonth = () => {
@@ -173,7 +182,7 @@ const addToCalendar = (s) => {
 
 <template>
   <div class="schedules-page">
-    <StoreTopbar title="近期菜單" />
+    <StoreTopbar :title="shopName ? `${shopName} - 近期菜單` : '近期菜單'" />
 
     <div class="content">
       <!-- 月份切換 -->
@@ -438,7 +447,7 @@ const addToCalendar = (s) => {
                   class="item-chip__stock"
                   :class="{ 'item-chip__stock--low': item.remaining <= 5 }"
                 >
-                   {{ item.remaining ? `可訂 ${item.remaining} ` : "售完" }}
+                  {{ item.remaining ? `可訂 ${item.remaining} ` : "售完" }}
                 </span>
               </div>
             </div>
@@ -519,7 +528,7 @@ const addToCalendar = (s) => {
   justify-content: space-between;
   background: #fff;
   border-radius: 8px;
-  padding: 10px 8px;
+  padding: 6px 8px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
 
   &__btn {
@@ -551,7 +560,7 @@ const addToCalendar = (s) => {
 .calendar {
   background: #fff;
   border-radius: 8px;
-  padding: 16px 12px 12px;
+  padding: 12px 12px 12px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
 
   &__week-header {
@@ -583,7 +592,7 @@ const addToCalendar = (s) => {
 }
 
 .cal-cell {
-  aspect-ratio: 1.2;
+  aspect-ratio: 1.3;
   min-width: 0;
   min-height: 0;
   border-radius: 8px;
@@ -644,7 +653,7 @@ const addToCalendar = (s) => {
     .cal-cell__day {
       width: 28px;
       height: 28px;
-      background: var(--color-primary);
+      background: var(--color-accent);
       color: #fff;
       border-radius: 50%;
       display: flex;
@@ -652,7 +661,7 @@ const addToCalendar = (s) => {
       justify-content: center;
       font-size: 13px;
       font-weight: 800;
-      box-shadow: 0 2px 6px rgba(var(--color-primary-rgb), 0.45);
+      // box-shadow: 0 2px 6px rgba(var(--color-primary-rgb), 0.45);
     }
   }
 

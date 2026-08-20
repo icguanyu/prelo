@@ -119,6 +119,7 @@ const fmtDate = (d) => d ? dayjs(d).format("YYYY/MM/DD") : "—";
             @click="isPast(order) && toggleExpand(order)"
           >
             <div class="order-header-left">
+              <div class="order-date">{{ fmtDate(order.schedule_date) }}</div>
               <div class="order-no">{{ order.order_no }}</div>
               <span v-if="order.is_venue" class="venue-chip">
                 <i class="bx bxs-truck"></i> 巡迴
@@ -163,14 +164,10 @@ const fmtDate = (d) => d ? dayjs(d).format("YYYY/MM/DD") : "—";
               </div>
               <i class="bx bx-chevron-right venue-banner__arrow"></i>
             </a>
-            <div v-if="order.is_venue" class="divider" />
+           
 
             <!-- 取貨資訊 -->
             <div class="info-grid">
-              <div class="info-item">
-                <span class="info-label">取貨日期</span>
-                <span class="info-val">{{ fmtDate(order.schedule_date) }}</span>
-              </div>
               <div class="info-item">
                 <span class="info-label">取貨時間</span>
                 <span class="info-val">{{ order.pickup_time ?? "—" }}</span>
@@ -193,7 +190,7 @@ const fmtDate = (d) => d ? dayjs(d).format("YYYY/MM/DD") : "—";
               </div>
             </div>
 
-            <div class="divider" />
+      
 
             <!-- 品項清單 -->
             <div class="items-title">訂購品項</div>
@@ -251,8 +248,8 @@ const fmtDate = (d) => d ? dayjs(d).format("YYYY/MM/DD") : "—";
 .card {
   background: #fff;
   border-radius: 8px;
-  padding: 18px 20px;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+  padding: 12px 18px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
 
   &__title {
     font-size: 13px;
@@ -268,9 +265,10 @@ const fmtDate = (d) => d ? dayjs(d).format("YYYY/MM/DD") : "—";
   }
 
   &--past {
-    background: #faf8f5;
+    filter: grayscale(1);
+    background: #ebebeb;
     box-shadow: none;
-    border: 1px solid #e8ddd5;
+    // border: 1px solid #cacaca;
   }
 }
 
@@ -405,22 +403,26 @@ const fmtDate = (d) => d ? dayjs(d).format("YYYY/MM/DD") : "—";
   min-width: 0;
 }
 
+.order-date {
+  font-size: 14px;
+  font-weight: 800;
+  color: #1a120b;
+}
+
 .order-header-right {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 4px;
   flex-shrink: 0;
 }
 
 .order-no {
-  font-size: 14px;
-  font-weight: 800;
-  color: #1a120b;
+  font-size: 12px;
+  font-weight: 500;
+  color: #a09080;
   letter-spacing: 0.02em;
   white-space: nowrap;
 }
-
-
 
 .order-chevron {
   font-size: 18px;
@@ -439,14 +441,15 @@ const fmtDate = (d) => d ? dayjs(d).format("YYYY/MM/DD") : "—";
 .divider {
   height: 1px;
   background: #e8ddd5;
-  margin: 14px 0;
+  margin: 8px 0;
 }
 
 /* Info grid */
 .info-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 12px;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin-bottom: 8px;
 }
 
 .info-item {
@@ -503,9 +506,9 @@ const fmtDate = (d) => d ? dayjs(d).format("YYYY/MM/DD") : "—";
 
 .slice-tag {
   font-size: 11px;
-  background: #fdf3e3;
-  color: var(--color-primary);
-  border: 1px solid #f0d8b0;
+  background: #fff;
+  color: #888;
+  border: 1px solid #aaa;
   border-radius: 4px;
   padding: 1px 6px;
   font-weight: 600;
@@ -526,7 +529,7 @@ const fmtDate = (d) => d ? dayjs(d).format("YYYY/MM/DD") : "—";
 .item-price {
   font-size: 14px;
   font-weight: 700;
-  color: #1a120b;
+  color: #666;
 }
 
 /* Total */
@@ -544,21 +547,19 @@ const fmtDate = (d) => d ? dayjs(d).format("YYYY/MM/DD") : "—";
 
 .total-amount {
   font-size: 20px;
-  font-weight: 800;
-  color: var(--color-primary);
+  font-weight: 600;
+  color: #1a120b;
 }
 
 /* 巡迴標記 */
 .venue-chip {
   display: inline-flex;
   align-items: center;
-  gap: 3px;
+  gap: 1px;
   font-size: 11px;
   font-weight: 700;
-  background: #fef3c7;
-  color: #7a4f00;
-  border-radius: 999px;
-  padding: 2px 8px;
+  color: var(--color-primary);
+  border-radius: 8px;
   white-space: nowrap;
 
   i { font-size: 12px; }
@@ -576,7 +577,7 @@ const fmtDate = (d) => d ? dayjs(d).format("YYYY/MM/DD") : "—";
   text-decoration: none;
   cursor: pointer;
   transition: background 0.15s;
-  margin-bottom: 2px;
+  margin-bottom: 8px;
 
   &:active { background: #fef3c7; }
 
