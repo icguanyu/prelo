@@ -254,7 +254,8 @@ const features = [
               <RouterLink to="/privacy">隱私權政策</RouterLink>。
             </p>
             <p class="form-disclaimer">
-              Prelo 目前免費開放使用，功能持續更新中。服務內容或收費政策日後可能調整；因系統因素造成之損失，本平台恕不負責。
+              Prelo
+              目前免費開放使用，功能持續更新中。服務內容或收費政策日後可能調整；因系統因素造成之損失，本平台恕不負責。
             </p>
           </el-form>
         </div>
@@ -278,18 +279,7 @@ const features = [
 
 /* ── 左側 ── */
 .brand {
-  background:
-    radial-gradient(
-      circle at 15% 20%,
-      rgba(var(--color-primary-rgb), 0.1) 0%,
-      transparent 50%
-    ),
-    radial-gradient(
-      circle at 85% 80%,
-      rgba(var(--color-primary-rgb), 0.06) 0%,
-      transparent 45%
-    ),
-    #fff0ec;
+  background: var(--color-accent-light);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -307,7 +297,7 @@ const features = [
 }
 
 .brand__logo {
-  background-image: url("@/assets/images/logo2.png");
+  background-image: url("@/assets/images/logo.png");
   background-size: contain;
   background-repeat: no-repeat;
   background-position: left center;
@@ -320,7 +310,6 @@ const features = [
 .brand__eyebrow {
   font-size: 12px;
   font-weight: 600;
-  color: var(--color-primary);
   letter-spacing: 0.06em;
   margin-bottom: 10px;
   opacity: 0.75;
@@ -359,14 +348,13 @@ const features = [
 .feature__icon {
   width: 40px;
   height: 40px;
-  background: rgba(var(--color-primary-rgb), 0.1);
+  background: white;
   border: 1px solid rgba(var(--color-primary-rgb), 0.2);
   border-radius: 8px;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  color: var(--color-primary);
 }
 
 .feature__title {

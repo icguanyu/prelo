@@ -126,14 +126,14 @@ const selectDate = (date) => emit("select", date);
     box-shadow 0.15s;
 
   &:hover:not(.is-other-month) {
-    border-color: #c0a898;
+    border-color: #C5BFB9;
     box-shadow: 0 2px 6px rgba(100, 60, 20, 0.08);
   }
 
   &.is-selected {
     border-color: var(--color-primary);
     border-width: 1px;
-    background: #FFF0EC;
+    background: var(--bg-cool);
   }
 
   &.is-today .cell-date {
@@ -147,7 +147,7 @@ const selectDate = (date) => emit("select", date);
   }
 
   &.is-announced:not(.is-selected) {
-    border-color: var(--color-admin-announced-border);
+    border-color: #a0b4e8;
   }
 
   &.is-other-month {
@@ -183,7 +183,7 @@ const selectDate = (date) => emit("select", date);
 .cell-date {
   font-size: 15px;
   font-weight: 700;
-  color: #2d1a0e;
+  color: #1a120b;
   line-height: 12px;
   display: flex;
   align-items: center;
@@ -191,10 +191,10 @@ const selectDate = (date) => emit("select", date);
   height: 22px;
 
   &.saturday {
-    color: #16a34a;
+    color: #2eaa62;
   }
   &.sunday {
-    color: #cf4747;
+    color: #C0392B;
   }
 }
 
@@ -215,7 +215,7 @@ const selectDate = (date) => emit("select", date);
   line-height: 1.4;
 
   &.orders {
-    background: #FFF0EC;
+    background: var(--bg-cool);
     color: var(--color-primary-dark);
   }
 
@@ -224,8 +224,8 @@ const selectDate = (date) => emit("select", date);
     color: var(--color-venue-text);
 
     &.status--ANNOUNCED {
-      background: var(--color-admin-announced-bg);
-      color: var(--color-admin-announced-text);
+      background: #eef2ff;
+      color: #6080d0;
     }
 
     &.status--OPEN {
@@ -235,7 +235,7 @@ const selectDate = (date) => emit("select", date);
 
     &.status--CLOSED {
       background: #ede7df;
-      color: #8a7a6a;
+      color: #7a6a5c;
     }
   }
 }
@@ -308,7 +308,7 @@ const selectDate = (date) => emit("select", date);
   }
 
   .cal-cell.has-schedule.is-announced .cell-body::before {
-    background: var(--color-admin-announced-text);
+    background: #6080d0;
   }
 
   .cal-cell.has-schedule.is-venue .cell-body::before {

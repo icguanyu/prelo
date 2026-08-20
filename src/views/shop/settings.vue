@@ -1034,7 +1034,7 @@ h2 {
   border: 3px solid #fff;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
   overflow: hidden;
-  background: var(--color-primary);
+  background: linear-gradient(160deg, #e0e0e0 0%, #c8c8c8 55%, #b0b0b0 100%);
   cursor: pointer;
   position: relative;
   z-index: 2001;

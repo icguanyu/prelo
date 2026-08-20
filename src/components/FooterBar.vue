@@ -23,7 +23,7 @@ const year = new Date().getFullYear();
   align-items: center;
   justify-content: space-between;
   padding: 14px 32px;
-  // background: #FFF0EC;
+  // background: var(--bg-cool);
   border-top: 1px solid #E8E3DE;
   gap: 12px;
   flex-wrap: wrap;

@@ -613,7 +613,7 @@ watch(calendarMode, (val) => {
   font-size: 14px;
 
   &:hover {
-    background: #fff0ec;
+    background: var(--bg-cool);
     color: #475569;
   }
 
@@ -703,7 +703,7 @@ watch(calendarMode, (val) => {
   flex-shrink: 0;
 
   &:hover {
-    background: #fff0ec;
+    background: var(--bg-cool);
   }
 
   &.today .strip-num {

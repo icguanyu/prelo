@@ -293,10 +293,10 @@ const handleDeleteOrder = () => {
 </template>
 
 <style scoped lang="scss">
-$text-primary: #2d1a0e;
+$text-primary: #1a120b;  // 原 #2d1a0e，統整至 $text-warm
 $text-secondary: #7a6a5c;
 $text-muted: #a09080;
-$border: #e8dfd6;
+$border: #e8dfd6;        // 暖邊框 $border-warm
 $bg-subtle: #faf7f4;
 
 .order-card {
@@ -329,10 +329,10 @@ $bg-subtle: #faf7f4;
   }
 
   &.status-placed .card-top-bar {
-    background: var(--color-primary);
+    background: var(--color-accent);
   }
   &.status-completed .card-top-bar {
-    background: #16a34a;
+    background: #2eaa62;  // 統整至 $color-success
   }
   &.status-cancelled .card-top-bar {
     background: #d1d5db;
@@ -563,10 +563,10 @@ $bg-subtle: #faf7f4;
   }
 
   &.status-placed .row-bar {
-    background: var(--color-primary);
+    background: var(--color-accent);
   }
   &.status-completed .row-bar {
-    background: #16a34a;
+    background: #2eaa62;
   }
   &.status-cancelled .row-bar {
     background: #d1d5db;

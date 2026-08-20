@@ -491,7 +491,7 @@ const features = [
 <style scoped lang="scss">
 $dark: #252525;
 $cream: #fffdf9;
-$cream-deep: #fff0ec;
+$cream-deep: #D8F0FA;
 $white: #fff;
 $text: #252525;
 $muted: #7a7a7a;
@@ -523,9 +523,9 @@ $border: #e8e3de;
 }
 
 .lp-nav__logo {
-  width: 110px;
-  height: 32px;
-  background-image: url("@/assets/images/logo2.png");
+  width: 135px;
+  height: 45px;
+  background-image: url("@/assets/images/logo.png");
   background-size: contain;
   background-repeat: no-repeat;
   background-position: left center;
@@ -886,7 +886,7 @@ $border: #e8e3de;
 
 .lp-features__grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   gap: 20px;
 }
 

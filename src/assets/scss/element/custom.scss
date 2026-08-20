@@ -32,13 +32,13 @@
     --el-message-bg-color: #f5f1ed;
     --el-message-border-color: #a08878;
     --el-message-text-color: #5c4b3e;
-    .el-message__icon { color: #8a7060; }
+    .el-message__icon { color: #7a6a5c; }  // 統整至 $text-warm-muted
   }
 }
 
 :root {
-  --el-skeleton-color: #fce8e4;
-  --el-skeleton-to-color: #fff4f2;
+  --el-skeleton-color: #e8ecff;
+  --el-skeleton-to-color: #f0f2ff;
 }
 
 // :root {

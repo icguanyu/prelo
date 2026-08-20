@@ -123,9 +123,9 @@ aside {
 
   .aside-logo {
     width: 55px;
-    height: 15px;
+    height: 40px;
     margin: 14px auto 6px;
-    background-image: url("@/assets/images/logo2.png");
+    background-image: url("@/assets/images/logo-circle.png");
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
@@ -165,9 +165,6 @@ aside {
   .link.router-link-exact-active {
     background-color: rgba(var(--color-primary-rgb), 0.12);
     color: var(--color-primary);
-    .icon img {
-      filter: brightness(0) saturate(100%) invert(55%) sepia(70%) saturate(600%) hue-rotate(320deg) brightness(107%);
-    }
     // &:after {
     //   content: "";
     //   display: block;

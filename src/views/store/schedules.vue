@@ -813,7 +813,7 @@ const addToCalendar = (s) => {
     gap: 1px;
 
     &--venue {
-      background: #fff0ec;
+      background: var(--bg-cool);
     }
   }
 

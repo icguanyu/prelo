@@ -451,7 +451,7 @@ defineExpose({ open, close });
   }
 
   &.product-selected {
-    background: #FFF0EC;
+    background: var(--bg-cool);
     border-color: var(--color-primary);
     box-shadow: 0 2px 4px rgba(var(--color-primary-rgb), 0.15);
   }

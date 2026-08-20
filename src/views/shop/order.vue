@@ -340,7 +340,7 @@ watch(selectedDate, (val) => {
             @click="initScheduleDataByDate(selectedDate)"
             >刷新</el-button
           >
-          <el-button  @click="setToday">回今天</el-button>
+          <el-button @click="setToday">回今天</el-button>
           <el-button
             type="primary"
             icon="Plus"
@@ -571,11 +571,10 @@ watch(selectedDate, (val) => {
 <style scoped lang="scss">
 @use "@/assets/scss/scrollbar.scss" as *;
 
-// ── 色彩變數 ──────────────────────────────────────────────
-$accent: #f26b5b;
-$accent-light: #fff0ec;
-$text-primary: #1e293b;
-$text-secondary: #64748b;
+$accent: var(--color-accent);
+$accent-light: var(--color-accent-light);
+$text-primary: #252525;
+$text-secondary: #7a7a7a;
 $border: #e8dfd6;
 $bg-card: #ffffff;
 
@@ -832,11 +831,11 @@ $bg-card: #ffffff;
   }
 
   &.active {
-    border-color: $accent;
-    background: $accent-light;
+    border-color: var(--color-accent);
+    background: var(--color-accent-light);
 
     .tab-label {
-      color: $accent;
+      color: #333;
       font-weight: 600;
     }
   }

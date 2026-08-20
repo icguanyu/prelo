@@ -118,10 +118,6 @@ const shopSlug = computed(() => authStore.user?.shopSlug || "");
     background-color: rgba(254, 144, 77, 0.1);
     border-radius: 8px;
 
-    .icon img {
-      filter: brightness(0) saturate(100%) invert(55%) sepia(70%) saturate(600%) hue-rotate(320deg) brightness(107%);
-    }
-
     .label {
       color: var(--color-primary);
       font-weight: 700;
