@@ -20,7 +20,6 @@ const fetchSchedules = async () => {
     const res = await Shop.GetSchedules(route.params.slug, {
       month: currentMonth.value.format("YYYY-MM"),
     });
-    console.log("行程資料", res.data);
     schedules.value = res.data?.data ?? [];
   } catch {
     schedules.value = [];
@@ -343,42 +342,30 @@ const addToCalendar = (s) => {
 
           <!-- 未過去：完整標題 -->
           <div v-else class="schedule-card__head">
-            <div
-              class="schedule-card__date"
-              :class="{ 'schedule-card__date--venue': s.is_venue }"
-            >
-              <span class="schedule-card__day">{{
-                dayjs(s.schedule_date).date()
-              }}</span>
+            <div class="schedule-card__date-row">
               <span class="schedule-card__month">{{
                 dayjs(s.schedule_date).format("M 月")
               }}</span>
+              <span class="schedule-card__day">{{
+                dayjs(s.schedule_date).date()
+              }}</span>
+
+              <span class="schedule-card__weekday">
+                週{{
+                  ["日", "一", "二", "三", "四", "五", "六"][
+                    dayjs(s.schedule_date).day()
+                  ]
+                }}
+              </span>
+              <span v-if="s.is_venue" class="badge badge--venue">
+                <i class="bx bxs-truck"></i> 巡迴場
+              </span>
+              <span class="badge" :class="getBadge(s).class">
+                {{ getBadge(s).label }}
+              </span>
             </div>
-            <div class="schedule-card__info">
-              <div class="schedule-card__top">
-                <span class="schedule-card__weekday">
-                  週{{
-                    ["日", "一", "二", "三", "四", "五", "六"][
-                      dayjs(s.schedule_date).day()
-                    ]
-                  }}
-                </span>
-                <span v-if="s.is_venue" class="badge badge--venue">
-                  <i class="bx bxs-truck"></i> 巡迴場
-                </span>
-                <span class="badge" :class="getBadge(s).class">
-                  {{ getBadge(s).label }}
-                </span>
-              </div>
-              <!-- <div
-                v-if="s.status !== 'ANNOUNCED'"
-                class="schedule-card__deadline"
-              >
-                截單：{{ formatDeadline(s.order_end_at) }}
-              </div> -->
-              <div v-if="s.note" class="schedule-card__note">
-                <i class="bx bx-info-circle"></i> {{ s.note }}
-              </div>
+            <div v-if="s.note" class="schedule-card__note">
+              <i class="bx bx-info-circle"></i> {{ s.note }}
             </div>
           </div>
 
@@ -491,11 +478,11 @@ const addToCalendar = (s) => {
   text-align: center;
   padding: 24px 16px 32px;
   font-size: 12px;
-  color: #c0a898;
+  color: #888;
 
   a {
     font-weight: 700;
-    color: #a08878;
+    color: var(--color-primary);
     text-decoration: none;
 
     &:hover {
@@ -705,7 +692,7 @@ const addToCalendar = (s) => {
     display: flex;
     align-items: center;
     gap: 6px;
-    font-size: 12px;
+    font-size: 14px;
     color: #5c4b3e;
   }
 
@@ -728,7 +715,7 @@ const addToCalendar = (s) => {
 
 /* Section title */
 .section-title {
-  font-size: 13px;
+  font-size: 16px;
   font-weight: 700;
   color: #5c4b3e;
   text-transform: uppercase;
@@ -805,25 +792,15 @@ const addToCalendar = (s) => {
 
   &__head {
     display: flex;
-    gap: 14px;
-    align-items: flex-start;
+    flex-direction: column;
+    gap: 6px;
   }
 
-  &__date {
-    flex-shrink: 0;
-    width: 48px;
-    height: 52px;
-    background: #fffdf9;
-    border-radius: 8px;
+  &__date-row {
     display: flex;
-    flex-direction: column;
     align-items: center;
-    justify-content: center;
-    gap: 1px;
-
-    &--venue {
-      background: var(--bg-cool);
-    }
+    gap: 8px;
+    flex-wrap: wrap;
   }
 
   &__day {
@@ -834,26 +811,13 @@ const addToCalendar = (s) => {
   }
 
   &__month {
-    font-size: 11px;
+    font-size: 14px;
     color: #5c4b3e;
     font-weight: 600;
   }
 
-  &__info {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-  }
-
-  &__top {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-
   &__weekday {
-    font-size: 15px;
+    font-size: 14px;
     font-weight: 700;
     color: #1a120b;
   }
@@ -1021,10 +985,10 @@ const addToCalendar = (s) => {
 
 .flow-step--active {
   .flow-dot {
-    background: var(--color-primary);
+    background: var(--color-accent);
   }
   .flow-label {
-    color: var(--color-primary);
+    color: var(--color-accent);
     font-weight: 700;
   }
 }

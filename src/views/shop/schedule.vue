@@ -231,7 +231,6 @@ const initScheduleDataByMonth = async () => {
   try {
     const res = await Schedules.GetByMonth(month);
     const list = Array.isArray(res?.data.data) ? res.data.data : [];
-    console.log("Schedules.GetByMonth:", month, list);
     scheduleMap.value = list.reduce((map, item) => {
       const keys = getScheduleDateKeys(item.schedule_date);
       keys.forEach((key) => {
@@ -255,7 +254,6 @@ const initScheduleDataByDate = async (date) => {
   try {
     const res = await Schedules.GetByDate(date);
     if (date !== latestDateRequest) return;
-    console.log("Schedules.GetByDate:", date, res);
     if (res.data === null) {
       Object.assign(schedule, {
         id: null,

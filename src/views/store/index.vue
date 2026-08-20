@@ -3,23 +3,14 @@ import { ref, computed, onMounted, watch } from "vue";
 import { useRouter, useRoute } from "vue-router";
 import { Loading } from "@element-plus/icons-vue";
 import { Shop } from "@/api/shop";
+import {
+  getWeekdayLabel,
+  getPaymentLabel,
+  getPickupLabel,
+} from "@/utils/labels";
 
 const router = useRouter();
 const route = useRoute();
-
-const dayLabel = ["日", "一", "二", "三", "四", "五", "六"];
-
-const paymentLabel = {
-  cash: "現金",
-  linepay: "Line Pay",
-  bank: "銀行轉帳",
-  card: "信用卡",
-};
-
-const pickupLabel = {
-  pickup: "自取",
-  delivery: "宅配",
-};
 
 const shop = ref(null);
 const isLoading = ref(true);
@@ -34,7 +25,6 @@ const productsLoading = ref(false);
 const fetchShop = async () => {
   try {
     const res = await Shop.GetInfo(route.params.slug);
-    console.log("shop info", res.data);
     shop.value = res.data;
     document.title = res.data.shopName
       ? `${res.data.shopName} | Prelo`
@@ -52,7 +42,6 @@ const fetchCategories = async () => {
   try {
     const res = await Shop.GetCategories(route.params.slug);
     categories.value = res.data?.data ?? [];
-    console.log("categories", categories.value);
   } catch {}
 };
 
@@ -241,7 +230,7 @@ const hasDelivery = computed(
             class="hours-row"
             :class="{ 'hours-row--closed': !h.enabled }"
           >
-            <span class="hours-row__day">週{{ dayLabel[h.day] }}</span>
+            <span class="hours-row__day">週{{ getWeekdayLabel(h.day) }}</span>
             <span v-if="h.enabled" class="hours-row__time">
               {{ h.time[0] }} – {{ h.time[1] }}
             </span>
@@ -266,7 +255,7 @@ const hasDelivery = computed(
                   :key="m"
                   class="tag tag--payment"
                 >
-                  {{ paymentLabel[m] ?? m }}
+                  {{ getPaymentLabel(m) }}
                 </span>
               </div>
             </div>
@@ -278,7 +267,7 @@ const hasDelivery = computed(
                   :key="m"
                   class="tag tag--pickup"
                 >
-                  {{ pickupLabel[m] ?? m }}
+                  {{ getPickupLabel(m) }}
                 </span>
               </div>
             </div>
@@ -391,18 +380,6 @@ const hasDelivery = computed(
     <div v-if="shop && !isLoading" class="bottom-bar">
       <div class="bottom-bar__btns">
         <button
-          class="cta-btn"
-          @click="
-            router.push({
-              name: 'store-schedules',
-              params: { slug: route.params.slug },
-            })
-          "
-        >
-          <i class="bx bx-calendar-check"></i>
-          我要訂購
-        </button>
-        <button
           class="cta-btn cta-btn--ghost"
           @click="
             router.push({
@@ -413,6 +390,18 @@ const hasDelivery = computed(
         >
           <i class="bx bx-receipt"></i>
           我的訂單
+        </button>
+        <button
+          class="cta-btn"
+          @click="
+            router.push({
+              name: 'store-schedules',
+              params: { slug: route.params.slug },
+            })
+          "
+        >
+          <i class="bx bx-calendar-check"></i>
+          我要訂購
         </button>
       </div>
       <div class="bottom-bar__powered">
@@ -470,7 +459,9 @@ const hasDelivery = computed(
     cursor: pointer;
     font-family: inherit;
 
-    &:active { opacity: 0.7; }
+    &:active {
+      opacity: 0.7;
+    }
   }
 }
 
@@ -684,8 +675,12 @@ const hasDelivery = computed(
   text-decoration: none;
   transition: background 0.15s;
 
-  &:hover { background: #d0f0e0; }
-  &:active { background: #b0e8cc; }
+  &:hover {
+    background: #d0f0e0;
+  }
+  &:active {
+    background: #b0e8cc;
+  }
 }
 
 .map-link {
@@ -834,7 +829,7 @@ const hasDelivery = computed(
   gap: 6px;
   padding: 10px 16px;
   padding-bottom: calc(8px + env(safe-area-inset-bottom));
-  background: rgba(247, 243, 238, 0.92);
+  background: #ffffff9c;
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border-top: 1px solid rgba(232, 221, 213, 0.6);
@@ -912,7 +907,7 @@ const hasDelivery = computed(
     }
 
     &:active {
-      background: #f0e8de;
+      background: #fff;
       box-shadow: none;
     }
   }
@@ -1012,7 +1007,6 @@ const hasDelivery = computed(
     flex-direction: column;
   }
 }
-
 
 .product-card {
   background: #fff;

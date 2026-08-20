@@ -4,7 +4,7 @@ import { reactive } from "vue";
 const editCategory = ref();
 const editProduct = ref();
 const currentCategory = ref(null);
-const loading = ref(false);
+const isLoading = ref(false);
 const showTour = ref(false);
 const TOUR_KEY = "products_category_tour_done";
 const props = {
@@ -21,7 +21,7 @@ const categories = ref([{ name: "全部", id: null }]);
 const products = ref([]);
 
 const hasNoCategory = computed(
-  () => !loading.value && categories.value.length <= 1,
+  () => !isLoading.value && categories.value.length <= 1,
 );
 
 const filteredProducts = computed(() => {
@@ -32,18 +32,17 @@ const filteredProducts = computed(() => {
 });
 
 const initProductCategories = async () => {
-  loading.value = true;
+  isLoading.value = true;
   try {
     const res = await ProductCategory.List();
-    // console.log("product categories", res);
     categories.value = [{ name: "全部", id: null }, ...res.data.data];
     if (res.data.data.length === 0 && !localStorage.getItem(TOUR_KEY)) {
       showTour.value = true;
     }
   } catch (error) {
-    console.log("catch", error);
+    console.error("fetch product categories error", error);
   } finally {
-    loading.value = false;
+    isLoading.value = false;
   }
 };
 
@@ -70,15 +69,14 @@ const handleAddProduct = () => {
 };
 
 const initProducts = async () => {
-  loading.value = true;
+  isLoading.value = true;
   try {
     const res = await Products.List();
-    console.log("products", res);
     products.value = res.data.data;
   } catch (error) {
-    console.log("catch", error);
+    console.error("fetch products error", error);
   } finally {
-    loading.value = false;
+    isLoading.value = false;
   }
 };
 
@@ -119,9 +117,9 @@ onMounted(() => {
       />
     </el-tour>
     <div class="toolbar">
-      <div class="category-tags" v-loading="loading">
+      <div class="category-tags" v-loading="isLoading">
         <div
-          v-if="loading && categories.length <= 1"
+          v-if="isLoading && categories.length <= 1"
           class="toolbar-skeleton"
           aria-hidden="true"
         ></div>

@@ -8,7 +8,7 @@ const REMEMBER_KEY = "prelo-remember-email";
 
 const router = useRouter();
 const authStore = useAuthStore();
-const { loading } = storeToRefs(authStore);
+const { isLoading } = storeToRefs(authStore);
 const formRef = ref();
 
 const savedEmail = localStorage.getItem(REMEMBER_KEY);
@@ -24,7 +24,7 @@ const rules = {
 };
 
 const handleLogin = async () => {
-  if (loading.value) return;
+  if (isLoading.value) return;
 
   const valid = await formRef.value?.validate?.().catch(() => false);
   if (!valid) return;
@@ -86,11 +86,11 @@ const handleLogin = async () => {
           class="login-submit"
           type="primary"
           size="large"
-          :loading="loading"
-          :disabled="loading"
+          :loading="isLoading"
+          :disabled="isLoading"
           @click="handleLogin"
         >
-          {{ loading ? "登入中..." : "登入" }}
+          {{ isLoading ? "登入中..." : "登入" }}
         </el-button>
       </el-form>
     </div>

@@ -50,7 +50,6 @@ onMounted(() => {
   if (!props.modelValue && availablePaymentMethods.value.length > 0) {
     emit("update:modelValue", availablePaymentMethods.value[0].value);
   }
-  console.log("authStore.user", authStore);
 });
 </script>
 

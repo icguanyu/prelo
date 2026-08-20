@@ -226,7 +226,6 @@ const fetchUserData = async () => {
   isLoading.value = true;
   try {
     const res = await Users.Me();
-    console.log("user data:", res.data);
     if (res.data) {
       Object.assign(form, res.data);
       form.businessHours = normalizeBusinessHours(res.data.businessHours);

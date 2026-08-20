@@ -16,7 +16,7 @@ const activeTab = ref("all");
 const searchQuery = ref("");
 const selectedDate = ref(dayjs().format("YYYY-MM-DD"));
 const viewMode = ref(localStorage.getItem("order-view-mode") || "detailed");
-const loading = ref(false);
+const isLoading = ref(false);
 const refreshCooling = ref(false);
 const showStats = ref(localStorage.getItem("order-show-stats") !== "false");
 
@@ -143,7 +143,7 @@ const getStatusLabel = (status) => {
 };
 
 const updateStatus = async (order, newStatus) => {
-  loading.value = true;
+  isLoading.value = true;
   try {
     await Orders.UpdateStatus(order.id, { status: newStatus });
     ElNotification({
@@ -152,9 +152,9 @@ const updateStatus = async (order, newStatus) => {
       type: "success",
     });
   } catch (error) {
-    console.log("Error updating order status:", error);
+    console.error("Error updating order status:", error);
   } finally {
-    loading.value = false;
+    isLoading.value = false;
     // 重新載入當天的排程資料，以獲得最新的訂單列表
     await initScheduleDataByDate(selectedDate.value);
   }
@@ -234,10 +234,9 @@ const handleOrderCreated = async (newOrder) => {
 
 const initScheduleDataByDate = async (date) => {
   if (!date) return;
-  loading.value = true;
+  isLoading.value = true;
   try {
     const res = await Schedules.GetByDate(date);
-    console.log("Schedules.GetByDate:", date, res);
     if (res.data === null) {
       Object.assign(schedule, {
         id: null,
@@ -253,15 +252,13 @@ const initScheduleDataByDate = async (date) => {
     Object.assign(schedule, res.data);
   } catch (error) {
   } finally {
-    loading.value = false;
+    isLoading.value = false;
     refreshCooling.value = true;
     setTimeout(() => (refreshCooling.value = false), 3000);
   }
 };
 
-const handleOrderDeleted = () => {
-  console.log("test");
-};
+const handleOrderDeleted = () => {};
 
 onMounted(async () => {
   scrollContainerRef.value = document.querySelector(".container");
@@ -296,7 +293,6 @@ watch(
 );
 
 watch(selectedDate, (val) => {
-  console.log("Selected date changed:", val);
   initScheduleDataByDate(val);
 });
 </script>
@@ -335,8 +331,8 @@ watch(selectedDate, (val) => {
           </div>
           <el-button
             class="btn-refresh"
-            :loading="loading"
-            :icon="loading ? '' : 'Refresh'"
+            :loading="isLoading"
+            :icon="isLoading ? '' : 'Refresh'"
             @click="initScheduleDataByDate(selectedDate)"
             >刷新</el-button
           >
@@ -385,7 +381,7 @@ watch(selectedDate, (val) => {
           icon="ArrowLeft"
           circle
           size="small"
-          :loading="loading"
+          :loading="isLoading"
           @click="goPrevWeek"
         />
         <div class="week-strip">
@@ -404,7 +400,7 @@ watch(selectedDate, (val) => {
           icon="ArrowRight"
           circle
           size="small"
-          :loading="loading"
+          :loading="isLoading"
           @click="goNextWeek"
         />
       </div>
@@ -458,7 +454,7 @@ watch(selectedDate, (val) => {
     <!-- 訂單列表 -->
     <div class="orders-grid" :class="{ 'list-view': viewMode === 'simple' }">
       <!-- 讀取中骨架屏 -->
-      <template v-if="loading">
+      <template v-if="isLoading">
         <div v-for="i in 6" :key="`skeleton-${i}`" class="order-skeleton">
           <el-skeleton animated>
             <template #template>

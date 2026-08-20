@@ -4,11 +4,11 @@ const uploadPhotos = ref(null);
 const editCategoryRef = ref(null);
 const selectCategoryRef = ref(null);
 const uploadPhotosLoading = computed(
-  () => uploadPhotos.value?.loading || false,
+  () => uploadPhotos.value?.isLoading || false,
 );
 const visible = ref(false);
 const emit = defineEmits(["update"]);
-const loading = ref(false);
+const isLoading = ref(false);
 const formRef = ref(null);
 const rules = {
   name: [{ required: true, message: "請輸入產品名稱", trigger: "blur" }],
@@ -56,16 +56,16 @@ const close = () => {
 };
 
 const initProudctById = async (id) => {
-  loading.value = true;
+  isLoading.value = true;
   try {
     const res = await Products.GetById(id);
     Object.assign(form, res.data);
   } catch (err) {
-    console.log("get product by id error", err);
+    console.error("get product by id error", err);
     ElMessage.error("載入商品資料失敗，請稍後再試");
     close();
   } finally {
-    loading.value = false;
+    isLoading.value = false;
   }
 };
 
@@ -81,14 +81,14 @@ const beforeSave = async (formEl) => {
 
 const handleUpload = (urls) => {
   form.image_urls = urls;
-  // if (loading.value || uploadPhotosLoading.value) return;
+  // if (isLoading.value || uploadPhotosLoading.value) return;
   if (formRef.value?.validate) {
     beforeSave(formRef.value);
   }
 };
 
 const save = async () => {
-  loading.value = true;
+  isLoading.value = true;
   try {
     if (form.id) {
       await Products.Update(form.id, form);
@@ -100,10 +100,10 @@ const save = async () => {
     }
     emit("update");
   } catch (err) {
-    console.log("save product error", err);
+    console.error("save product error", err);
     ElMessage.error("儲存失敗，請稍後再試");
   } finally {
-    loading.value = false;
+    isLoading.value = false;
   }
 };
 
@@ -118,7 +118,7 @@ const deleteProduct = async () => {
     type: "warning",
   })
     .then(async () => {
-      loading.value = true;
+      isLoading.value = true;
       try {
         await Products.Delete(form.id);
         ElNotification({
@@ -129,10 +129,10 @@ const deleteProduct = async () => {
         close();
         emit("update");
       } catch (err) {
-        console.log("delete product error", err);
+        console.error("delete product error", err);
         ElMessage.error("刪除商品失敗，請稍後再試");
       } finally {
-        loading.value = false;
+        isLoading.value = false;
       }
     })
     .catch(() => {
@@ -157,7 +157,7 @@ defineExpose({ open, close });
     <el-form
       :model="form"
       :rules="rules"
-      :loading="loading"
+      :loading="isLoading"
       ref="formRef"
       label-width="120px"
       label-position="left"
@@ -225,7 +225,7 @@ defineExpose({ open, close });
           type="danger"
           plain
           @click="deleteProduct"
-          :loading="loading"
+          :loading="isLoading"
         >
           刪除商品
         </el-button>
@@ -234,7 +234,7 @@ defineExpose({ open, close });
           <el-button
             type="primary"
             @click="beforeSave(formRef)"
-            :loading="loading || uploadPhotosLoading"
+            :loading="isLoading || uploadPhotosLoading"
             >{{
               uploadPhotosLoading ? "上傳中..." : form.id ? "儲存" : "新增"
             }}</el-button

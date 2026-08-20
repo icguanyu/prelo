@@ -20,7 +20,7 @@ const props = defineProps({
 
 const emit = defineEmits(["update:modelValue"]);
 
-const loading = ref(false);
+const isLoading = ref(false);
 const products = ref([]);
 
 const availableProducts = computed(() => {
@@ -59,15 +59,14 @@ const groupedProducts = computed(() => {
 });
 
 const initData = async () => {
-  loading.value = true;
+  isLoading.value = true;
   try {
     const productsRes = await Products.List({});
-    console.log("products", productsRes);
     products.value = productsRes.data.data.filter((p) => p.is_active) || [];
   } catch (err) {
     console.error("fetch data error", err);
   } finally {
-    loading.value = false;
+    isLoading.value = false;
   }
 };
 
@@ -91,7 +90,7 @@ defineExpose({
     @clear="$emit('update:modelValue', null)"
     @update:modelValue="$emit('update:modelValue', $event)"
     :placeholder="placeholder"
-    :loading="loading"
+    :loading="isLoading"
     :disabled="disabled || availableProducts.length === 0"
   >
     <el-option-group

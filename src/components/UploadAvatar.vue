@@ -12,7 +12,7 @@ const props = defineProps({
 });
 
 const emits = defineEmits(["upload", "delete", "update:modelValue"]);
-const loading = ref(false);
+const isLoading = ref(false);
 const image = ref(props.modelValue || "");
 
 const handleImageUpload = async (event) => {
@@ -23,27 +23,23 @@ const handleImageUpload = async (event) => {
     maxSizeMB: 0.2,
   };
   
-  loading.value = true;
+  isLoading.value = true;
   try {
     const compressedFile = await imageCompression(imageFile, options);
-    console.log(
-      `壓縮後 size ${(compressedFile.size / 1024 / 1024).toFixed(2)} MB`
-    );
-    
     const formData = new FormData();
     formData.append("file", compressedFile);
     const res = await Users.UploadAvatar(formData);
     const url = res.data.url;
-    
+
     if (url) {
       image.value = url;
       emits("update:modelValue", url);
       emits("upload", url);
     }
   } catch (error) {
-    console.log(error);
+    console.error("upload avatar error", error);
   } finally {
-    loading.value = false;
+    isLoading.value = false;
     // 清空 input 以便重複上傳
     event.target.value = "";
   }
@@ -67,7 +63,7 @@ watch(
 
 <template>
   <div class="images-uploader">
-    <div class="gallery" :class="{ 'has-image': !!image }" v-loading="loading">
+    <div class="gallery" :class="{ 'has-image': !!image }" v-loading="isLoading">
       <div v-if="image" class="image-item">
         <img :src="image" alt="已上傳圖片" />
         <el-icon class="delete-btn" @click="handleDelete">
@@ -78,11 +74,11 @@ watch(
       <label
         v-else
         for="image-upload"
-        :class="{ disabled: loading || disabled }"
+        :class="{ disabled: isLoading || disabled }"
         class="upload-box"
       >
         <div class="upload-text">
-          {{ loading ? "上傳中..." : "上傳圖片" }}
+          {{ isLoading ? "上傳中..." : "上傳圖片" }}
         </div>
       </label>
     </div>

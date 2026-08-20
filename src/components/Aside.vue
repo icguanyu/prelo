@@ -26,7 +26,7 @@ const loadTodayOrderCount = async () => {
       (Array.isArray(res.data.orders) ? res.data.orders.length : 0);
     todayOrderCount.value = Number.isFinite(count) ? count : 0;
   } catch (error) {
-    console.log("load today order count error", error);
+    console.error("load today order count error", error);
     todayOrderCount.value = 0;
   }
 };

@@ -15,7 +15,7 @@ const props = defineProps({
 });
 
 const emits = defineEmits(["upload", "delete", "update:modelValue"]);
-const loading = ref(false);
+const isLoading = ref(false);
 const images = ref([...props.modelValue]);
 
 const preview = async (e) => {
@@ -49,16 +49,12 @@ const preview = async (e) => {
 
 const handleImageUpload = async (event) => {
   const imageFile = event.target.files[0];
-  // console.log(`原始 size ${(imageFile.size / 1024 / 1024).toFixed(2)} MB`);
   const options = {
     maxSizeMB: 0.2,
   };
-  loading.value = true;
+  isLoading.value = true;
   try {
     const compressedFile = await imageCompression(imageFile, options);
-    console.log(
-      `壓縮後 size ${(compressedFile.size / 1024 / 1024).toFixed(2)} MB`,
-    ); // smaller than maxSizeMB
     const formData = new FormData();
     formData.append("file", compressedFile);
     const res = await UploadFile.Upload(formData);
@@ -69,9 +65,9 @@ const handleImageUpload = async (event) => {
       emits("upload", images.value);
     }
   } catch (error) {
-    console.log(error);
+    console.error("upload photo error", error);
   } finally {
-    loading.value = false;
+    isLoading.value = false;
   }
 };
 
@@ -93,7 +89,7 @@ watch(
 const canUpload = computed(() => images.value.length < props.max);
 
 defineExpose({
-  loading,
+  isLoading,
 });
 </script>
 
@@ -102,7 +98,7 @@ defineExpose({
     <div
       class="gallery"
       :class="{ 'has-images': images.length > 0 }"
-      v-loading="loading"
+      v-loading="isLoading"
     >
       <div v-for="(url, index) in images" :key="index" class="image-item">
         <img :src="url" :alt="`圖片 ${index + 1}`" />
@@ -115,11 +111,11 @@ defineExpose({
       <label
         v-if="canUpload"
         for="image-upload"
-        :class="{ disabled: loading || disabled }"
+        :class="{ disabled: isLoading || disabled }"
         class="upload-box"
       >
         <div class="upload-text">
-          {{ loading ? "上傳中..." : "上傳圖片" }}
+          {{ isLoading ? "上傳中..." : "上傳圖片" }}
         </div>
         <small>{{ images.length }}/{{ max }}</small>
       </label>

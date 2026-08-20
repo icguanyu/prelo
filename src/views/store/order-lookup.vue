@@ -5,6 +5,12 @@ import StoreTopbar from "@/components/store/StoreTopbar.vue";
 import dayjs from "dayjs";
 import { Shop } from "@/api/shop";
 import { ElMessage } from "element-plus";
+import {
+  getPaymentLabel,
+  getPickupLabel,
+  getOrderStatusLabel,
+  getOrderStatusColor,
+} from "@/utils/labels";
 
 const router = useRouter();
 const route = useRoute();
@@ -25,11 +31,6 @@ onMounted(() => {
   }
 });
 
-const statusLabel = { PLACED: "已下單", COMPLETED: "已完成", CANCELLED: "已取消" };
-const statusColor = { PLACED: "var(--color-accent)", COMPLETED: "#2eaa62", CANCELLED: "#8C8C8C" };
-const paymentLabel = { cash: "現金", linepay: "Line Pay", bank: "銀行轉帳", card: "信用卡" };
-const pickupLabel = { pickup: "自取", delivery: "宅配" };
-
 const lookup = async () => {
   if (!form.phone.trim()) { ElMessage.warning("請輸入電話"); return; }
 
@@ -44,7 +45,6 @@ const lookup = async () => {
   expandedIds.value = new Set();
   try {
     const res = await Shop.GetOrdersByPhone(slug, form.phone.trim());
-    console.log("查詢訂單", res);
     orders.value = res.data?.data ?? [];
   } catch {
     ElMessage.error("查詢失敗，請稍後再試");
@@ -128,9 +128,9 @@ const fmtDate = (d) => d ? dayjs(d).format("YYYY/MM/DD") : "—";
             <div class="order-header-right">
               <span
                 class="status-badge"
-                :style="{ background: statusColor[order.status] + '20', color: statusColor[order.status] }"
+                :style="{ background: getOrderStatusColor(order.status) + '20', color: getOrderStatusColor(order.status) }"
               >
-                {{ statusLabel[order.status] ?? order.status }}
+                {{ getOrderStatusLabel(order.status) }}
               </span>
               <i
                 v-if="isPast(order)"
@@ -174,11 +174,11 @@ const fmtDate = (d) => d ? dayjs(d).format("YYYY/MM/DD") : "—";
               </div>
               <div class="info-item">
                 <span class="info-label">取貨方式</span>
-                <span class="info-val">{{ pickupLabel[order.pickup_method] ?? order.pickup_method ?? "—" }}</span>
+                <span class="info-val">{{ getPickupLabel(order.pickup_method) }}</span>
               </div>
               <div class="info-item">
                 <span class="info-label">付款方式</span>
-                <span class="info-val">{{ paymentLabel[order.payment_method] ?? order.payment_method ?? "—" }}</span>
+                <span class="info-val">{{ getPaymentLabel(order.payment_method) }}</span>
               </div>
               <div v-if="order.customer_address" class="info-item info-item--full">
                 <span class="info-label">收貨地址</span>

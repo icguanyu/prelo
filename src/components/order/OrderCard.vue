@@ -73,7 +73,6 @@ const updateStatus = (status) => {
 };
 
 const handleDeleteOrder = () => {
-  console.log("delete order!");
   emit("update");
 };
 </script>

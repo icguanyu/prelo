@@ -1,7 +1,7 @@
 <script setup>
 import { ProductCategory } from "@/api/products";
 const emit = defineEmits(["save", "updated", "close"]);
-const loading = ref(false);
+const isLoading = ref(false);
 const visible = ref(false);
 const categories = ref([]);
 
@@ -26,7 +26,7 @@ const close = () => {
 };
 
 const addCategory = async () => {
-  loading.value = true;
+  isLoading.value = true;
   try {
     const res = await ProductCategory.Create(newCategory);
     ElNotification({
@@ -38,9 +38,9 @@ const addCategory = async () => {
     await initProductCategories();
     emit("updated");
   } catch (error) {
-    console.log("catch", error);
+    console.error("save category error", error);
   } finally {
-    loading.value = false;
+    isLoading.value = false;
   }
 };
 
@@ -51,7 +51,7 @@ const removeCategory = (id) => {
     type: "warning",
   })
     .then(async () => {
-      loading.value = true;
+      isLoading.value = true;
       try {
         await ProductCategory.Delete(id);
         ElNotification({
@@ -62,9 +62,9 @@ const removeCategory = (id) => {
         await initProductCategories();
         emit("updated");
       } catch (error) {
-        console.log("catch", error);
+        console.error("delete category error", error);
       } finally {
-        loading.value = false;
+        isLoading.value = false;
       }
     })
     .catch(() => {
@@ -80,15 +80,14 @@ const submit = () => {
 defineExpose({ open, close });
 
 const initProductCategories = async () => {
-  loading.value = true;
+  isLoading.value = true;
   try {
     const res = await ProductCategory.List(form);
-    console.log("res", res);
     categories.value = res.data.data;
   } catch (err) {
-    console.log("fetch categories error", err);
+    console.error("fetch categories error", err);
   } finally {
-    loading.value = false;
+    isLoading.value = false;
   }
 };
 
@@ -109,7 +108,7 @@ const initProductCategories = async () => {
     @closed="emit('close')"
   >
     <div class="layout">
-      <section class="list" v-loading="loading">
+      <section class="list" v-loading="isLoading">
         <header>
           <h3>現有種類</h3>
           <small>若種類被移除，原已存在的商品將被歸類為「未分類」</small>
@@ -149,7 +148,7 @@ const initProductCategories = async () => {
 
     <template #footer>
       <el-button @click="close">返回</el-button>
-      <!-- <el-button type="primary" @click="submit" :loading="loading"
+      <!-- <el-button type="primary" @click="submit" :loading="isLoading"
         >儲存</el-button
       > -->
     </template>

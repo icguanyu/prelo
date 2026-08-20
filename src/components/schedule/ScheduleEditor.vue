@@ -24,7 +24,7 @@ const props = defineProps({
 });
 
 const emit = defineEmits(["close", "update"]);
-const loading = ref(false);
+const isLoading = ref(false);
 
 // 分開的日期時間欄位
 const orderStartDate = ref("");
@@ -116,7 +116,6 @@ const resetFormFromSchedule = (schedule) => {
 watch(
   () => props.schedule,
   (val) => {
-    console.log("schedule change:", val);
     resetFormFromSchedule(val);
     initializeDateTimeFields();
   },
@@ -243,7 +242,7 @@ const saveEditor = async () => {
     form.order_end_at = `${orderEndDate.value} ${endTime}:00`;
   }
 
-  loading.value = true;
+  isLoading.value = true;
   try {
     if (form.id) {
       await Schedules.Update(form.id, form);
@@ -260,9 +259,9 @@ const saveEditor = async () => {
     }
     emit("update");
   } catch (error) {
-    console.log("catch:", error);
+    console.error("save schedule error", error);
   } finally {
-    loading.value = false;
+    isLoading.value = false;
   }
 };
 
@@ -277,7 +276,7 @@ const deleteSchedule = async () => {
     type: "warning",
   })
     .then(async () => {
-      loading.value = true;
+      isLoading.value = true;
       try {
         await Schedules.Delete(form.id);
         ElNotification({
@@ -288,9 +287,9 @@ const deleteSchedule = async () => {
         closeEditor();
         emit("update");
       } catch (error) {
-        console.log("catch:", error);
+        console.error("delete schedule error", error);
       } finally {
-        loading.value = false;
+        isLoading.value = false;
       }
     })
     .catch(() => {
@@ -318,13 +317,13 @@ const deleteSchedule = async () => {
         <el-button
           class="editor-save"
           type="primary"
-          :loading="loading"
+          :loading="isLoading"
           @click="beforeSave(formRef)"
           >送出</el-button
         >
       </div>
     </div>
-    <div class="editor-body" v-loading="loading">
+    <div class="editor-body" v-loading="isLoading">
       <!-- 警告提示 -->
       <el-alert
         v-if="hasOrders"

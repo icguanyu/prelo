@@ -7,20 +7,19 @@ const props = defineProps({
     default: "請選擇種類",
   },
 });
-const loading = ref(false);
+const isLoading = ref(false);
 const emits = defineEmits(["update:modelValue", "manage"]);
 const categories = ref([]);
 
 const initProductCategories = async () => {
-  loading.value = true;
+  isLoading.value = true;
   try {
     const res = await ProductCategory.List();
-    console.log("res", res);
     categories.value = res.data.data;
   } catch (err) {
-    console.log("fetch categories error", err);
+    console.error("fetch categories error", err);
   } finally {
-    loading.value = false;
+    isLoading.value = false;
   }
 };
 
@@ -37,7 +36,7 @@ defineExpose({ refresh: initProductCategories });
     @clear="$emit('update:modelValue', null)"
     @update:modelValue="$emit('update:modelValue', $event)"
     :placeholder="placeholder"
-    :loading="loading"
+    :loading="isLoading"
   >
     <el-option
       v-for="category in categories"

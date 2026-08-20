@@ -5,20 +5,13 @@ import dayjs from "dayjs";
 import { Shop } from "@/api/shop";
 import { ElMessage } from "element-plus";
 import StoreTopbar from "@/components/store/StoreTopbar.vue";
+import { getPaymentLabel, getPickupLabel } from "@/utils/labels";
 
 const router = useRouter();
 const route = useRoute();
 
 const slug = route.params.slug;
 const date = route.params.date;
-
-const paymentLabel = {
-  cash: "現金",
-  linepay: "Line Pay",
-  bank: "銀行轉帳",
-  card: "信用卡",
-};
-const pickupMethodLabel = { PICKUP: "自取", DELIVERY: "宅配" };
 
 const isLoading = ref(true);
 const isSubmitting = ref(false);
@@ -49,7 +42,6 @@ const fetchData = async () => {
     ]);
     shop.value = shopRes.data;
     schedule.value = scheduleRes.data;
-    console.log("schedule:", schedule.value);
     if (shop.value?.paymentMethods?.length) {
       form.payment_method = shop.value.paymentMethods[0];
     }
@@ -110,12 +102,18 @@ const decrement = (itemId) => {
 const pickupTimeOptions = computed(() => {
   let startStr, endStr;
 
-  if (schedule.value?.is_venue && schedule.value.venue_start && schedule.value.venue_end) {
+  if (
+    schedule.value?.is_venue &&
+    schedule.value.venue_start &&
+    schedule.value.venue_end
+  ) {
     startStr = schedule.value.venue_start;
     endStr = schedule.value.venue_end;
   } else {
     const dow = dayjs(date).day();
-    const hours = shop.value?.businessHours?.find((h) => h.day === dow && h.enabled);
+    const hours = shop.value?.businessHours?.find(
+      (h) => h.day === dow && h.enabled,
+    );
     if (!hours) return [];
     [startStr, endStr] = hours.time;
   }
@@ -242,7 +240,9 @@ const fmt = (n) => `NT$ ${Number(n).toLocaleString()}`;
       <div class="success-card">
         <div class="success-row">
           <span class="success-label">訂單編號</span>
-          <span class="success-val order-no-suffix">{{ successOrder.order_no }}</span>
+          <span class="success-val order-no-suffix">{{
+            successOrder.order_no
+          }}</span>
         </div>
         <div class="success-row">
           <span class="success-label">取貨日期</span>
@@ -292,19 +292,34 @@ const fmt = (n) => `NT$ ${Number(n).toLocaleString()}`;
         rel="noopener"
       >
         <div class="venue-banner__icon-wrap">
-          <img src="https://www.google.com/s2/favicons?domain=maps.google.com&sz=32" alt="Google Maps" />
+          <img
+            src="https://www.google.com/s2/favicons?domain=maps.google.com&sz=32"
+            alt="Google Maps"
+          />
         </div>
         <div class="venue-banner__body">
           <span class="venue-banner__name">
             {{ schedule.venue_name }}
-            <span v-if="schedule.venue_start && schedule.venue_end" class="venue-banner__time">{{ schedule.venue_start }}–{{ schedule.venue_end }}</span>
+            <span
+              v-if="schedule.venue_start && schedule.venue_end"
+              class="venue-banner__time"
+              >{{ schedule.venue_start }}–{{ schedule.venue_end }}</span
+            >
           </span>
-          <span v-if="schedule.venue_address" class="venue-banner__address">{{ schedule.venue_address }}</span>
+          <span v-if="schedule.venue_address" class="venue-banner__address">{{
+            schedule.venue_address
+          }}</span>
         </div>
         <i class="bx bx-chevron-right venue-banner__arrow"></i>
       </a>
 
-      <p class="success-hint">{{ schedule?.is_venue ? "請前往指定地點，憑訂單編號取貨" : "請憑訂單編號到店取貨，或來電確認" }}</p>
+      <p class="success-hint">
+        {{
+          schedule?.is_venue
+            ? "請前往指定地點，憑訂單編號取貨"
+            : "請憑訂單編號到店取貨，或來電確認"
+        }}
+      </p>
       <button
         class="cta-btn"
         @click="router.push({ name: 'store-schedules', params: { slug } })"
@@ -325,14 +340,23 @@ const fmt = (n) => `NT$ ${Number(n).toLocaleString()}`;
           rel="noopener"
         >
           <div class="venue-banner__icon-wrap">
-            <img src="https://www.google.com/s2/favicons?domain=maps.google.com&sz=32" alt="Google Maps" />
+            <img
+              src="https://www.google.com/s2/favicons?domain=maps.google.com&sz=32"
+              alt="Google Maps"
+            />
           </div>
           <div class="venue-banner__body">
             <span class="venue-banner__name">
               {{ schedule.venue_name }}
-              <span v-if="schedule.venue_start && schedule.venue_end" class="venue-banner__time">{{ schedule.venue_start }}–{{ schedule.venue_end }}</span>
+              <span
+                v-if="schedule.venue_start && schedule.venue_end"
+                class="venue-banner__time"
+                >{{ schedule.venue_start }}–{{ schedule.venue_end }}</span
+              >
             </span>
-            <span v-if="schedule.venue_address" class="venue-banner__address">{{ schedule.venue_address }}</span>
+            <span v-if="schedule.venue_address" class="venue-banner__address">{{
+              schedule.venue_address
+            }}</span>
           </div>
           <i class="bx bx-chevron-right venue-banner__arrow"></i>
         </a>
@@ -344,8 +368,17 @@ const fmt = (n) => `NT$ ${Number(n).toLocaleString()}`;
             此行程尚無品項
           </div>
           <div v-else class="item-list">
-            <div v-for="item in schedule.items" :key="item.id" class="item-row"
-              :class="{ 'item-row--sold': item.sales_limit != null && item.remaining != null && item.remaining <= 0 }">
+            <div
+              v-for="item in schedule.items"
+              :key="item.id"
+              class="item-row"
+              :class="{
+                'item-row--sold':
+                  item.sales_limit != null &&
+                  item.remaining != null &&
+                  item.remaining <= 0,
+              }"
+            >
               <div class="item-img">
                 <img
                   v-if="item.image_url"
@@ -358,11 +391,21 @@ const fmt = (n) => `NT$ ${Number(n).toLocaleString()}`;
                 <div class="item-name">{{ item.product_name }}</div>
                 <div class="item-price">
                   {{ fmt(item.unit_price) }}
-                  <span v-if="item.is_sliceable && item.slice_price" class="item-slice-price">
+                  <span
+                    v-if="item.is_sliceable && item.slice_price"
+                    class="item-slice-price"
+                  >
                     切片 {{ fmt(item.slice_price) }}
                   </span>
                 </div>
-                <div v-if="item.sales_limit != null && item.remaining != null && item.remaining <= 0" class="item-remaining item-remaining--sold">
+                <div
+                  v-if="
+                    item.sales_limit != null &&
+                    item.remaining != null &&
+                    item.remaining <= 0
+                  "
+                  class="item-remaining item-remaining--sold"
+                >
                   售完
                 </div>
                 <div v-else-if="item.remaining > 0" class="item-remaining">
@@ -390,8 +433,11 @@ const fmt = (n) => `NT$ ${Number(n).toLocaleString()}`;
                 <button
                   class="qty-btn qty-btn--add"
                   :disabled="
-                    (item.sales_limit != null && item.remaining != null && item.remaining <= 0) ||
-                    (item.remaining > 0 && (cart[item.id]?.quantity ?? 0) >= item.remaining)
+                    (item.sales_limit != null &&
+                      item.remaining != null &&
+                      item.remaining <= 0) ||
+                    (item.remaining > 0 &&
+                      (cart[item.id]?.quantity ?? 0) >= item.remaining)
                   "
                   @click="increment(item.id, item.remaining, item.sales_limit)"
                 >
@@ -419,7 +465,7 @@ const fmt = (n) => `NT$ ${Number(n).toLocaleString()}`;
                 }"
                 @click="form.pickup_method = m.toUpperCase()"
               >
-                {{ pickupMethodLabel[m.toUpperCase()] ?? m }}
+                {{ getPickupLabel(m) }}
               </button>
             </div>
           </div>
@@ -452,7 +498,7 @@ const fmt = (n) => `NT$ ${Number(n).toLocaleString()}`;
                 :class="{ 'toggle-btn--active': form.payment_method === m }"
                 @click="form.payment_method = m"
               >
-                {{ paymentLabel[m] ?? m }}
+                {{ getPaymentLabel(m) }}
               </button>
             </div>
           </div>
@@ -539,8 +585,8 @@ const fmt = (n) => `NT$ ${Number(n).toLocaleString()}`;
 
 <style lang="scss" scoped>
 // SVG data URI 無法使用 CSS var()，以 SCSS 變數替代（值需與 _variables.scss 同步）
-$_primary-hex: 'fe904d';
-$_primary-hex: 'c8944a';
+$_primary-hex: "fe904d";
+$_primary-hex: "c8944a";
 
 .order-page {
   height: 100dvh;
@@ -549,7 +595,6 @@ $_primary-hex: 'c8944a';
   display: flex;
   flex-direction: column;
 }
-
 
 /* States */
 .state-loading {
@@ -722,9 +767,9 @@ $_primary-hex: 'c8944a';
 
 .slice-tag {
   font-size: 11px;
-  background: #fdf3e3;
-  color: var(--color-primary);
-  border: 1px solid #f0d8b0;
+  background: #fff;
+  color: #888;
+  border: 1px solid #aaa;
   border-radius: 4px;
   padding: 1px 6px;
   font-weight: 600;
@@ -833,7 +878,7 @@ $_primary-hex: 'c8944a';
 .item-price {
   font-size: 13px;
   font-weight: 700;
-  color: var(--color-primary);
+  // color: var(--color-primary);
   margin-top: 2px;
   display: flex;
   align-items: center;
@@ -942,12 +987,12 @@ $_primary-hex: 'c8944a';
   }
 
   &--add {
-    background: var(--color-primary);
-    border-color: var(--color-primary);
+    background: var(--color-accent);
+    border-color: var(--color-accent);
     color: #fff;
 
     &:not(:disabled):active {
-      background: var(--color-primary-hover);
+      background: var(--color-accent);
     }
   }
 }
@@ -1186,7 +1231,9 @@ $_primary-hex: 'c8944a';
   cursor: pointer;
   transition: background 0.15s;
 
-  &:active { background: var(--color-venue-selected); }
+  &:active {
+    background: var(--color-venue-selected);
+  }
 
   &--success {
     width: 100%;
@@ -1203,7 +1250,7 @@ $_primary-hex: 'c8944a';
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
 
     img {
       width: 20px;

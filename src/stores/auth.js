@@ -17,7 +17,7 @@ export const useAuthStore = defineStore("auth", () => {
       }
     })()
   );
-  const loading = ref(false);
+  const isLoading = ref(false);
 
   const setToken = (value) => {
     token.value = value;
@@ -35,8 +35,8 @@ export const useAuthStore = defineStore("auth", () => {
   };
 
   const register = async ({ name, email, password }) => {
-    if (loading.value) return null;
-    loading.value = true;
+    if (isLoading.value) return null;
+    isLoading.value = true;
     try {
       const res = await Auth.Register({ name, email, password });
       const newToken = res.data?.token;
@@ -46,14 +46,14 @@ export const useAuthStore = defineStore("auth", () => {
       }
       return newToken || null;
     } finally {
-      loading.value = false;
+      isLoading.value = false;
     }
   };
 
   const login = async ({ email, password }) => {
-    if (loading.value) return null;
+    if (isLoading.value) return null;
 
-    loading.value = true;
+    isLoading.value = true;
     try {
       const res = await Auth.Login({ email, password });
 
@@ -66,7 +66,7 @@ export const useAuthStore = defineStore("auth", () => {
       await fetchUser();
       return newToken;
     } finally {
-      loading.value = false;
+      isLoading.value = false;
     }
   };
 
@@ -90,7 +90,7 @@ export const useAuthStore = defineStore("auth", () => {
   return {
     token,
     user,
-    loading,
+    isLoading,
     login,
     register,
     logout,

@@ -6,7 +6,7 @@ import { ElMessage, ElNotification } from "element-plus";
 import SelectPaymentMethod from "@/components/select/SelectPaymentMethod.vue";
 
 const visible = ref(false);
-const loading = ref(false);
+const isLoading = ref(false);
 const formRef = ref(null);
 const currentSchedule = ref(null);
 const shopInfo = ref(null);
@@ -223,9 +223,7 @@ const handleSubmit = async () => {
       items: items,
     };
 
-    console.log("提交數據:", submitData);
-
-    loading.value = true;
+    isLoading.value = true;
     try {
       const res = await Orders.Create(submitData);
       ElNotification({
@@ -238,7 +236,7 @@ const handleSubmit = async () => {
     } catch (err) {
       console.error("create order error", err);
     } finally {
-      loading.value = false;
+      isLoading.value = false;
     }
   });
 };
@@ -405,9 +403,9 @@ defineExpose({ open, close });
 
     <template #footer>
       <div class="dialog-footer">
-        <el-button @click="close" :disabled="loading">取消</el-button>
-        <el-button type="primary" @click="handleSubmit" :loading="loading">
-          {{ loading ? "建立中..." : "建立訂單" }}
+        <el-button @click="close" :disabled="isLoading">取消</el-button>
+        <el-button type="primary" @click="handleSubmit" :loading="isLoading">
+          {{ isLoading ? "建立中..." : "建立訂單" }}
         </el-button>
       </div>
     </template>

@@ -6,7 +6,7 @@ import { useAuthStore } from "@/stores/auth";
 
 const router = useRouter();
 const authStore = useAuthStore();
-const { loading } = storeToRefs(authStore);
+const { isLoading } = storeToRefs(authStore);
 const formRef = ref();
 
 const form = reactive({
@@ -44,7 +44,7 @@ const rules = {
 };
 
 const handleRegister = async () => {
-  if (loading.value) return;
+  if (isLoading.value) return;
   const valid = await formRef.value?.validate?.().catch(() => false);
   if (!valid) return;
 
@@ -240,8 +240,8 @@ const features = [
               class="submit-btn"
               type="primary"
               size="large"
-              :loading="loading"
-              :disabled="loading"
+              :loading="isLoading"
+              :disabled="isLoading"
               @click="handleRegister"
             >
               免費開始使用

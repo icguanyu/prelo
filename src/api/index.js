@@ -15,7 +15,6 @@ axios.interceptors.response.use(
     return response;
   },
   (err) => {
-    console.log("err.response", err.response);
     if (err && err.response) {
       if (err.response.status === 401) {
         localStorage.removeItem("prelo-token");
