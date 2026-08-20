@@ -826,15 +826,15 @@ $_primary-hex: "c8944a";
 .item-list {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 8px;
 }
 
 .item-row {
   display: flex;
   align-items: center;
   gap: 12px;
-  padding: 10px 0;
-  border-bottom: 1px solid #e8ddd5;
+  // padding: 5px 0;
+  // border-bottom: 1px solid #e8ddd5;
 
   &:last-child {
     border-bottom: none;
@@ -843,8 +843,8 @@ $_primary-hex: "c8944a";
 
 .item-img {
   flex-shrink: 0;
-  width: 52px;
-  height: 52px;
+  width: 68px;
+  height: 68px;
   border-radius: 8px;
   background: #f5ede3;
   overflow: hidden;

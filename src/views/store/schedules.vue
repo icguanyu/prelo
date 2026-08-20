@@ -127,6 +127,7 @@ const toggleExpand = (id) => {
 };
 
 const goOrder = (schedule) => {
+
   router.push({
     name: "store-order",
     params: { slug: route.params.slug, date: schedule.schedule_date },
@@ -343,11 +344,8 @@ const addToCalendar = (s) => {
           <!-- 未過去：完整標題 -->
           <div v-else class="schedule-card__head">
             <div class="schedule-card__date-row">
-              <span class="schedule-card__month">{{
-                dayjs(s.schedule_date).format("M 月")
-              }}</span>
               <span class="schedule-card__day">{{
-                dayjs(s.schedule_date).date()
+                dayjs(s.schedule_date).format("M月D日")
               }}</span>
 
               <span class="schedule-card__weekday">
